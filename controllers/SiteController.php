@@ -253,7 +253,7 @@ short_open_tag option must be enabled in the php.ini or another method available
                         $config_array_str = var_export($config_data, true);
                         $config_array_str = str_replace("'params' => 'require',", "'params' => require 'settings.php',", $config_array_str);
                         //Сохранение конфигурации 
-                        file_put_contents($config_path, "<? return " . $config_array_str . " ?>");
+                        file_put_contents($config_path, "<?php return " . $config_array_str . " ?>");
 
                         // Сохранение настроек
                         $settings = new ConfigForm(Yii::getAlias('@config/settings') . ".php");

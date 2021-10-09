@@ -151,7 +151,7 @@ class BannersController extends BackendController {
             if (!is_writable($banners_file)) {
                 $message = t("Error write to file") . $banners_file;
             }
-            file_put_contents($banners_file, "<? return " . var_export($this->banners, true) . "; ");
+            file_put_contents($banners_file, "<?php return " . var_export($this->banners, true) . "; ");
             $this->redirect(array('/view/banners'));
         }
 
