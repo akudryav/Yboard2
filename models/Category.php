@@ -4,10 +4,7 @@ namespace app\models;
 
 
 use Yii;
-use app\models\CategoryQuery;
-use yii\db\ActiveRecord;
 use creocoder\nestedsets\NestedSetsBehavior;
-use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "category".
@@ -25,10 +22,6 @@ class Category extends Model {
      * @return Category the static model class
      */
     public $catTree;
-
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
 
     /**
      * @return string the associated database table name

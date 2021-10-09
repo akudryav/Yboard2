@@ -3,17 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
-use app\models\Category;
-use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
-use app\controllers\DefaultController;
 use app\models\Messages;
 use app\models\User;
 
@@ -24,14 +14,6 @@ class UserController extends DefaultController {
      */
     private $_model;
 
-    /**
-     * @return array action filters
-     */
-    public function filters() {
-        return CMap::mergeArray(parent::filters(), array(
-                    'accessControl', // perform access control for CRUD operations
-        ));
-    }
 
     /**
      * Specifies the access control rules.

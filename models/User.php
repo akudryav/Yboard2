@@ -1,9 +1,7 @@
 <?php
 namespace app\models;
 
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use app\models\Adverts;
 
 class User extends Model implements IdentityInterface {
 
@@ -34,14 +32,6 @@ class User extends Model implements IdentityInterface {
      * @var timestamp $create_at
      * @var timestamp $lastvisit_at
      */
-
-    /**
-     * Returns the static model of the specified AR class.
-     * @return ActiveRecord the static model class
-     */
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
 
     
     public static function tableName()

@@ -76,14 +76,6 @@ class SiteController extends DefaultController {
         );
     }
 
-    /**
-     * @return array action filters
-     */
-    public function filters() {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-        );
-    }
 
     public function actionLanguage($lang) {
 
@@ -186,9 +178,6 @@ class SiteController extends DefaultController {
         $error = false;
         $model = new InstallForm();
 
-
-
-
         if (is_file(dirname($config_path) . "/install")) {
 
 
@@ -220,25 +209,12 @@ short_open_tag option must be enabled in the php.ini or another method available
 
 
 
-            if ( isset($_POST['InstallForm']) and ! $error ) {
-
-                // dd( isset($_POST['InstallForm']) and ! $error  );
-
-                $model->attributes = $_POST['InstallForm'];
-
-
-                // данные Mysql 
+            if ($model->load(Yii::$app->request->post()) && $model->validate() && !$error) {
+                // данные Mysql
                 $server = trim(stripslashes($_POST['InstallForm']['mysql_server']));
                 $username = trim(stripslashes($_POST['InstallForm']['mysql_login']));
                 $password = trim(stripslashes($_POST['InstallForm']['mysql_password']));
                 $db_name = trim(stripslashes($_POST['InstallForm']['mysql_db_name']));
-
-                // данные пользователя                     
-                if (!$model->validate() or $model->userpass !== $model->userpass2) {
-                    $model->addError('userpass2', "Пароли не совпадают");
-                }
-
-
 
                 if (!$model->errors) {
                     $db_con = mysqli_connect($server, $username, $password) or $db_error = mysqli_error();
@@ -394,7 +370,6 @@ short_open_tag option must be enabled in the php.ini or another method available
     public function actionView($id) {
         $model = $this->loadAdvert($id);
         $model->views++;
-        $model->disableBehavior('CTimestampBehavior');
         $model->save();
         return $this->render('bulletin', array(
             'model' => $model,

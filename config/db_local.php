@@ -2,10 +2,10 @@
 
 return [
     'class'          => 'yii\\db\\Connection',
-    'dsn'            => 'mysql:host=localhost;dbname=yyyy2',
+    'dsn'            => 'mysql:host=localhost;dbname=fitar',
     'emulatePrepare' => true,
     'username'       => 'root',
-    'password'       => '123456',
+    'password'       => 'qwerty',
     'charset'        => 'utf8',
     'tablePrefix'    => '',
 

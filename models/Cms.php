@@ -10,21 +10,12 @@ class Cms extends ActiveRecord {
     const LINK = 2;
     const ALL_USERS = 0;
     const AUTH_ONLY = 1;
-    const TABLE_NAME = "{{article}}";
-
-    /**
-     * Returns the static model of the specified AR class.
-     * @return Cms the static model class
-     */
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
-        return self::TABLE_NAME;
+    public static function tableName() {
+        return 'article';
     }
 
     public function behaviors() {

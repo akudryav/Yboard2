@@ -77,6 +77,6 @@
   array (
     0 => '4',
   ),
-  'adminEmail' => NULL,//Емайл администрации
+  'adminEmail' => 'antonsk@mail.ru',//Емайл администрации
 ) 
  ?>

@@ -2,11 +2,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
-use app\models\User;
-use app\models\Category;
-use zxbodya\yii2\galleryManager\GalleryManagerAction;
-use zxbodya\yii2\galleryManager\GalleryBehavior;
+
 
 /**
  * This is the model class for table "adverts".

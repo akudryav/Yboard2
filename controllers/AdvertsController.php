@@ -42,27 +42,6 @@ class AdvertsController extends DefaultController {
         );
     }
 
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'error', 'favorites', 'contact', 'bulletin', 'category', 'captcha', 'page', 'advertisement', 'getfields', 'search', 'user'],
-                        'roles' => array('@'),
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['create','view'],
-                        'roles' => array('admin', 'sdsd'),
-                    ],
-                ]
-            ]
-        ];
-    }
-
     public function actionSetFavorites($id) {
         $model = Favorites::find(" user_id='" . Yii::$app->user->id
                 . "' and obj_id='" . $id . "' and obj_type='0'");
@@ -114,14 +93,6 @@ class AdvertsController extends DefaultController {
         ));
     }
 
-    /**
-     * @return array action filters
-     */
-    public function filters() {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-        );
-    }
 
     public function actionGetfields($cat_id) {
 
@@ -288,7 +259,6 @@ class AdvertsController extends DefaultController {
         $mes_model = new Messages();
         $model = $this->loadAdverts($id);
         $model->views++;
-        //$model->disableBehavior('CTimestampBehavior');
         $model->save();
         $model->fields = unserialize($model->fields);
 

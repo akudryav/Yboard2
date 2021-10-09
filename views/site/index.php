@@ -23,7 +23,7 @@ foreach (Yii::$app->params['categories'] as $cat) {
                 <?
                 }
 
-                echo "<td><div>" . Html::a("<img src='" . Url::base() . "/images/category/" . $cat['icon'] . "' /><span>" . $cat['name'] . "</span>", array('/adverts/category', 'cat_id' => $cat['id'])) . "</div></td>";
+                echo "<td><div>" . Html::a("<img src='" . Url::base() . "/images/category/" . $cat['icon'] . "' /><span>" . $cat['name'] . "</span>", array('adverts/category', 'cat_id' => $cat['id'])) . "</div></td>";
 
 
                 $ic ++;

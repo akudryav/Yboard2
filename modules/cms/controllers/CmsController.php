@@ -9,14 +9,6 @@ class CmsController extends Controller {
     public $layout = '//view/view-template';
     public $defaultAction = 'view';
 
-    /**
-     * @return array action filters
-     */
-    public function filters() {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-        );
-    }
 
     /**
      * Specifies the access control rules.

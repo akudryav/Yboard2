@@ -16,12 +16,6 @@ use Yii;
  */
 class GalleryController extends BackendController {
 
-    public function filters() {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-            'postOnly + delete, ajaxUpload, order, changeData',
-        );
-    }
 
     /**
      * Removes image with ids specified in post request.

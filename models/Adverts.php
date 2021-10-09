@@ -1,14 +1,10 @@
 <?php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
-use app\models\User;
-use app\models\Category;
-use zxbodya\yii2\galleryManager\GalleryManagerAction;
 use zxbodya\yii2\galleryManager\GalleryBehavior;
 use yii\db\Query;
-use yii\BaseYii;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -33,15 +29,6 @@ class Adverts extends Model {
     public $price_max;
 
     /**
-     * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
-     * @return Bulletin the static model class
-     */
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
-
-    /**
      * @return string the associated database table name
      */
     public static function tableName() {
@@ -60,7 +47,6 @@ class Adverts extends Model {
             [['name'], 'string', 'max' => 255],
             [['price', 'type'],  'double'],
             [['type'], 'safe'],
-            [['created_at', 'updated_at'], 'default'],
             [['id', 'name', 'user_id', 'category_id', 'type', 'views', 'text', 'price', 'currency', 'moderated'], 'safe', 'on' => 'search'],
         );
     }
@@ -200,13 +186,13 @@ class Adverts extends Model {
 
     public function behaviors() {
         return [
-            
+            TimestampBehavior::class,
             [
-                'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ]],
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
             'galleryBehavior' => [
                 'class' => GalleryBehavior::className(),
                 'type' => 'product',

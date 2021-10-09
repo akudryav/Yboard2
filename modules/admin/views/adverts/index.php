@@ -31,7 +31,6 @@ echo Menu::widget([
 <h1><?php echo t('Manage Bulletins'); ?></h1>
 
 
-
 <?php echo Html::a(t('Advanced Search'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php

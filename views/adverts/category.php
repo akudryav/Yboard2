@@ -24,8 +24,7 @@ $this->breadcrumbs[] = Html::encode($model->name);
 
 <?php
 
-
-    ListView::widget( array(
+    echo ListView::widget( array(
     'dataProvider' => $dataProvider,
     'itemView' => '_view',
 ) );

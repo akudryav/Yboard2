@@ -2,7 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
-use yii\web\Controller;
+use Yii;
 use app\models\Adverts;
 
 

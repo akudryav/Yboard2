@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "answer".
@@ -15,15 +15,6 @@ use yii\db\ActiveRecord;
  * @property string $updated_at
  */
 class Answer extends Model {
-
-    /**
-     * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
-     * @return Answer the static model class
-     */
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
 
     /**
      * @return string the associated database table name
@@ -107,15 +98,11 @@ class Answer extends Model {
         return $dataProvider;
     }
 
-    public function behaviors() {
-        return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'created_at',
-                'updateAttribute' => 'updated_at',
-                'timestampExpression' => 'date("Y-m-d H:i:s", time())',
-            ),
-        );
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
     }
 
 }
