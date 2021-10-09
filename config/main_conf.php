@@ -1,6 +1,6 @@
 <? return array (
   'id' => 'Yboard2',
-  'basePath' => '/var/www/fitar.loc/config/..',
+  'basePath' => __DIR__ . '/..',
   'language' => 'ru-RU',
   'name' => 'Доска Юла',
   'bootstrap' => 
