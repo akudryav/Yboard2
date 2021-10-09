@@ -115,9 +115,9 @@ class AdvertsController extends DefaultController {
                     ?>
                     <div class="controls">
                         <label for='Fields[<?= $f_iden ?>]'><?= $fv->name ?></label>
-                        <? if ($fv->type == 1) { ?>
+                        <?php if ($fv->type == 1) { ?>
                             <input type="checkbox" id="Fields[<?= $f_iden ?>]"
-                                   name="Fields[<?= $f_iden ?>]" <? ($fv->atr ? "checked='checked'" : "") ?> >
+                                   name="Fields[<?= $f_iden ?>]" <?php ($fv->atr ? "checked='checked'" : "") ?> >
                             <?
                         } elseif ($fv->type == 2) {
                             echo Html::dropDownList("Fields[" . $f_iden . "]", array()
@@ -125,7 +125,7 @@ class AdvertsController extends DefaultController {
                         } else {
                             ?>
                             <input type="text" id="Fields[<?= $f_iden ?>]" name="Fields[<?= $f_iden ?>]">
-                        <? } ?>
+                        <?php } ?>
                     </div>
 
                     <?

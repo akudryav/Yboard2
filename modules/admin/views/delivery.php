@@ -10,9 +10,9 @@
 <?= $this->error ?>
 <?= $messages ?>
 <form method='post' name='delivery_form'>
-<? if ($_SERVER['REQUEST_TYPE'] === "POST") { ?>
+<?php if ($_SERVER['REQUEST_TYPE'] === "POST") { ?>
         Страница <input type='text' value='<?= ($_POST['users_page'] + 1) ?>' name='users_page' />
-    <? } ?>
+    <?php } ?>
     <label for='email_theme'>Тема письма</label> <br/>
     <input type='text' name='email_theme' value="<?= $_POST['email_theme'] ?>" style='width:600px' /> <br/>
     <label for='email_body'>Содержание письма</label> <br/>
@@ -21,7 +21,7 @@
     <input type='submit' class='btn' value='Разослать всем пользователям'  /> 
 </form>
 
-<? if ($_POST['delivery_autorun']) { ?>
+<?php if ($_POST['delivery_autorun']) { ?>
     <script>
         setTimeout('start_delivery', 10000);
         function start_delivery() {
@@ -29,4 +29,4 @@
         }
     </script>
 
-<? } ?>
+<?php } ?>

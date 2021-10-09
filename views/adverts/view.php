@@ -30,7 +30,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
         </div>
     </div>
     <div class='date'>
-        <span><a href='<? echo Url::to('@web/user/view', array('id' => $model->user->id))
+        <span><a href='<?php echo Url::to('@web/user/view', array('id' => $model->user->id))
             ?>'>
                 <i class='fa fa-user'></i><?= $model->user->username ?>
             </a></span>
@@ -70,10 +70,10 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
                         }
                     ?>
 
-                <? } ?>
+                <?php } ?>
         </div>
         <div class='price'><?= t('Price') ?> -
-            <? if ($model->price) { ?>
+            <?php if ($model->price) { ?>
                 <?= $model->price ?> ( <?= Yii::$app->params['currency'][$model->currency] ?> )
                 <a href='javascript:void(0);' onclick='show_converter()'> открыть конвертор </a>
                 <div class='price_converter'><?
@@ -100,7 +100,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
         </div>
 
 
-        <? if (Yii::$app->user->id != $model->user->id and isset($model->user->id)) { ?>
+        <?php if (Yii::$app->user->id != $model->user->id and isset($model->user->id)) { ?>
             <div>
                 <?php
                 echo $this->render('/messages/_form', array(

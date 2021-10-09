@@ -56,7 +56,7 @@ class BannersController extends BackendController {
                                 <input type='radio' name='conditions[<?= $c_n ?>][compare]' value='1' <?= ($cond['compare'] ? "checked='checked'" : "") ?> /> равен  
                                 <input type='radio' name='conditions[<?= $c_n ?>][compare]' value='0' <?= ($cond['compare'] ? "" : "checked='checked'") ?>/> не равен 
                                 со значением <input type='text' name='conditions[<?= $c_n ?>][value]'  value='<?= $cond['value'] ?>' /> <a href='javascript:void(0)' onclick='del_attr(this)'>удл.</a></div>
-                <? }
+                <?php }
                 if ($cond['parameter'] and isset($cond['exist'])) {
                     ?>
                             <div> Get параметр : <input type='text' name='conditions[<?= $c_n ?>][parameter]' value='<?= $cond['parameter'] ?>'  />
@@ -65,7 +65,7 @@ class BannersController extends BackendController {
 
 
 
-                <? }
+                <?php }
 
                 if ($cond['url']) {
                     ?>

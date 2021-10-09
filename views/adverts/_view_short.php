@@ -16,11 +16,11 @@ use yii\helpers\Url;
 ?>
 
 <a href="<?= Url::to('@web/adverts/view', array('id' => $model->id))
-?>" class="fancybox" rel="<? echo Html::encode($model->id) ?>">
-   <? if ( $model->getPhoto() ) { ?>
-        <img src="<? echo $model->getPhoto(); ?>" <
-             style='max-width:95px; max-height:60px;' alt="<? echo Html::encode($data->name) ?>" />
+?>" class="fancybox" rel="<?php echo Html::encode($model->id) ?>">
+   <?php if ( $model->getPhoto() ) { ?>
+        <img src="<?php echo $model->getPhoto(); ?>" <
+             style='max-width:95px; max-height:60px;' alt="<?php echo Html::encode($data->name) ?>" />
 
-    <? } ?>
+    <?php } ?>
     <?= $model->name ?>
 </a>

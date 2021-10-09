@@ -16,7 +16,7 @@ foreach (Yii::$app->params['categories'] as $cat) {
             ?>
             <table class="main-cats" cellspacing='10'>
                 <tbody> <tr>
-                    <? }
+                    <?php }
                     if ($ic % 3 == 0) {
                         ?>
                     </tr> 

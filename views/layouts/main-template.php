@@ -144,7 +144,7 @@ $this->beginPage();
                         <a href="javascript:void(0)" onclick="open_search()" ><?= t("Advanced search") ?></a>
 
 
-                        <div id='advanced_search' <? echo is_array(Yii::$app->request->get("Adverts")) ? "" : "style='display:none'" ?> >
+                        <div id='advanced_search' <?php echo is_array(Yii::$app->request->get("Adverts")) ? "" : "style='display:none'" ?> >
                             <?
                             /*
                             $this->widget('application.widgets.advancedSearch');

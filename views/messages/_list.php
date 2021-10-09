@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <?php echo PeopleDate::format($data['last_date']); ?>
     </i>
 
-    <a href='<? echo Url::to('@web/messages/dialog', array('user' => $data['interlocutor'])); ?>'> <b><?php echo Html::encode($data['username']); ?></b> </a>
+    <a href='<?php echo Url::to('@web/messages/dialog', array('user' => $data['interlocutor'])); ?>'> <b><?php echo Html::encode($data['username']); ?></b> </a>
     <br/>
     Сообщений (<?php echo Html::encode($data['count_mes']); ?>)
 

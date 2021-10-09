@@ -191,7 +191,7 @@ echo $form->textArea($model, 'description', array(
 
                         <p class="help-block"><?php echo $form->field($model, 'fields'); ?></p>
                     </div>
-    <? }
+    <?php }
 }
 ?>
         </div>	

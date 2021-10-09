@@ -105,7 +105,7 @@ class SiteController extends DefaultController {
                 ?><div class="controls">
                     <label for='Fields[<?= $f_iden ?>]'><?= $fv->name ?></label>
                     <input type="text" id="Fields[<?= $f_iden ?>]" name="Fields[<?= $f_iden ?>]" >
-                </div><? 
+                </div><?php 
             }
         }
     }

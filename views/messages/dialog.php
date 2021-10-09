@@ -9,7 +9,7 @@ use yii\widgets\ListView;
 ?>
 
 <h4><?= t('Dialog') ?> с 
-    <a href='<? echo Url::to('@web/user/view/', array('id' => $userData->id)) ?>'>
+    <a href='<?php echo Url::to('@web/user/view/', array('id' => $userData->id)) ?>'>
         <?= $userData->username ?></a>
 </h4>
 
