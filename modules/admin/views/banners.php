@@ -110,8 +110,7 @@
     }
 
 </script>
-<?
-if ($message) {
+<?php if ($message) {
     echo "<div style='color:#ff0000'> $message </div>";
 }
 ?>
@@ -133,8 +132,7 @@ if ($message) {
 
 <a href='javascript:create_block()' style='margin-bottom:40px; display:block; '> Создать новый рекламный блок </a>
 
-<?
-//var_dump($this->banners);
+<?php //var_dump($this->banners);
 
 if (sizeof($this->banners) > 0)
     foreach ($this->banners as $b_name => $banners) {

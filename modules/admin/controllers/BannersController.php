@@ -24,8 +24,7 @@ class BannersController extends BackendController {
         ob_get_clean();
         ?><html><head></head><body>
                 <?= $this->banners[$_GET['b_name']][$_GET['b_id']]['code'] ?>
-            </body></html><?
-    }
+            </body></html><?php     }
 
     public function actionEdit() {
 
@@ -45,8 +44,7 @@ class BannersController extends BackendController {
             <input type='hidden' name='block_name' class='block_name' value='<?= $b_name ?>' />
             <input type='hidden' name='action_name' value='<?= ($bn ? "edit" : "insert") ?>'/>
             <input type='hidden' name='block_id' value='<?= $b_id ?>' />
-            <div class='code_atributes' align='left'><?
-        if (is_array($bn['conditions']))
+            <div class='code_atributes' align='left'><?php         if (is_array($bn['conditions']))
             foreach ($bn['conditions'] as $c_n => $cond) {
 
                 if ($cond['parameter'] and isset($cond['compare'])) {
@@ -75,8 +73,7 @@ class BannersController extends BackendController {
                                 <input type='radio' name='conditions[<?= $c_n ?>][compare]' value='0' <?= ($cond['compare'] ? "" : "checked='checked'") ?> /> не равен   <a href='javascript:void(0)' onclick='del_attr(this)'>удл.</a></div>");
 
 
-                <?
-                }
+                <?php                 }
             }
         ?></div>
             <div  style='width:600px' align='left'>
@@ -86,8 +83,7 @@ class BannersController extends BackendController {
             </div>
             <input type='submit' value='<?= $bn ? "Редактировать код" : "Добавить код" ?>' />
         </form>    
-        <?
-    }
+        <?php     }
 
     /**
      * Lists all models.

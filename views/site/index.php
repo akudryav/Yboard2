@@ -20,8 +20,7 @@ foreach (Yii::$app->params['categories'] as $cat) {
                     if ($ic % 3 == 0) {
                         ?>
                     </tr> 
-                <?
-                }
+                <?php                 }
 
                 echo "<td><div>" . Html::a("<img src='" . Url::base() . "/images/category/" . $cat['icon'] . "' /><span>" . $cat['name'] . "</span>", array('adverts/category', 'cat_id' => $cat['id'])) . "</div></td>";
 
@@ -30,7 +29,7 @@ foreach (Yii::$app->params['categories'] as $cat) {
             }
         }
  
- /**/
+
         ?>                   
         </tr> </tbody> </table>                   
 
@@ -38,14 +37,11 @@ foreach (Yii::$app->params['categories'] as $cat) {
 
 <div class="container">
 <?php
-
        echo ListView::widget([
             'dataProvider' => $this->context->indexAdv,
             'itemView' => '/adverts/_view',
             'itemOptions' => ['class' => 'row']
         ]  );
-
-       /**/
 
 ?>
 </div>

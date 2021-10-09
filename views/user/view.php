@@ -40,8 +40,7 @@ $attributes = array(
  */
 ?>
 <div class='userHead'>
-    <h4><?php echo $model->username; ?></h4> <?
-    if ($model->lastvisit_at) {
+    <h4><?php echo $model->username; ?></h4> <?php     if ($model->lastvisit_at) {
         echo "(" . PeopleDate::format($model->lastvisit_at) . ")";
     }
     ?>
@@ -82,8 +81,7 @@ $attributes = array(
     <?php } ?>
 
     </dl>
-    <?
-    if (Yii::$app->user->id !== $model->id) {
+    <?php     if (Yii::$app->user->id !== $model->id) {
         echo $this->render('/messages/_form', array('model' => $mes_model, 'receiver' => $model->id));
     }
     ?>

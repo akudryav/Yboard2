@@ -35,8 +35,7 @@ echo Breadcrumbs::widget([
 
 
 
-    <?
-    echo ULogin::widget([
+    <?php     echo ULogin::widget([
         // widget look'n'feel
         'display' => ULogin::D_PANEL,
 

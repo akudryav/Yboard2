@@ -118,8 +118,7 @@ class AdvertsController extends DefaultController {
                         <?php if ($fv->type == 1) { ?>
                             <input type="checkbox" id="Fields[<?= $f_iden ?>]"
                                    name="Fields[<?= $f_iden ?>]" <?php ($fv->atr ? "checked='checked'" : "") ?> >
-                            <?
-                        } elseif ($fv->type == 2) {
+                            <?php                         } elseif ($fv->type == 2) {
                             echo Html::dropDownList("Fields[" . $f_iden . "]", array()
                                 , explode(",", $fv->atr));
                         } else {
@@ -128,8 +127,7 @@ class AdvertsController extends DefaultController {
                         <?php } ?>
                     </div>
 
-                    <?
-                }
+                    <?php                 }
             }
 
             echo "</div>";

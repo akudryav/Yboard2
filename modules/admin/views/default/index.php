@@ -1,5 +1,4 @@
-<?
-
+<?php 
 use yii\helpers\Url;
 
 ?>
@@ -17,8 +16,7 @@ use yii\helpers\Url;
     Your web-browser does not support the HTML 5 canvas element.
 </canvas>
 
-<?
-//var_dump($registrations);
+<?php //var_dump($registrations);
 ?>
 
 

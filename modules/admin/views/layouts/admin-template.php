@@ -1,5 +1,4 @@
-<?
-
+<?php 
 use yii\helpers\Url;
 use yii\widgets\Menu;
 use yii\widgets\Breadcrumbs;
@@ -160,8 +159,7 @@ use yii\widgets\Breadcrumbs;
                             <div class="page-content">
                                 <!-- Page Breadcrumb -->
                                 <div class="page-breadcrumbs">
-                                    <?
-                                    /*
+                                    <?php                                     /*
                                     if (!isset($this->breadcrumbs))
                                         echo Breadcrumbs::widget( array("Главная") );
                                     /**/

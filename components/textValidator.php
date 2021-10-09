@@ -1,5 +1,4 @@
-<?
-
+<?php 
 /* валидация разных текстов */
 
 class textValidator extends CValidator {

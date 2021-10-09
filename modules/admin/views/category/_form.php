@@ -12,8 +12,7 @@
   * @license http://opensource.org/licenses/MIT  The MIT License (MIT)
   * @version 1.0.0
   */
---><?
-
+--><?php 
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
@@ -162,8 +161,7 @@ echo $form->textArea($model, 'description', array(
 
 
 
-                <?
-                if (sizeof($model->fields) > 0) {
+                <?php                 if (sizeof($model->fields) > 0) {
                     echo $form->field($model, 'fields', array('class' => 'control-label'));
                     echo "Название, тип и артибуты. Для select "
                     . "атрибут это значения через запятую, <br/> для checkbox - "

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $config = require dirname(__FILE__) . "/../../config/main_conf.php";
 $config['db'] = $config['components']['db'];

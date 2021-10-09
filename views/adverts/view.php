@@ -22,8 +22,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
 <div class="advert_full">
     <div class='title' style='padding:0px 3px;'><?= $model->name ?>
         <div style='float:right'>
-            <a href='<?
-            echo Url::toRoute(['adverts/update','id' => $model->id ]);
+            <a href='<?php             echo Url::toRoute(['adverts/update','id' => $model->id ]);
             ?>'><i class='fa fa-pencil'></i></a>
             <a href='javascript:void(0)' onclick='setFavoriteAdv("<?= $model->id ?>", this)'><i
                         class='fa fa-bookmark-o'></i></a>
@@ -56,8 +55,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
 
         <div class='attributes'>
 
-            <?
-
+            <?php 
             if (is_array($model->fields))
                 if (sizeof($model->fields) > 0 and is_array($model->fields)) { ?>
                     <?php
@@ -76,16 +74,14 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
             <?php if ($model->price) { ?>
                 <?= $model->price ?> ( <?= Yii::$app->params['currency'][$model->currency] ?> )
                 <a href='javascript:void(0);' onclick='show_converter()'> открыть конвертор </a>
-                <div class='price_converter'><?
-                    /*
+                <div class='price_converter'><?php                     /*
                         foreach (Yii::$app->params['currency'] as $cn => $cur) {
                             printf("%.2f", $model->price / Yii::$app->params['exchange'][$model->currency] * Yii::$app->params['exchange'][$cn]);
                             echo " " . $cur . " | ";
                         }
                         /**/
                     ?></div>
-                <?
-            } else {
+                <?php             } else {
                 echo "<i>" . t('Not set') . "</i>";
             }
             ?>
@@ -110,17 +106,14 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
                 ?>
             </div>
 
-            <?
-        }
+            <?php         }
         ?>
 
-        <?
-
+        <?php 
         ?>
 
         <div class='related'><span><?= t("Related adverts") ?>:</span>
-            <?
-            echo ListView::widget(array(
+            <?php             echo ListView::widget(array(
                 'dataProvider' => $dataRel,
                 'itemView' => '_view_short',
                 'summary' => false,

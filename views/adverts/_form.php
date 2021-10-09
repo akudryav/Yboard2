@@ -59,8 +59,7 @@ use zxbodya\yii2\galleryManager\GalleryManager;
                 });
 
             </script>
-            <?
-            echo Html::input('text', 'locationName', $_POST['locationName'] ? $_POST['locationName'] : $loc['name']);
+            <?php             echo Html::input('text', 'locationName', $_POST['locationName'] ? $_POST['locationName'] : $loc['name']);
             echo Html::input('hidden', 'location', $loc['id']);
             ?>
         </div>
@@ -99,8 +98,7 @@ use zxbodya\yii2\galleryManager\GalleryManager;
         </div>
 
         <div>
-            <?
-
+            <?php 
             if ( !$model->isNewRecord ) {
                 echo GalleryManager::widget(
                     [

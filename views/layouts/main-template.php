@@ -38,7 +38,7 @@ $this->beginPage();
 
     <body>
         <?php $this->beginBody() ?>
-        <?
+        <?php
         //echo Html::a("Ожидает", array("/view/adverts/update", "id" => $data->id ), array("target"=>"_blank")  );
         ?>
 
@@ -118,7 +118,7 @@ $this->beginPage();
                     <?= $this->context->getBanner('right_adv') ?>
                     <div class='articleList'>
 
-                        <?
+                        <?php
 
                         //------------articlae list ----
                         /*
@@ -145,7 +145,7 @@ $this->beginPage();
 
 
                         <div id='advanced_search' <?php echo is_array(Yii::$app->request->get("Adverts")) ? "" : "style='display:none'" ?> >
-                            <?
+                            <?php
                             /*
                             $this->widget('application.widgets.advancedSearch');
                              *

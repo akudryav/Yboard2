@@ -1,5 +1,4 @@
-<?
-use yii\widgets\ActiveForm;
+<?php use yii\widgets\ActiveForm;
 
 ?>
 <div class="form">

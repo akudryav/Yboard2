@@ -1,5 +1,4 @@
-<?
-
+<?php 
 class Languages extends CApplicationComponent {
 
     /**

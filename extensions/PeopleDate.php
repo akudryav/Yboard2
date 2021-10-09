@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * PeopleDate class file

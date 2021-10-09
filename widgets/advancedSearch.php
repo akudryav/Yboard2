@@ -41,14 +41,12 @@ class advancedSearch extends CWidget {
                 ?>
                 <label for='cat_id'> Подкатегория </label> <select name='cat_id'>
                     <option value='<?= $cat_id ?>'>  ---  </option>
-                    <?
-                    foreach ($subcat as $scat) {
+                    <?php                     foreach ($subcat as $scat) {
                         echo "<option value='" . $scat['id'] . "' " . ($scat['id'] == Yii::$app->request->getParam("cat_id") ? "selected='selected'" : "") . ">" . $scat['name'] . "</option>";
                     }
                     ?>
                 </select> <br/>
-                <?
-            }
+                <?php             }
         } else {
             echo "<input type='hidden' name='cat_id' value='$cat_id' />";
         }
@@ -91,8 +89,7 @@ class advancedSearch extends CWidget {
                 });
             });
         </script>
-        <?
-        echo Html::textField('form_locationName', $_POST['form_locationName'] ? $_POST['form_locationName'] : $loc['name']);
+        <?php         echo Html::textField('form_locationName', $_POST['form_locationName'] ? $_POST['form_locationName'] : $loc['name']);
         echo Html::hiddenField('form_location', $loc['id']);
     }
 
