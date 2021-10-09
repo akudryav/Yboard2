@@ -1,4 +1,4 @@
-<? 
+<?php
  return array (
   'meta' => //Основные мета данные [hidden]
   array (

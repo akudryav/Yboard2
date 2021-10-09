@@ -1,4 +1,5 @@
-<? return array (
+<?php
+return array (
   'id' => 'Yboard2',
   'basePath' => __DIR__ . '/..',
   'language' => 'ru-RU',
