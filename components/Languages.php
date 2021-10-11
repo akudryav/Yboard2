@@ -58,8 +58,8 @@ class Languages extends CApplicationComponent {
 
         $language = $this->languages[$languageId === false ? 0 : $languageId];
 
-        Yii::$app->session['language'] = $language;
-        Yii::$app->setLanguage($language);
+        Yii::$app->session->set('language', $language);
+        Yii::$app->language = $language;
     }
 
 }

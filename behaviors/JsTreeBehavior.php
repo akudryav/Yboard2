@@ -305,38 +305,6 @@ class JsTreeBehavior extends CBehavior {
     }
 
     /**
-     * Prints  the unordered list of nodes with no anchors.
-     */
-    public function printULTree_noAnchors() {
-        $categories = ActiveRecord::model($this->modelClassName)->findAll(array('order' => 'lft'));
-        $level = 0;
-
-        foreach ($categories as $n => $category) {
-            if ($category->level == $level)
-                echo Html::closeTag('li') . "\n";
-            else if ($category->level > $level)
-                echo Html::openTag('ul') . "\n";
-            else { //if $category->level<$level
-                echo Html::closeTag('li') . "\n";
-
-                for ($i = $level - $category->level; $i; $i--) {
-                    echo Html::closeTag('ul') . "\n";
-                    echo Html::closeTag('li') . "\n";
-                }
-            }
-
-            echo Html::openTag('li');
-            echo Html::encode($category->getAttribute($this->label_property));
-            $level = $category->level;
-        }
-
-        for ($i = $level; $i; $i--) {
-            echo Html::closeTag('li') . "\n";
-            echo Html::closeTag('ul') . "\n";
-        }
-    }
-
-    /**
      *  don't reload these scripts or they will mess up the page
      */
     private function excludeScripts() {

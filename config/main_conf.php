@@ -82,17 +82,8 @@ return array (
         '<controller:\\w+>/<action:\\w+>' => '<controller>/<action>',
       ),
     ),
-    'db' => 
-    array (
-      'class' => 'yii\\db\\Connection',
-      'dsn' => 'mysql:host=mariadb;dbname=fitar',
-      'emulatePrepare' => true,
-      'username' => 'root',
-      'password' => 'qwerty',
-      'charset' => 'utf8',
-      'tablePrefix' => '',
-    ),
-    'i18n' => 
+    'db' => require 'db_local.php',
+    'i18n' =>
     array (
       'translations' => 
       array (
@@ -128,7 +119,7 @@ return array (
       ),
     ),
   ),
-  'params' => require 'settings.php',
+  'params' => require 'params.php',
   'controllerMap' => 
   array (
     'adverts' => 'app\\controllers\\AdvertsController',

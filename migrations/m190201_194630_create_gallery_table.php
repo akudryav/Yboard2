@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m140930_003227_gallery_manager extends Migration
+class m190201_194630_create_gallery_table extends Migration
 {
     public $tableName = 'gallery_images';
 

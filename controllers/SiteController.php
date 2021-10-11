@@ -185,9 +185,9 @@ class SiteController extends DefaultController {
                 $model->addError("site_name", "Файл " . $config_path . " должен быть доступен для записи");
             }
 
-            if (!is_writable(Yii::getAlias('@config/settings') . ".php")) {
+            if (!is_writable(Yii::getAlias('@config/params') . ".php")) {
                 $model->addError("site_name", "Файл "
-                        . Yii::getAlias('@config/settings') . ".php"
+                        . Yii::getAlias('@config/params') . ".php"
                         . " должен быть доступен для записи");
             }
 
@@ -251,12 +251,12 @@ short_open_tag option must be enabled in the php.ini or another method available
                         $config_data['params'] = "require";
 
                         $config_array_str = var_export($config_data, true);
-                        $config_array_str = str_replace("'params' => 'require',", "'params' => require 'settings.php',", $config_array_str);
+                        $config_array_str = str_replace("'params' => 'require',", "'params' => require 'params.php',", $config_array_str);
                         //Сохранение конфигурации 
                         file_put_contents($config_path, "<?php return " . $config_array_str . " ?>");
 
                         // Сохранение настроек
-                        $settings = new ConfigForm(Yii::getAlias('@config/settings') . ".php");
+                        $settings = new ConfigForm(Yii::getAlias('@config/params') . ".php");
                         $settings->updateParam('adminEmail', $model->useremail);
                         $settings->saveToFile();
 

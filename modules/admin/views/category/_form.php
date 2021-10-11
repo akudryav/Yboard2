@@ -24,8 +24,6 @@ use yii\helpers\Url;
     <h3><?php echo Yii::t('global', 'Update') ?> <?php echo Yii::t('global', $modelClassName) ?></h3>
 <?php endif; ?>
 
-<p> <h2><?php //echo $model->name;  ?></h2></p>
-
 <?php
 $val_error_msg = Yii::t('global', "Error.$modelClassName  was not saved.");
 $val_success_message = ($model->isNewRecord) ?

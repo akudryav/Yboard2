@@ -196,7 +196,7 @@ class Adverts extends Model {
             'galleryBehavior' => [
                 'class' => GalleryBehavior::className(),
                 'type' => 'product',
-                'tableName' => 'gallery_photo',
+                'tableName' => 'gallery_images',
                 'extension' => 'jpg',
                 'directory' => \Yii::getAlias('@webroot') . '/images/product/gallery',
                 'url' => \Yii::getAlias('@web') . '/images/product/gallery',
