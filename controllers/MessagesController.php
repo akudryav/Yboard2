@@ -3,17 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
-use app\models\Category;
-use yii\helpers\Html;
+
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
-use app\controllers\DefaultController;
 use app\models\Messages;
 use yii\data\ArrayDataProvider;
 

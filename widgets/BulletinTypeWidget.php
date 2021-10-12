@@ -19,4 +19,3 @@ class BulletinTypeWidget extends CWidget {
 
 }
 
-?>

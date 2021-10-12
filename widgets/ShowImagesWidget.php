@@ -13,4 +13,3 @@ class ShowImagesWidget extends CWidget {
 
 }
 
-?>

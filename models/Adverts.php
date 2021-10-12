@@ -23,7 +23,8 @@ use function t;
  * @property integer $views
  * @property string $text
  */
-class Adverts extends Model {
+class Adverts extends MActiveRecord
+{
 
     const TYPE_DEMAND = 0;
     const TYPE_OFFER = 1;
@@ -171,8 +172,9 @@ class Adverts extends Model {
         /**/
 
         // dd( $criteria->createCommand()->sql);
-
-        return new ActiveDataProvider( array(
+        var_dump($strict);
+        exit;
+        return new ActiveDataProvider(array(
             'query' => $criteria,
             'pagination' => [
                 'pageSize' => 2,

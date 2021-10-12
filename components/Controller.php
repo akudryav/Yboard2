@@ -64,7 +64,7 @@ class Controller extends CController {
         parent::__construct($id, $module);
 
         if (!is_file(dirname($CONFIG) . "/install")) {
-            $this->settings = require Yii::getAlias('@config/settings') . '.php';
+            $this->settings = require Yii::getAlias('@config/params') . '.php';
             $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
             //$this->categories = $this->getCategories();
 

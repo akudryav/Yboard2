@@ -44,7 +44,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
     <div class="content">
         <div class="image">
             <?php
-            echo$model->getPhoto();
+            echo $model->getPhoto();
             ?>
         </div>
         <div class="text">
@@ -54,27 +54,21 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
         <br/>
 
         <div class='attributes'>
-
-            <?php 
+            <?php
             if (is_array($model->fields))
-                if (sizeof($model->fields) > 0 and is_array($model->fields)) { ?>
-                    <?php
-                    if (is_array($model->fields))
-                        foreach ($model->fields as $f_name => $field) {
-                            echo "<div>"
-                                . Yii::$app->params['categories'][$model->category_id]
-                                ['fields'][$f_name]['name'] . " - " . $field
-                                . "</div>";
-                        }
-                    ?>
-
-                <?php } ?>
+                foreach ($model->fields as $f_name => $field) {
+                    echo "<div>"
+                        . Yii::$app->params['categories'][$model->category_id]
+                        ['fields'][$f_name]['name'] . " - " . $field
+                        . "</div>";
+                }
+            ?>
         </div>
         <div class='price'><?= t('Price') ?> -
             <?php if ($model->price) { ?>
                 <?= $model->price ?> ( <?= Yii::$app->params['currency'][$model->currency] ?> )
                 <a href='javascript:void(0);' onclick='show_converter()'> открыть конвертор </a>
-                <div class='price_converter'><?php                     /*
+                <div class='price_converter'><?php /*
                         foreach (Yii::$app->params['currency'] as $cn => $cur) {
                             printf("%.2f", $model->price / Yii::$app->params['exchange'][$model->currency] * Yii::$app->params['exchange'][$cn]);
                             echo " " . $cur . " | ";

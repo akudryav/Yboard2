@@ -19,9 +19,9 @@ use yii\helpers\Url;
 ?>
 
 <?php if ($model->isNewRecord) : ?>
-    <h3><?php echo Yii::t('global', 'Create') ?> <?php echo Yii::t('global', $modelClassName) ?></h3>
-<?php elseif (!$model->isNewRecord): ?>
-    <h3><?php echo Yii::t('global', 'Update') ?> <?php echo Yii::t('global', $modelClassName) ?></h3>
+    <h3><?php echo Yii::t('global', 'Create') ?><?php echo Yii::t('global', $modelClassName) ?></h3>
+<?php else: ?>
+    <h3><?php echo Yii::t('global', 'Update') ?><?php echo Yii::t('global', $modelClassName) ?></h3>
 <?php endif; ?>
 
 <?php

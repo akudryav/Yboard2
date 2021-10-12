@@ -41,4 +41,3 @@ class CImageComponent extends CApplicationComponent {
 
 }
 
-?>

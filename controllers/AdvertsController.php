@@ -2,21 +2,13 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use app\components\TextValidator;
 use app\models\Category;
 use app\models\Messages;
 use app\models\Adverts;
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
-use app\controllers\DefaultController;
 use yii\data\SqlDataProvider;
-use yii\helpers\VarDumper;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 
@@ -266,9 +258,6 @@ class AdvertsController extends DefaultController {
         $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
 
-        
-        $model->moderated;
-
         $query = Adverts::find()->where('category_id = ' . $model->category_id)
             ->where(' id != ' . $model->id)->limit(5);
 
@@ -326,7 +315,6 @@ class AdvertsController extends DefaultController {
                 ':id' => (int) $cat_id,
                 ':cat_lft' => Yii::$app->params['categories'][$cat_id]['lft'],
                 ':cat_rgt' => Yii::$app->params['categories'][$cat_id]['rgt'],
-                ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
                 ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
             ),
             /*
@@ -461,7 +449,7 @@ class AdvertsController extends DefaultController {
     }
 
     public function actionSearch($searchStr = "") {
-        $model = new Adverts('search');
+        $model = new Adverts(['scenario' => 'search']);
         $results = true;
 
         $model->unsetAttributes();  // clear any default values
@@ -482,7 +470,8 @@ class AdvertsController extends DefaultController {
 
         // Обработка дополнительных полей для поиска 
         $s_fields = $_GET['fields'];
-        $txt_vld = new textValidator();
+
+        $txt_vld = new TextValidator();
 
         if (is_array($s_fields)) {
             ksort($s_fields);

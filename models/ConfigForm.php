@@ -170,5 +170,3 @@ class ConfigForm extends \yii\base\Model {
     }
 
 }
-
-?>

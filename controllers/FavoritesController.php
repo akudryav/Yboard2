@@ -1,7 +1,6 @@
 <?php
 
 use yii\filters\AccessControl;
-use yii\widgets\ActiveForm;
 
 class FavoritesController extends DefaultController {
 

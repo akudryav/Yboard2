@@ -13,7 +13,3 @@ echo ListView::widget( array(
     'dataProvider' => $model->search(),
     'itemView' => '_view',
 ));
-
-
-
-?>

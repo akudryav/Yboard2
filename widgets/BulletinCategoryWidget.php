@@ -29,4 +29,3 @@ class BulletinCategoryWidget extends CWidget {
 
 }
 
-?>

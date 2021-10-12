@@ -15,7 +15,8 @@ use yii\db\Query;
  * @property string $name
  * @property string $icon
  */
-class Category extends Model {
+class Category extends MActiveRecord
+{
 
     /**
      * Returns the static model of the specified AR class.

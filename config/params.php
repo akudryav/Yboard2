@@ -69,14 +69,13 @@
     1 => '56.58',
     2 => '0.91',
   ),
-  'no_price_cats' => //Категории без поля "цена" [dinamic] [hidden]
-  array (
-    0 => '3',
-  ),
-  'no_type_cats' => //Категории без значения (спрос/предложение) [dinamic] [hidden]
-  array (
-    0 => '4',
-  ),
-  'adminEmail' => 'antonsk@mail.ru',//Емайл администрации
-) 
- ?>
+     'no_price_cats' => //Категории без поля "цена" [dinamic] [hidden]
+         array(
+             0 => '3',
+         ),
+     'no_type_cats' => //Категории без значения (спрос/предложение) [dinamic] [hidden]
+         array(
+             0 => '4',
+         ),
+     'adminEmail' => 'antonsk@mail.ru',//Емайл администрации
+ );

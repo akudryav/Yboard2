@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\TextValidator;
 use Yii;
 
 class DeliveryController extends BackendController {
@@ -27,7 +28,7 @@ class DeliveryController extends BackendController {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
             $email = Yii::$app->email;
-            $t_validator = new textValidator();
+            $t_validator = new TextValidator();
 
             $messages = "";
 
@@ -35,7 +36,7 @@ class DeliveryController extends BackendController {
             $email->message = Yii::$app->request->getParam('email_body');
 
             if ($t_validator->validate_str($email->subject, "html")
-                    and $t_validator->validate_str($email->message, "html")) {
+                and $t_validator->validate_str($email->message, "html")) {
 
                 if (Yii::$app->request->getParam('users_page')) {
                     $users_page = intval(Yii::$app->request->getParam('users_page'));

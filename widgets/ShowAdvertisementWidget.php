@@ -37,4 +37,3 @@ class ShowAdvertisementWidget extends CWidget {
 
 }
 
-?>

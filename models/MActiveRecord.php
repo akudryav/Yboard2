@@ -16,14 +16,15 @@ use yii\db\ActiveRecord;
  * @property integer $views
  * @property string $text
  */
-class Model extends ActiveRecord {
+class MActiveRecord extends ActiveRecord
+{
 
-    public function unsetAttributes($names=null)
+    public function unsetAttributes($names = null)
     {
-        if($names===null)
-            $names=$this->attributeNames();
-        foreach($names as $name) {
-            if( !empty($name) ) {
+        if ($names === null)
+            $names = $this->attributeNames();
+        foreach ($names as $name) {
+            if (!empty($name)) {
                 $this->$name = null;
             }
         }

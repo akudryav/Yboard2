@@ -4,7 +4,8 @@ namespace app\models;
 use Yii;
 use yii\web\IdentityInterface;
 
-class User extends Model implements IdentityInterface {
+class User extends MActiveRecord implements IdentityInterface
+{
 
     const STATUS_NOACTIVE = 0;
     const STATUS_ACTIVE = 1;

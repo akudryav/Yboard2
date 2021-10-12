@@ -35,17 +35,19 @@ class BannersController extends BackendController {
 
     public function formBanner($bn = false, $b_name = false, $b_id = 0) {
         ?>
-        <form method='post' style='display:none' name='insert_ads_form' action='<?= Url::to(['view/banners'])?>'
-              align='center'>
-            <h4><?= $bn ? "Редактировать код" : "Добавление кода для блока" ?> <a href='javascript:void(0)' onclick='hide_form(this)'> x </a></h4>
-            <input type='text' name='title_code' value='<?= $bn['title'] ?>' style='width:491px;' placeholder="Название, необязательно" /> <br/>
-            <textarea  name='ads_code' style='width:491px'  placeholder="Основной код"><?= $bn['code'] ?></textarea> <br/>
-            <textarea  name='ads_code_footer' style='width:491px; height:40px;' placeholder="Добавочный код, выводится в конце страницы"><?= $bn['code_footer'] ?></textarea>
-            <input type='hidden' name='block_name' class='block_name' value='<?= $b_name ?>' />
+        <form method='post' style='display:none' name='insert_ads_form' action='<?= Url::to(['view/banners']) ?>'>
+            <h4><?= $bn ? "Редактировать код" : "Добавление кода для блока" ?> <a href='javascript:void(0)'
+                                                                                  onclick='hide_form(this)'> x </a></h4>
+            <input type='text' name='title_code' value='<?= $bn['title'] ?>' style='width:491px;'
+                   placeholder="Название, необязательно"/> <br/>
+            <textarea name='ads_code' style='width:491px' placeholder="Основной код"><?= $bn['code'] ?></textarea> <br/>
+            <textarea name='ads_code_footer' style='width:491px; height:40px;'
+                      placeholder="Добавочный код, выводится в конце страницы"><?= $bn['code_footer'] ?></textarea>
+            <input type='hidden' name='block_name' class='block_name' value='<?= $b_name ?>'/>
             <input type='hidden' name='action_name' value='<?= ($bn ? "edit" : "insert") ?>'/>
-            <input type='hidden' name='block_id' value='<?= $b_id ?>' />
-            <div class='code_atributes' align='left'><?php         if (is_array($bn['conditions']))
-            foreach ($bn['conditions'] as $c_n => $cond) {
+            <input type='hidden' name='block_id' value='<?= $b_id ?>'/>
+            <div class='code_atributes' align='left'><?php if (is_array($bn['conditions']))
+                    foreach ($bn['conditions'] as $c_n => $cond) {
 
                 if ($cond['parameter'] and isset($cond['compare'])) {
                     ?>

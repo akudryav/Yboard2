@@ -23,5 +23,3 @@ class LastBulletinsWidget extends CWidget {
     }
 
 }
-
-?>

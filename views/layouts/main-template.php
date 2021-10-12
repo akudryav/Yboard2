@@ -137,11 +137,11 @@ $this->beginPage();
 
                 </div>
                 <div class="midarea">
-                    <form name='search_form' class='searchForm' action='<?= Url::to('@web//adverts/search') ?>'>
+                    <form name='search_form' class='searchForm' action='<?= Url::to(['adverts/search']) ?>'>
                         <input type='text' name='searchStr'
-                               value='<?= Yii::$app->request->get('searchStr') ?>' />
-                        <input type='submit' value='Поиск' class='btn btn-light' /> <br/>
-                        <a href="javascript:void(0)" onclick="open_search()" ><?= t("Advanced search") ?></a>
+                               value='<?= Yii::$app->request->get('searchStr') ?>'/>
+                        <input type='submit' value='Поиск' class='btn btn-light'/> <br/>
+                        <a href="javascript:void(0)" onclick="open_search()"><?= t("Advanced search") ?></a>
 
 
                         <div id='advanced_search' <?php echo is_array(Yii::$app->request->get("Adverts")) ? "" : "style='display:none'" ?> >

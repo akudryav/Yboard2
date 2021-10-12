@@ -117,4 +117,3 @@ class CmsHandler extends Controller {
 
 }
 
-?>

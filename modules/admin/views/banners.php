@@ -62,7 +62,7 @@
          $('#banner_viewer_' + b_name).html(data);
          });
          /**/
-        $('#banner_viewer_' + b_name).html("<iframe width='100%' src='<?= Url::to('@web//view/banners/show') ?>?b_name=" + b_name + "&b_id=" + b_id + "'></iframe>");
+        $('#banner_viewer_' + b_name).html("<iframe width='100%' src='<?= Url::to('view/banners/show') ?>?b_name=" + b_name + "&b_id=" + b_id + "'></iframe>");
     }
 
     function create_block() {
@@ -118,14 +118,14 @@
 <div align='center' class='add_code_form'>
     <a href='<?= Url::to("view/default/help") ?>#banners'> Инструкция </a>
     <form method='post' name='insert_ads_form' action='<?= Url::to('@web/view/banners') ?>'
-          style='display:none' id='ads_code_redactor' align='center'>
+          style='display:none' id='ads_code_redactor'>
         <h4>Добавление кода для блока</h4>
-        <textarea  name='ads_code' style='width:625px'></textarea>
-        <input type='hidden' name='block_name' />
+        <textarea name='ads_code' style='width:625px'></textarea>
+        <input type='hidden' name='block_name'/>
         <input type='hidden' name='insert_ads' value='yes'/> <br/>
         <div id='code_atributes'></div>
         <a href='javascript:void(0)' onclick='add_atribute()'> Добавить условие для вывода</a> <br/>
-        <input type='submit' value='Добавить код' />
+        <input type='submit' value='Добавить код'/>
     </form>
 
 </div>

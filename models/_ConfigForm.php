@@ -25,4 +25,3 @@ class ConfigForm extends Model
 
 }
 
-?>

@@ -14,12 +14,14 @@ use yii\behaviors\TimestampBehavior;
  * @property string $created_at
  * @property string $updated_at
  */
-class Answer extends Model {
+class Answer extends MActiveRecord
+{
 
     /**
      * @return string the associated database table name
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'answer';
     }
 

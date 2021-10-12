@@ -15,5 +15,5 @@ echo ListView::widget( array(
     'itemView' => '_view',
     'ajaxUpdate' => false,
 ));
-?>
+
 

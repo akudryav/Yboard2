@@ -13,13 +13,15 @@ namespace app\models;
  * @property string $send_date
  * @property boolean $read
  */
-class Messages extends Model {
+class Messages extends MActiveRecord
+{
 
 
     /**
      * @return string the associated database table name
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'messages';
     }
 

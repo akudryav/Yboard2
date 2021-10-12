@@ -100,7 +100,7 @@ class DefaultController extends BackendController {
 
     public function actionSettings() {
 
-        return $this->render('config', array('configPath' => Yii::getAlias('@config/settings') . '.php'));
+        return $this->render('config', array('configPath' => Yii::getAlias('@config/params') . '.php'));
     }
 
 }

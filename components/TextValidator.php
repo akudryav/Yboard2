@@ -1,18 +1,25 @@
-<?php 
+<?php
+
+namespace app\components;
+
+use yii\validators\Validator;
+
 /* валидация разных текстов */
 
-class textValidator extends CValidator {
+class TextValidator extends Validator
+{
 
     private $patterns = array(
         'iden' => '-_\w\W\.0-9',
         'string' => '- _\w\W\.0-9 ,!\?',
         'text' => '^<>',
         'message' => '- _\w\W\.0-9 ,!\?',
-            //'html' => '-_\w\W\.0-9 ,!\?',
+        //'html' => '-_\w\W\.0-9 ,!\?',
     );
     public $format = "iden";
 
-    protected function validateAttribute($object, $attribute) {
+    public function validateAttribute($object, $attribute)
+    {
 
         if ($this->format === "stopwords") {
             if (!$this->validateStopWords($object->$attribute)) {
@@ -24,7 +31,6 @@ class textValidator extends CValidator {
         }
 
         if (!$this->validate_str($object->$attribute, $this->format)) {
-            $attrLabels = $object->attributeLabels();
             $object->addError($attribute, t('Неподходящий формат текстовых данных. '));
         }
     }

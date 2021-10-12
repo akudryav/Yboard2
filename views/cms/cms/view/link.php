@@ -22,4 +22,3 @@ echo DetailView::widget( array(
         ),
     ),
 ));
-?>

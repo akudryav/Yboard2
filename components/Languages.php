@@ -63,5 +63,3 @@ class Languages extends CApplicationComponent {
     }
 
 }
-
-?>

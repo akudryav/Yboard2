@@ -10,12 +10,14 @@ namespace app\models;
  * @property integer $obj_id
  * @property integer $obj_type
  */
-class Favorites extends Model {
+class Favorites extends MActiveRecord
+{
 
     /**
      * @return string the associated database table name
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'favorites';
     }
 

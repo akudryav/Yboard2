@@ -1311,7 +1311,7 @@ a:focus {
         -moz-border-left-colors: none !important;
         -moz-border-right-colors: none !important;
         -moz-border-top-colors: none !important;
-        border-color: -moz-use-text-color #ddd -moz-use-text-color -moz-use-text-color !important;
+        border-color: #ddd !important;
         border-image: none !important;
         border-style: none solid none none !important;
         border-width: 0 1px 0 0 !important;
@@ -2285,7 +2285,7 @@ input.checkbox-slider.colored-maroon.toggle[type="checkbox"] + .text::after {
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
     background: none repeat scroll 0 0 #fff;
-    border-color: -moz-use-text-color #ccc #ccc;
+    border-color: #ccc;
     border-image: none;
     border-style: none solid solid;
     border-width: 0 1px 1px;

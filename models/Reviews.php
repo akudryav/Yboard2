@@ -13,12 +13,14 @@ namespace app\models;
  * @property string $review
  * @property integer $vote
  */
-class Reviews extends Model {
+class Reviews extends MActiveRecord
+{
 
     /**
      * @return string the associated database table name
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'reviews';
     }
 

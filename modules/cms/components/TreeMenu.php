@@ -80,4 +80,3 @@ class TreeMenu extends CWidget {
 
 }
 
-?>

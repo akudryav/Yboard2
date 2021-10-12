@@ -20,4 +20,3 @@ echo DetailView::widget( array(
         'subsection',
     ),
 ));
-?>

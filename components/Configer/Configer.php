@@ -266,5 +266,3 @@ class Configer extends Widget {
     }
 
 }
-
-?>

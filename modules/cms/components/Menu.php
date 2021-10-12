@@ -31,4 +31,3 @@ class Menu extends CWidget {
 
 }
 
-?>

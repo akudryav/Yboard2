@@ -119,10 +119,10 @@ return array (
       ),
     ),
   ),
-  'params' => require 'params.php',
-  'controllerMap' => 
-  array (
-    'adverts' => 'app\\controllers\\AdvertsController',
-    'user' => 'app\\controllers\\UserController',
-  ),
-) ?>
+    'params' => require 'params.php',
+    'controllerMap' =>
+        array(
+            'adverts' => 'app\\controllers\\AdvertsController',
+            'user' => 'app\\controllers\\UserController',
+        ),
+);

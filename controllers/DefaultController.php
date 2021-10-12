@@ -3,17 +3,9 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\helpers\Url;
 use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\Category;
-use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
 use yii\helpers\VarDumper;
 use app\models\Adverts;
 
@@ -72,7 +64,7 @@ class DefaultController extends Controller {
 
         if (!is_file(dirname($config_path) . "/install")) {
 
-            $this->settings = require Yii::getAlias('@config/settings') . '.php';
+            $this->settings = require Yii::getAlias('@config/params') . '.php';
             $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
             //$this->categories = $this->getCategories();
 

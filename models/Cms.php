@@ -97,7 +97,8 @@ class Cms extends ActiveRecord {
         );
     }
 
-    public function beforeSave() {
+    public function beforeSave($insert)
+    {
         if ($this->type != self::LINK) {
             $this->normalizeUrl();
         }
