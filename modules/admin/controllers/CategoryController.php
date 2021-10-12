@@ -238,8 +238,7 @@ class CategoryController extends BackendController {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Category('search');
-        $model->unsetAttributes();  // clear any default values
+        $model = new Category(['scenario' => 'search']);
         if (isset($_GET['Category']))
             $model->attributes = $_GET['Category'];
 

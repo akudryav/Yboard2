@@ -15,7 +15,7 @@ use yii\db\Query;
  * @property string $name
  * @property string $icon
  */
-class Category extends MActiveRecord
+class Category extends \yii\db\ActiveRecord
 {
 
     /**

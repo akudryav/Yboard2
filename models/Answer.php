@@ -14,7 +14,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $created_at
  * @property string $updated_at
  */
-class Answer extends MActiveRecord
+class Answer extends \yii\db\ActiveRecord
 {
 
     /**

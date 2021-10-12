@@ -1,6 +1,5 @@
 <?php
 namespace app\models;
-
 /**
  * This is the model class for table "favorites".
  *
@@ -10,7 +9,7 @@ namespace app\models;
  * @property integer $obj_id
  * @property integer $obj_type
  */
-class Favorites extends MActiveRecord
+class Favorites extends \yii\db\ActiveRecord
 {
 
     /**

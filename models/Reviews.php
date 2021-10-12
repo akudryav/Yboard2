@@ -13,7 +13,7 @@ namespace app\models;
  * @property string $review
  * @property integer $vote
  */
-class Reviews extends MActiveRecord
+class Reviews extends \yii\db\ActiveRecord
 {
 
     /**

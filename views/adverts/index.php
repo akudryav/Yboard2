@@ -13,7 +13,6 @@ if (!$data) {
 echo ListView::widget( array(
     'dataProvider' => $data,
     'itemView' => '_view',
-    'ajaxUpdate' => false,
 ));
 
 

@@ -119,8 +119,7 @@ class ReviewsController extends DefaultController {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Reviews('search');
-        $model->unsetAttributes();  // clear any default values
+        $model = new Reviews(['scenario' => 'search']);
         if (isset($_GET['Reviews']))
             $model->attributes = $_GET['Reviews'];
 

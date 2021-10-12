@@ -23,7 +23,7 @@ use function t;
  * @property integer $views
  * @property string $text
  */
-class Adverts extends MActiveRecord
+class Adverts extends \yii\db\ActiveRecord
 {
 
     const TYPE_DEMAND = 0;
@@ -118,7 +118,8 @@ class Adverts extends MActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search($strict = true) {
+    public function search($strict = true)
+    {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -128,19 +129,19 @@ class Adverts extends MActiveRecord
         $criteria->select('adverts.*');
 
 
-        $criteria->where('id', $this->id);
-        $criteria->where('user_id', $this->user_id);
+        $criteria->where(['id' => $this->id]);
+        $criteria->where(['user_id' => $this->user_id]);
 
         //$criteria->compare('category_id', $this->category_id);
         if (is_numeric($this->category_id)) {
-            $criteria->where('t.category_id = "' . $this->category_id . '" '
+            $criteria->where('adverts.category_id = "' . $this->category_id . '" '
                 . ' or (category.lft > "' . Yii::$app->params['categories'][$this->category_id]['lft'] . '"'
                 . ' and category.rgt< "' . Yii::$app->params['categories'][$this->category_id]['rgt'] . '"'
                 . ' and category.root = "' . Yii::$app->params['categories'][$this->category_id]['root'] . '")');
         }
 
         if ($this->fields) {
-            $criteria->where(" t.fields regexp '" . $this->fields . "' ");
+            $criteria->where(" adverts.fields regexp '" . $this->fields . "' ");
         }
 
         if (is_numeric($this->price_min) and $this->price_max > 0) {
@@ -148,32 +149,32 @@ class Adverts extends MActiveRecord
         }
 
 
-        $criteria->join( 'inner join',  'category', 'category.id=adverts.category_id');
+        $criteria->join('inner join', 'category', 'category.id=adverts.category_id');
 
-        $criteria->where('type', $this->type);
-        $criteria->where('location', $this->location, true);
-        $criteria->where('views', $this->views);
-        $criteria->where('moderated', $this->moderated, true);
-        $criteria->orderBy('adverts.id' ) ;
-        $criteria->limit( Yii::$app->params['adv_on_page'] );
+        $criteria->where(['type' => $this->type]);
+        $criteria->where(['location' => $this->location]);
+        $criteria->where(['views' => $this->views]);
+        $criteria->where(['moderated' => $this->moderated]);
+        $criteria->orderBy('adverts.id');
+        $criteria->limit(Yii::$app->params['adv_on_page']);
 
         if ($strict) {
-            $criteria->where('t.name', $this->name, true, "or");
-            $criteria->where('text', $this->text, true, "or");
+            $criteria->andWhere(['or',
+                ['like', 'adverts.name', $this->name],
+                ['like', 'text', $this->text]
+            ]);
         } else {
             $search_str = explode(" ", $this->text);
             foreach ($search_str as $v) {
                 if (mb_strlen($v) > 2) {
-                    $criteria->where('t.name', $v, true, "or");
-                    $criteria->where('text', $v, true, "or");
+                    $criteria->andWhere(['or',
+                        ['adverts.name' => $v],
+                        ['text' => $v]
+                    ]);
                 }
             }
         }
-        /**/
 
-        // dd( $criteria->createCommand()->sql);
-        var_dump($strict);
-        exit;
         return new ActiveDataProvider(array(
             'query' => $criteria,
             'pagination' => [

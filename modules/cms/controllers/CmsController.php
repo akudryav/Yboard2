@@ -135,8 +135,7 @@ class CmsController extends Controller {
      * Manages all models.
      */
     public function actionAdmin($parent_id = 1) {
-        $model = new Cms('search');
-        $model->unsetAttributes();  // clear any default values
+        $model = new Cms(['scenario' => 'search']);
         $model->parent_id = $parent_id;
 
         if (isset($_GET['Cms']))

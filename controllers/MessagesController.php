@@ -177,8 +177,7 @@ class MessagesController extends DefaultController {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Messages('search');
-        $model->unsetAttributes();  // clear any default values
+        $model = new Messages(['scenario' => 'search']);
         if (isset($_GET['Messages']))
             $model->attributes = $_GET['Messages'];
 

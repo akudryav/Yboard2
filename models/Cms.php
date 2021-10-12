@@ -1,9 +1,9 @@
 <?php
 
 namespace app\models;
-use yii\db\ActiveRecord;
 
-class Cms extends ActiveRecord {
+class Cms extends \yii\db\ActiveRecord
+{
 
     const PAGESET = 0;
     const PAGE = 1;

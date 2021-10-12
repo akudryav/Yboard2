@@ -452,8 +452,6 @@ class AdvertsController extends DefaultController {
         $model = new Adverts(['scenario' => 'search']);
         $results = true;
 
-        $model->unsetAttributes();  // clear any default values
-
         if ($searchStr) {
             $model->name = $searchStr;
             $model->text = $searchStr;
@@ -490,14 +488,6 @@ class AdvertsController extends DefaultController {
         }
 
         $dataProvider = $model->search();
-
-        if ($dataProvider->getItemCount() == 0) {
-            $model->unsetAttributes();
-            $model->name = $searchStr;
-            $model->text = $searchStr;
-            $dataProvider = $model->search(false);
-            $results = false;
-        }
 
         return $this->render('index', array(
             'data' => $dataProvider, 'results' => $results

@@ -117,8 +117,7 @@ class FavoritesController extends DefaultController {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new Favorites('search');
-        $model->unsetAttributes();  // clear any default values
+        $model = new Favorites(['scenario' => 'search']);
         if (isset($_GET['Favorites']))
             $model->attributes = $_GET['Favorites'];
 

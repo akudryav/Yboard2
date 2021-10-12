@@ -98,8 +98,6 @@ class AdvertsController extends BackendController {
      */
     public function actionIndex() {
         $model = new Adverts();
-        $model->unsetAttributes();  // clear any default values
-        //$model->getData();
 
         return $this->render('index', array(
             'model' => $model,

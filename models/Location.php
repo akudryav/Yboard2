@@ -1,7 +1,6 @@
 <?php
 
 namespace app\models;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -16,12 +15,14 @@ use yii\helpers\ArrayHelper;
  * @property integer $views
  * @property string $text
  */
-class Location extends ActiveRecord {
+class Location extends \yii\db\ActiveRecord
+{
 
     /**
      * @return string the associated database table name
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'sxgeo_cities';
     }
 

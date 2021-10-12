@@ -13,7 +13,7 @@ namespace app\models;
  * @property string $send_date
  * @property boolean $read
  */
-class Messages extends MActiveRecord
+class Messages extends \yii\db\ActiveRecord
 {
 
 
