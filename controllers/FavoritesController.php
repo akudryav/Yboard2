@@ -1,5 +1,6 @@
 <?php
 
+use yii\filters\AccessControl;
 use yii\widgets\ActiveForm;
 
 class FavoritesController extends DefaultController {
@@ -14,7 +15,7 @@ class FavoritesController extends DefaultController {
     {
         return [
             'access' => [
-                'class' => \yii\filters\AccessControl::class,
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,

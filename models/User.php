@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 
+use Yii;
 use yii\web\IdentityInterface;
 
 class User extends Model implements IdentityInterface {
@@ -33,7 +34,7 @@ class User extends Model implements IdentityInterface {
      * @var timestamp $lastvisit_at
      */
 
-    
+
     public static function tableName()
     {
         return 'users';
@@ -115,13 +116,13 @@ class User extends Model implements IdentityInterface {
     {
         return $this->password === $password;
     }
-    
-    
+
+
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->auth_key = \Yii::$app->security->generateRandomString();
+                $this->auth_key = Yii::$app->security->generateRandomString();
             }
             return true;
         }
@@ -234,7 +235,7 @@ class User extends Model implements IdentityInterface {
 
     public function defaultScope() {
         return CMap::mergeArray(Yii::$app->getModule('user')->defaultScope, array(
-                    'alias' => 'user',
+            'alias' => 'user',
         ));
     }
 

@@ -107,7 +107,7 @@ class SxGeo {
             }
             while ($ipn > $this->m_idx_arr[$min] && $min++ < $max) {
                 
-            };
+            }
         } else {
             while ($max - $min > 8) {
                 $offset = ($min + $max) >> 1;
@@ -117,8 +117,8 @@ class SxGeo {
                     $max = $offset;
             }
             while ($ipn > substr($this->m_idx_str, $min * 4, 4) && $min++ < $max) {
-                
-            };
+
+            }
         }
         return $min;
     }
@@ -134,8 +134,8 @@ class SxGeo {
                     $max = $offset;
             }
             while ($ipn >= substr($str, $min * $this->block_len, 3) && ++$min < $max) {
-                
-            };
+
+            }
         } else {
             return hexdec(bin2hex(substr($str, $min * $this->block_len + 3, 3)));
         }

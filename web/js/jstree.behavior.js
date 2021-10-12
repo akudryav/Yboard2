@@ -200,7 +200,7 @@ $(function () {
                         } else {
                             data.rslt.obj.attr("rel", data.rslt.new_name);
                         }
-                        ;
+
                     }
                 });
             })
@@ -224,7 +224,7 @@ $(function () {
                         if (!response.success) {
                             $.jstree.rollback(data.rlbk);
                         }
-                        ;
+
                     }
                 });
             })
@@ -349,7 +349,7 @@ $(function () {
                 });//each function
             });   //bind move event
 
-    ;//JSTREE FINALLY ENDS (PHEW!)
+    //JSTREE FINALLY ENDS (PHEW!)
 
 //BINDING EVENTS FOR THE ADD ROOT AND REFRESH BUTTONS.
     $("#add_root").click(function () {

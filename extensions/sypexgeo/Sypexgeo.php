@@ -14,7 +14,7 @@
 class Sypexgeo {
 
     /**
-     * @var \SxGeo instance.
+     * @var SxGeo instance.
      */
     private $_sypex = null;
 
@@ -126,7 +126,7 @@ class Sypexgeo {
     }
 
     /**
-     * @return \SxGeo instance.
+     * @return SxGeo instance.
      */
     public function getSypexGeo() {
         if (!is_object($this->_sypex)) {
@@ -138,7 +138,7 @@ class Sypexgeo {
 
     /**
      * Creates SxGeo instance.
-     * @return \SxGeo instance.
+     * @return SxGeo instance.
      */
     protected function createSxGeo() {
         return new SxGeo();

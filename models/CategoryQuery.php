@@ -2,6 +2,7 @@
 namespace app\models;
 
 use creocoder\nestedsets\NestedSetsQueryBehavior;
+use yii\db\ActiveQuery;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -10,10 +11,10 @@ use creocoder\nestedsets\NestedSetsQueryBehavior;
  */
 
 
-
-class CategoryQuery extends \yii\db\ActiveQuery
+class CategoryQuery extends ActiveQuery
 {
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             NestedSetsQueryBehavior::className(),
         ];

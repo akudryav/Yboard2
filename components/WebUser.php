@@ -8,23 +8,25 @@
 
 namespace app\components;
 
-class WebUser extends \yii\web\User
+use Yii;
+use yii\web\User;
+
+class WebUser extends User
 {
     public function can($permissionName, $params = [], $allowCaching = true)
     {
 
-        if( $permissionName === "admin" and $this->identity->superuser ){
+        if ($permissionName === "admin" and $this->identity->superuser) {
             return true;
         }
 
-        if( $permissionName === "permision" and $this->identity->superuser ){
+        if ($permissionName === "permision" and $this->identity->superuser) {
             return true;
         }
 
         if( $permissionName === "permision"  ){
 
-            if( class_exists("\\app\\models\\".ucfirst(\Yii::$app->controller->id)) ) {
-
+            if (class_exists("\\app\\models\\" . ucfirst(Yii::$app->controller->id))) {
 
 
             }

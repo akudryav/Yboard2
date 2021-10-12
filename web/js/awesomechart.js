@@ -59,26 +59,26 @@ function AwesomeChart(canvasElementId){
 
     this.animate = false;
     this.animationFrames = 60;
-    
+
     this.marginTop = 10;
     this.marginBottom = 10;
     this.marginLeft = 10;
     this.marginRight = 10;
-    
+
     this.labelMargin = 10;
     this.dataValueMargin = 20;
     this.titleMargin = 10;
     this.yAxisLabelMargin = 5;
-    
-    this.data = new Array();
-    this.labels = new Array();
-    this.colors = new Array();
+
+    this.data = [];
+    this.labels = [];
+    this.colors = [];
     this.title = null;
-    
+
     this.backgroundFillStyle = 'rgba(255,255,255,0)';
     this.borderStrokeStyle = 'rgba(255,255,255,0)';
     this.borderWidth = 1.0;
-    
+
     this.labelFillStyle = 'rgb(220, 36, 0)';
     this.labelFont = 'sans-serif';
     this.labelFontHeight = 12;
@@ -144,7 +144,7 @@ function AwesomeChart(canvasElementId){
     this.pieTotal = null;
     
     this.generateRandomColor = function(){
-        var rgb = new Array();
+        var rgb = [];
         for(var i=0; i<3; i++){
             rgb.push(Math.ceil(Math.random()*150 + 50));
         }
@@ -1065,7 +1065,7 @@ function AwesomeChart(canvasElementId){
         if(this.title){
             pieAreaHeight = pieAreaHeight - this.titleFontHeight - this.titleMargin;
             marginTop += this.titleFontHeight + this.titleMargin;
-        };
+        }
                
         for(var i=0; i<this.data.length; i++){
             dataSum += this.data[i];
@@ -1125,8 +1125,8 @@ function AwesomeChart(canvasElementId){
         var context = this.ctx;
         
         var n = this.data.length;
-        
-        var indices = new Array();
+
+        var indices = [];
         for (var i = 0; i < this.data.length; i++){
             indices.push(i);
         }
@@ -1146,8 +1146,8 @@ function AwesomeChart(canvasElementId){
             }
         }
         dataSum = dataSum.toFixed(this.numberOfDecimals);
-        
-        var yAxisValues = new Array();
+
+        var yAxisValues = [];
         yAxisValues.push(0);
         for (var i = 1; i < 10; i++){
             yAxisValues.push((dataSum * i/10).toFixed(this.numberOfDecimals));

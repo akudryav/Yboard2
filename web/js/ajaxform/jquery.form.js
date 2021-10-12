@@ -203,7 +203,7 @@
                         el.removeAttr('disabled');
                     }
                 }
-                ;
+
             }
 
             if ($(':input[name=submit],:input[id=submit]', form).length) {
@@ -905,6 +905,6 @@
             window.opera.postError(msg);
         }
     }
-    ;
+
 
 })(jQuery);

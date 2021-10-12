@@ -49,7 +49,6 @@ $(function () {
                     .css({"opacity": 1})
         }
     }
-    ;
 
 
     var spinnneropts = {

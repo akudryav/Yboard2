@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Adverts;
 use app\models\InstallForm;
 use Yii;
 use yii\filters\AccessControl;
@@ -18,22 +19,21 @@ use app\controllers\DefaultController;
 use app\models\ConfigForm;
 
 
-
 /**
- * Контролер сайта включающий отдельные возможности 
- * Процедура установки 
- * Форма контактов 
- * Вывод дополнительных поляй для категории actionGetfields 
+ * Контролер сайта включающий отдельные возможности
+ * Процедура установки
+ * Форма контактов
+ * Вывод дополнительных поляй для категории actionGetfields
  */
 class SiteController extends DefaultController {
 
     /**
      * Declares class-based actions.
-     * 
+     *
      */
     public $layout = '/main-template';
-    
-    
+
+
     public function actions() {
         return array(
             // Дублирование, метода "создание объявления" удален
@@ -91,9 +91,9 @@ class SiteController extends DefaultController {
     }
 
     /**
-     * Получения списка дополнительных полей для категории 
+     * Получения списка дополнительных полей для категории
      * используется при созданий объявления
-     * @param type $cat_id Id категории 
+     * @param type $cat_id Id категории
      */
     public function actionGetfields($cat_id) {
         $model = Category::findOne($cat_id);
@@ -103,9 +103,9 @@ class SiteController extends DefaultController {
         if (sizeof($fields) > 0) {
             foreach ($fields as $f_iden => $fv) {
                 ?><div class="controls">
-                    <label for='Fields[<?= $f_iden ?>]'><?= $fv->name ?></label>
-                    <input type="text" id="Fields[<?= $f_iden ?>]" name="Fields[<?= $f_iden ?>]" >
-                </div><?php 
+                <label for='Fields[<?= $f_iden ?>]'><?= $fv->name ?></label>
+                <input type="text" id="Fields[<?= $f_iden ?>]" name="Fields[<?= $f_iden ?>]" >
+                </div><?php
             }
         }
     }
@@ -144,10 +144,10 @@ class SiteController extends DefaultController {
 
         $roots = Category::find()->roots()->all();
 
-        
+
         // $query = (new Query())->from('post')->where(['status' => 1]);
-        $query = \app\models\Adverts::find()->where('id <> 1');
-        
+        $query = Adverts::find()->where('id <> 1');
+
 
         // Articles on main page
 
@@ -161,9 +161,9 @@ class SiteController extends DefaultController {
 
         /**/
 
-        
+
         Yii::$app->view->params['indexAdv'] = $this->indexAdv;
-        
+
         return $this->render('index', array(
             'roots' => $roots,
         ));
@@ -187,14 +187,14 @@ class SiteController extends DefaultController {
 
             if (!is_writable(Yii::getAlias('@config/params') . ".php")) {
                 $model->addError("site_name", "Файл "
-                        . Yii::getAlias('@config/params') . ".php"
-                        . " должен быть доступен для записи");
+                    . Yii::getAlias('@config/params') . ".php"
+                    . " должен быть доступен для записи");
             }
 
             if (!is_writable(Yii::getAlias('@runtime'))) {
                 $model->addError("site_name", "папка "
-                        . Yii::getAlias('@runtime')
-                        . " должена быть доступена для записи");
+                    . Yii::getAlias('@runtime')
+                    . " должена быть доступена для записи");
             }
 
 
@@ -206,7 +206,6 @@ class SiteController extends DefaultController {
                 $error = t("Your configuration requires changes.") . t("
 short_open_tag option must be enabled in the php.ini or another method available");
             }
-
 
 
             if ($model->load(Yii::$app->request->post()) && $model->validate() && !$error) {
@@ -230,9 +229,9 @@ short_open_tag option must be enabled in the php.ini or another method available
                     // Сохранение данных о пользователе 
                     $dump_file .= " INSERT INTO `users` 
                                     (`username`, `password`, `email`, `activkey`, `superuser`, `status`)     VALUES "
-                            . "('" . $model->username . "', '" . Yii::$app->user->crypt($model->userpass) . "', "
-                            . "'" . $model->useremail . "', '" . Yii::$app->user->crypt(microtime() . $model->userpass) . "',"
-                            . " 2, 1);";
+                        . "('" . $model->username . "', '" . Yii::$app->user->crypt($model->userpass) . "', "
+                        . "'" . $model->useremail . "', '" . Yii::$app->user->crypt(microtime() . $model->userpass) . "',"
+                        . " 2, 1);";
 
                     mysqli_multi_query($db_con, $dump_file) or $db_error = mysqli_error($db_con);
 
@@ -315,9 +314,9 @@ short_open_tag option must be enabled in the php.ini or another method available
                 $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
                 $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
                 $headers = "From: $name <{$model->email}>\r\n" .
-                        "Reply-To: {$model->email}\r\n" .
-                        "MIME-Version: 1.0\r\n" .
-                        "Content-type: text/plain; charset=UTF-8";
+                    "Reply-To: {$model->email}\r\n" .
+                    "MIME-Version: 1.0\r\n" .
+                    "Content-type: text/plain; charset=UTF-8";
                 $mail = $user ? $user->email : Yii::$app->params['adminEmail'];
 
                 mail($mail, $subject, $model->body, $headers);
@@ -359,7 +358,7 @@ short_open_tag option must be enabled in the php.ini or another method available
 
                 if (strtotime($ad['last_date']) + $day_seconds * 10 < time()) {
                     $count = Adverts::updateAll(array('created_at' => 'DATE_ADD(created_at, INTERVAL ' . $days . ' DAY)')
-                            , " location='" . $ad['location'] . "' and category_id ='" . $ad['category_id'] . "' ");
+                        , " location='" . $ad['location'] . "' and category_id ='" . $ad['category_id'] . "' ");
 
                     var_dump($count);
                 }

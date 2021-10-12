@@ -331,7 +331,7 @@ if (!window.SyntaxHighlighter)
 
                                 return result;
                             }
-                            ;
+
 
                             function attributes(list)
                             {
@@ -342,7 +342,7 @@ if (!window.SyntaxHighlighter)
 
                                 return result;
                             }
-                            ;
+
 
                             var args1 = {
                                 width: config.toolbarItemWidth,
@@ -463,7 +463,7 @@ if (!window.SyntaxHighlighter)
                                     if (links[i].rel.toLowerCase() == 'stylesheet' && /shCore\.css$/.test(links[i].href))
                                         destDoc.write('<link type="text/css" rel="stylesheet" href="' + links[i].href + '"></link>');
                             }
-                            ;
+
                         };
                     },
 
@@ -894,7 +894,7 @@ if (!window.SyntaxHighlighter)
                                 + line.substr(pos + 1, line.length) // pos + 1 will get rid of the tab
                                 ;
                     }
-                    ;
+
 
                     // Go through all the lines and do the 'smart tabs' magic.
                     code = sh.utils.eachLine(code, function (line)
@@ -954,10 +954,10 @@ if (!window.SyntaxHighlighter)
                 unindent: function (str)
                 {
                     var lines = sh.utils.fixInputString(str).split('\n'),
-                            indents = new Array(),
-                            regex = /^\s*/,
-                            min = 1000
-                            ;
+                        indents = [],
+                        regex = /^\s*/,
+                        min = 1000
+                    ;
 
                     // go through every line and check for common number of indents
                     for (var i = 0; i < lines.length && min > 0; i++)
@@ -1026,7 +1026,7 @@ if (!window.SyntaxHighlighter)
                     {
                         return [new sh.Match(match[0], match.index, regexInfo.css)];
                     }
-                    ;
+
 
                     var index = 0,
                             match = null,
@@ -1140,7 +1140,7 @@ if (!window.SyntaxHighlighter)
 
                     return result;
                 }
-                ;
+
 
                 var elements = element ? [element] : toArray(document.getElementsByTagName(sh.config.tagName)),
                         propertyName = 'innerHTML',
@@ -1404,7 +1404,7 @@ if (!window.SyntaxHighlighter)
                         var itemJ = matches[j];
 
                         if (itemJ === null)
-                            continue;
+
                         else if (itemJ.index > itemIEndPos)
                             break;
                         else if (itemJ.index == itemI.index && itemJ.length > itemI.length)
@@ -1497,7 +1497,7 @@ if (!window.SyntaxHighlighter)
                     var result = match ? (match.brushName || brushName) : brushName;
                     return result ? result + ' ' : '';
                 }
-                ;
+
 
                 // Finally, go through the final list of matches and pull the all
                 // together adding everything in between that isn't a match.

@@ -1,12 +1,15 @@
 <?php
 namespace app\models;
 
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
 use zxbodya\yii2\galleryManager\GalleryBehavior;
 use yii\db\Query;
 use Yii;
 use yii\data\ActiveDataProvider;
+use function t;
 
 /**
  * This is the model class for table "adverts".
@@ -83,7 +86,7 @@ class Adverts extends Model {
             'name' => t('Name'),
             'user_id' => t('User'),
             'category_id' => t('Category'),
-            'type' => \t('Type'),
+            'type' => t('Type'),
             'views' => t('Views'),
             'text' => t('Text'),
             'gallery_id' => t('Gallery'),
@@ -130,9 +133,9 @@ class Adverts extends Model {
         //$criteria->compare('category_id', $this->category_id);
         if (is_numeric($this->category_id)) {
             $criteria->where('t.category_id = "' . $this->category_id . '" '
-                    . ' or (category.lft > "' . Yii::$app->params['categories'][$this->category_id]['lft'] . '"'
-                    . ' and category.rgt< "' . Yii::$app->params['categories'][$this->category_id]['rgt'] . '"'
-                    . ' and category.root = "' . Yii::$app->params['categories'][$this->category_id]['root'] . '")');
+                . ' or (category.lft > "' . Yii::$app->params['categories'][$this->category_id]['lft'] . '"'
+                . ' and category.rgt< "' . Yii::$app->params['categories'][$this->category_id]['rgt'] . '"'
+                . ' and category.root = "' . Yii::$app->params['categories'][$this->category_id]['root'] . '")');
         }
 
         if ($this->fields) {
@@ -198,17 +201,17 @@ class Adverts extends Model {
                 'type' => 'product',
                 'tableName' => 'gallery_images',
                 'extension' => 'jpg',
-                'directory' => \Yii::getAlias('@webroot') . '/images/product/gallery',
-                'url' => \Yii::getAlias('@web') . '/images/product/gallery',
+                'directory' => Yii::getAlias('@webroot') . '/images/product/gallery',
+                'url' => Yii::getAlias('@web') . '/images/product/gallery',
                 'versions' => [
                     'small' => function ($img) {
-                        /** @var \Imagine\Image\ImageInterface $img */
+                        /** @var ImageInterface $img */
                         return $img
                             ->copy()
-                            ->thumbnail(new \Imagine\Image\Box(200, 200));
+                            ->thumbnail(new Box(200, 200));
                     },
                     'medium' => function ($img) {
-                        /** @var \Imagine\Image\ImageInterface $img */
+                        /** @var ImageInterface $img */
                         $dstSize = $img->getSize();
                         $maxWidth = 800;
                         if ($dstSize->getWidth() > $maxWidth) {
@@ -231,9 +234,9 @@ class Adverts extends Model {
 
         $images = $this->getBehavior('galleryBehavior')->getImages();
 
-            if (!empty($images) ) {
+        if (!empty($images) ) {
 
-                return $images[0];
+            return $images[0];
         }
     }
 

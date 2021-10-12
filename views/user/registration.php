@@ -7,13 +7,13 @@ use yii\bootstrap\Button;
 
 $this->context->pageTitle = Yii::$app->name . ' - ' . t("Registration");
 echo Breadcrumbs::widget([
-        "links" => [ "label" => t("Registration"), ]
+    "links" => ["label" => t("Registration"),]
 ]);
 ?>
 
-<h1><?php echo t("Registration"); ?></h1>
+    <h1><?php echo t("Registration"); ?></h1>
 
-<?php if ( \Yii::$app->session->hasFlash('registration')): ?>
+<?php if (Yii::$app->session->hasFlash('registration')): ?>
     <div class="success">
         <?php echo Yii::$app->session->getFlash('registration'); ?>
     </div>
@@ -21,7 +21,7 @@ echo Breadcrumbs::widget([
 
     <div class="form well">
         <?php
-        $form = ActiveForm::begin( array(
+        $form = ActiveForm::begin(array(
             'id' => 'registration-form',
             'enableAjaxValidation' => false,
                 //'disableAjaxValidationAttributes' => array('RegistrationForm_verifyCode'),

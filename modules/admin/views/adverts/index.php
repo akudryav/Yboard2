@@ -77,12 +77,12 @@ echo GridView::widget( array(
 <script>
 
     $('a.moder').click(function (e) {
-    e.preventDefault();
-            $.get($(this).attr('href').toString(), function (data) {
+        e.preventDefault();
+        $.get($(this).attr('href').toString(), function (data) {
             if (data == "ok")
-            }
-            $(this).parent().html("Отмодереровано");
-                    );
+                }
+        $(this).parent().html("Отмодереровано");
+    )
     });
 
 </script>

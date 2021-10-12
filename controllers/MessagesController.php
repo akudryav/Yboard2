@@ -94,7 +94,7 @@ class MessagesController extends DefaultController {
         //var_dump(Yii::$app->request->getPost('Messages'));
 
         if (Yii::$app->request->post('Messages')) {
-            $model->attributes = \Yii::$app->request->post('Messages');
+            $model->attributes = Yii::$app->request->post('Messages');
             $model->receiver_id = $id;
             $model->sender_id = Yii::$app->user->id;
             $model->send_date = date('Y-m-d H:i:s'); //тупо но не нашел быстрого решения

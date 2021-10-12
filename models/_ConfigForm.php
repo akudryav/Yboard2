@@ -1,11 +1,15 @@
 <?php
 
-class ConfigForm extends \yii\base\Model {
+use yii\base\Model;
+
+class ConfigForm extends Model
+{
 
     public $top;
     public $answer;
 
-    public function rules() {
+    public function rules()
+    {
         return array(
             array('top, answer', 'safe'),
             array('increase_views', 'numerical', 'integerOnly' => true),

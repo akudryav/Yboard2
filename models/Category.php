@@ -5,6 +5,7 @@ namespace app\models;
 
 use Yii;
 use creocoder\nestedsets\NestedSetsBehavior;
+use yii\db\Query;
 
 /**
  * This is the model class for table "category".
@@ -134,7 +135,7 @@ class Category extends Model {
             }
         }
 
-        $cat_count = (new \yii\db\Query())
+        $cat_count = (new Query())
             ->select('category_id, COUNT(*) count')
             ->from(Adverts::tableName())
             ->groupBy('category_id')

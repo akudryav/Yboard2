@@ -16,6 +16,7 @@
 
 use yii\widgets\Breadcrumbs;
 use yii\grid\GridView;
+use yii\widgets\DetailView;
 use yii\widgets\Menu;
 
 echo Breadcrumbs::widget([
@@ -44,7 +45,7 @@ echo Menu::widget([
 
 
     <?php
-    echo \yii\widgets\DetailView::widget( array(
+    echo DetailView::widget(array(
         'model' => $model,
         'options' => array('class' => 'table table-striped table-bordered table-condensed'),
         //modify attributes according to your model

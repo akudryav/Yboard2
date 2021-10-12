@@ -73,7 +73,7 @@ class Controller extends CController {
             $this->redirect(Url::base() . '/site/install');
         }
 
-        Yii::$app->params['meta'] = Yii::$app->params['meta'][\Yii::$app->language];
+        Yii::$app->params['meta'] = Yii::$app->params['meta'][Yii::$app->language];
 
         $this->meta = Yii::$app->params['meta'];
         $this->meta['vars']['site_name'] = Yii::$app->name;

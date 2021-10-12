@@ -1,20 +1,24 @@
 <?php
 
+use yii\base\Model;
+
 /**
  * UserChangePassword class.
  * UserChangePassword is the data structure for keeping
  * user change password form data. It is used by the 'changepassword' action of 'UserController'.
  */
-class UserChangePassword extends \yii\base\Model {
+class UserChangePassword extends Model
+{
 
     public $oldPassword;
     public $password;
     public $verifyPassword;
 
-    public function rules() {
+    public function rules()
+    {
         return Yii::$app->controller->id == 'recovery' ? array(
-            array(['password','verifyPassword'], 'required'),
-            array(['password','verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => t("Incorrect password (minimal length 4 symbols).")),
+            array(['password', 'verifyPassword'], 'required'),
+            array(['password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => t("Incorrect password (minimal length 4 symbols).")),
             array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => t("Retype Password is incorrect.")),
                 ) : array(
             array(['oldPassword', 'password', 'verifyPassword'], 'required'),

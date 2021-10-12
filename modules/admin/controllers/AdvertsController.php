@@ -66,7 +66,6 @@ class AdvertsController extends BackendController {
         return $this->render('update', array(
             'model' => $model,
         ));
-        ;
     }
 
     public function actionModerate($id) {

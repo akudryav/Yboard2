@@ -9,7 +9,7 @@
 use yii\helpers\VarDumper;
 
 function t($str, $dict = 'lang') {
-    return \Yii::t($dict, $str);
+    return Yii::t($dict, $str);
 }
 
 function mb_ucfirst($str) {

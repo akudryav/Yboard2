@@ -2,11 +2,14 @@
 
 namespace tests\models;
 
-class ContactFormTest extends \Codeception\Test\Unit
+use Codeception\Test\Unit;
+use UnitTester;
+
+class ContactFormTest extends Unit
 {
     private $model;
     /**
-     * @var \UnitTester
+     * @var UnitTester
      */
     public $tester;
 

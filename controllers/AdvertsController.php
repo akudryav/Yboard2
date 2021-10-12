@@ -147,7 +147,7 @@ class AdvertsController extends DefaultController {
             foreach ($subcat as $cat) {
 
                 $drop_cats[$cat['id']] = $cat['name'];
-            };
+            }
 
             echo Html::dropDownList('subcat_' . $cat_id, 0, $drop_cats, array('empty' => t('Choose category'), 'onchange' => 'loadFields(this)'));
 
@@ -261,7 +261,7 @@ class AdvertsController extends DefaultController {
         $model->fields = unserialize($model->fields);
 
 
-        $this->meta = Yii::$app->params['adv_meta'][\Yii::$app->language];
+        $this->meta = Yii::$app->params['adv_meta'][Yii::$app->language];
 
         $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
@@ -269,8 +269,8 @@ class AdvertsController extends DefaultController {
         
         $model->moderated;
 
-        $query = \app\models\Adverts::find()->where('category_id = ' . $model->category_id )
-                        ->where(' id != ' . $model->id)->limit(5);
+        $query = Adverts::find()->where('category_id = ' . $model->category_id)
+            ->where(' id != ' . $model->id)->limit(5);
 
         // Похожие объявления   
         $dataRel = new ActiveDataProvider([

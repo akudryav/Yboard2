@@ -1,11 +1,14 @@
 <?php
 
+use yii\base\Model;
+
 /**
  * UserRecoveryForm class.
  * UserRecoveryForm is the data structure for keeping
  * user recovery form data. It is used by the 'recovery' action of 'UserController'.
  */
-class UserRecoveryForm extends \yii\base\Model {
+class UserRecoveryForm extends Model
+{
 
     public $login_or_email, $user_id;
 
@@ -14,7 +17,8 @@ class UserRecoveryForm extends \yii\base\Model {
      * The rules state that username and password are required,
      * and password needs to be authenticated.
      */
-    public function rules() {
+    public function rules()
+    {
         return array(
             // username and password are required
             array('login_or_email', 'required'),
