@@ -1,9 +1,10 @@
 <?php
+namespace app\widgets;
 
+use yii\base\Widget;
 
-
-
-class ShowAdvertisementWidget extends CWidget {
+class ShowAdvertisementWidget extends Widget
+{
 
     /**
      * @var int

@@ -1,13 +1,15 @@
 <?php
 
-class TreeMenu extends CWidget {
+class TreeMenu extends Widget
+{
 
     public $parent_id = 1;
     public $showRoot = false;
     public $tpl = false;
     private $model;
 
-    public function run() {
+    public function run()
+    {
         Yii::import('application.modules.cms.models.*');
 
         $this->model = Cms::findOne($this->parent_id);

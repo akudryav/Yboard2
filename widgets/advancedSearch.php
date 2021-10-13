@@ -1,23 +1,26 @@
 <?php
-/*
- * Copyright 2015 Max Uglov <vencendor@mail.ru>
- */
+namespace app\widgets;
+
+use Yii;
+use yii\base\Widget;
+use app\models\Category;
+use app\models\Location;
+use yii\helpers\Html;
 
 /**
  * Выводит панель продвинутого поиска для определенной категории
  *
  * @author Max Uglov <vencendor@mail.ru>
- * 
- * 
+ *
+ *
  */
-class advancedSearch extends CWidget {
+class advancedSearch extends Widget
+{
 
-    /**
-     * @var CActiveForm form
-     */
-    public function run() {
+    public function run()
+    {
 
-        $cat_id = Yii::$app->request->getParam('cat_id');
+        $cat_id = Yii::$app->request->getBodyParam('cat_id');
 
         if (isset(Yii::$app->params['categories'][intval($cat_id)])) {
             $curent_cat = Yii::$app->params['categories'][$cat_id];
@@ -26,27 +29,26 @@ class advancedSearch extends CWidget {
         }
 
 
-
         //echo "<form action='" . Url::to("adverts/search") . "'>";
         // Проверка есть ли дочерние 
         if ($curent_cat['lft'] + 1 != $curent_cat['rgt'] or $curent_cat === false) {
             if ($curent_cat) {
                 $subcat = Yii::$app->db->createCommand('select id,name  from category  '
-                                . 'where root=' . $curent_cat['root'] . ' and lft>' . $curent_cat['lft'] . ' '
-                                . 'and rgt<' . $curent_cat['rgt'] . ' and level=' . ($curent_cat['level'] + 1) . ' ')->query();
+                    . 'where root=' . $curent_cat['root'] . ' and lft>' . $curent_cat['lft'] . ' '
+                    . 'and rgt<' . $curent_cat['rgt'] . ' and level=' . ($curent_cat['level'] + 1) . ' ')->query();
             } else {
-                $subcat = Category::roots()->findAll();
+                $subcat = Category::roots();
             }
             if ($subcat) {
                 ?>
                 <label for='cat_id'> Подкатегория </label> <select name='cat_id'>
                     <option value='<?= $cat_id ?>'>  ---  </option>
                     <?php                     foreach ($subcat as $scat) {
-                        echo "<option value='" . $scat['id'] . "' " . ($scat['id'] == Yii::$app->request->getParam("cat_id") ? "selected='selected'" : "") . ">" . $scat['name'] . "</option>";
+                        echo "<option value='" . $scat['id'] . "' " . ($scat['id'] == Yii::$app->request->getBodyParam("cat_id") ? "selected='selected'" : "") . ">" . $scat['name'] . "</option>";
                     }
                     ?>
                 </select> <br/>
-                <?php             }
+            <?php             }
         } else {
             echo "<input type='hidden' name='cat_id' value='$cat_id' />";
         }
@@ -65,11 +67,10 @@ class advancedSearch extends CWidget {
             }
         }
 
-        $price_min = Yii::$app->request->getParam("Adverts");
+        $price_min = Yii::$app->request->getBodyParam("Adverts");
         $price_min = $price_min["price_min"];
-        $price_max = Yii::$app->request->getParam("Adverts");
+        $price_max = Yii::$app->request->getBodyParam("Adverts");
         $price_max = $price_min["price_max"];
-
 
 
         echo "<label for='Adverts[price_min]'>Цена от</label><input type='text' name='Adverts[price_min]' value='" . $price_min . "' />";
@@ -89,8 +90,8 @@ class advancedSearch extends CWidget {
                 });
             });
         </script>
-        <?php         echo Html::textField('form_locationName', $_POST['form_locationName'] ? $_POST['form_locationName'] : $loc['name']);
-        echo Html::hiddenField('form_location', $loc['id']);
+        <?php echo Html::textInput('form_locationName', $_POST['form_locationName'] ?: $loc['name']);
+        echo Html::hiddenInput('form_location', $loc['id']);
     }
 
 }

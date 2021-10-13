@@ -5,7 +5,8 @@
  * youtube, megavideo, veoh or vimeo
  * @author Nicola Puddu
  */
-class Yiitube extends CWidget {
+class Yiitube extends Widget
+{
 
     /**
      * these constants rappresent the possible status of the widget

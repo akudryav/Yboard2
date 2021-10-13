@@ -1,7 +1,10 @@
 <?php
+namespace app\widgets;
 
+use yii\base\Widget;
 
-class BulletinTypeWidget extends CWidget {
+class BulletinTypeWidget extends Widget
+{
 
     /**
      * @var CActiveForm form

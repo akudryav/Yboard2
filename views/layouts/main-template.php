@@ -1,13 +1,9 @@
 <?php 
-use app\widgets\Alert;
+use app\widgets\advancedSearch;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 use yii\widgets\Menu;
-use yii\widgets\ListView;
 use app\models\Category;
 
 
@@ -146,15 +142,13 @@ $this->beginPage();
 
                         <div id='advanced_search' <?php echo is_array(Yii::$app->request->get("Adverts")) ? "" : "style='display:none'" ?> >
                             <?php
-                            /*
-                            $this->widget('application.widgets.advancedSearch');
-                             *
-                             */ ?>
+                            echo advancedSearch::widget();
+                            ?>
                         </div>
                     </form>
                     <?php if (isset($this->breadcrumbs)): ?>
                         <?php
-                        echo Breadcrumbs::widget( array(
+                        echo Breadcrumbs::widget(array(
                             'links' => $this->breadcrumbs,
                         ));
                         ?><!-- breadcrumbs -->

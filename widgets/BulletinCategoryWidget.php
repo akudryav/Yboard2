@@ -1,7 +1,10 @@
 <?php
+namespace app\widgets;
 
+use yii\base\Widget;
 
-class BulletinCategoryWidget extends CWidget {
+class BulletinCategoryWidget extends Widget
+{
 
     /**
      * @var CActiveForm form
@@ -18,7 +21,7 @@ class BulletinCategoryWidget extends CWidget {
     }
 
     public function categoriesListData() {
-        $categoriesTree = Category::roots()->findAll();
+        $categoriesTree = Category::roots();
         $categories = array();
         foreach ($categoriesTree as $category) {
             //$categories[$category->name] = ArrayHelper::map($category->children()->findAll(), 'id', 'name');

@@ -1,9 +1,10 @@
 <?php
+namespace app\widgets;
 
+use yii\base\Widget;
 
-
-
-class ImageFileUploadWidget extends CWidget {
+class ImageFileUploadWidget extends Widget
+{
 
     /**
      * @var CActiveForm form

@@ -1,8 +1,10 @@
 <?php
 
-class Debug extends CWidget {
+class Debug extends Widget
+{
 
-    public function run() {
+    public function run()
+    {
         if (Yii::$app->user->hasFlash('email')) {
             //register css file
             $url = Html::asset(Yii::getAlias('application.extensions.email.css.debug') . '.css');

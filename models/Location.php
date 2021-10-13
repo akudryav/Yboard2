@@ -1,6 +1,8 @@
 <?php
 
 namespace app\models;
+
+use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -51,15 +53,15 @@ class Location extends \yii\db\ActiveRecord
         return array();
     }
 
-    static function geoDetect() {
+    static function geoDetect()
+    {
 
-        $geo = new Sypexgeo();
-
+        $geo = new \jisoft\sypexgeo\Sypexgeo();
+        $cookies = Yii::$app->request->cookies;
         // get by remote IP
-        if (!Yii::$app->request->cookies['location_id']->value or ! Yii::$app->request->cookies['location_name']->value) {
+        if (!$cookies['location_id']->value or !$cookies['location_name']->value) {
 
-            $geo->get(Yii::$app->request->userHostAddress);
-
+            $geo->get(Yii::$app->request->getUserIP());
 
             $loc['id'] = $geo->city['id'];
             $loc['name'] = $geo->city['name_ru'];
@@ -88,33 +90,32 @@ class Location extends \yii\db\ActiveRecord
              * 
              * 
              */
-
-            Yii::$app->request->cookies['location_id'] = new CHttpCookie('location_id', $loc['id']);
-            Yii::$app->request->cookies['location_name'] = new CHttpCookie('location_name', $loc['name']);
-            Yii::$app->request->cookies['location_alt'] = new CHttpCookie('location_alt', $loc['alt']);
-            Yii::$app->request->cookies['location_type'] = new CHttpCookie('location_type', $loc['reg_type']);
+            $cookies = Yii::$app->response->cookies;
+            $cookies->add(new \yii\web\Cookie(['name' => 'location_id', 'value' => $loc['id']]));
+            $cookies->add(new \yii\web\Cookie(['name' => 'location_name', 'value' => $loc['name']]));
+            $cookies->add(new \yii\web\Cookie(['name' => 'location_alt', 'value' => $loc['alt']]));
+            $cookies->add(new \yii\web\Cookie(['name' => 'location_type', 'value' => $loc['reg_type']]));
         } else {
-            $loc['id'] = Yii::$app->request->cookies['location_id']->value;
-            $loc['name'] = Yii::$app->request->cookies['location_name']->value;
-            $loc['alt'] = Yii::$app->request->cookies['location_alt']->value;
-            $loc['reg_type'] = Yii::$app->request->cookies['location_type']->value;
+            $loc['id'] = $cookies['location_id']->value;
+            $loc['name'] = $cookies['location_name']->value;
+            $loc['alt'] = $cookies['location_alt']->value;
+            $loc['reg_type'] = $cookies['location_type']->value;
         }
-
 
         return $loc;
     }
 
     static function Country() {
         $country = Yii::$app->db->createCommand("select iso, name_ru "
-                        . "from sxgeo_country where approved!=0 order by approved asc")->queryAll();
+            . "from sxgeo_country where approved!=0 order by approved asc")->queryAll();
         return ArrayHelper::map($country, 'iso', 'name_ru');
     }
 
     static function Regions($id = "") {
         if ($id) {
             $regions = Yii::$app->db->
-                            createCommand("select id, name_ru "
-                                    . "from sxgeo_regions where country= '$id' order by name_ru asc  ")->queryAll();
+            createCommand("select id, name_ru "
+                . "from sxgeo_regions where country= '$id' order by name_ru asc  ")->queryAll();
 
             return ArrayHelper::map($regions, 'id', 'name_ru');
         } else {
@@ -124,8 +125,8 @@ class Location extends \yii\db\ActiveRecord
 
     static function getIdByName($name) {
         $city = Yii::$app->db->
-                        createCommand("select id, name_ru "
-                                . "from sxgeo_cities where name_ru = '" . trim($name) . "' limit 1 ")->queryAll();
+        createCommand("select id, name_ru "
+            . "from sxgeo_cities where name_ru = '" . trim($name) . "' limit 1 ")->queryAll();
 
         return $city[0]['id'];
     }
@@ -133,8 +134,8 @@ class Location extends \yii\db\ActiveRecord
     static function Cities($id = 0) {
         if ($id) {
             $cities = Yii::$app->db->
-                            createCommand("select id, name_ru "
-                                    . "from sxgeo_cities where region_id= '$id' order by name_ru asc ")->queryAll();
+            createCommand("select id, name_ru "
+                . "from sxgeo_cities where region_id= '$id' order by name_ru asc ")->queryAll();
             return ArrayHelper::map($cities, 'id', 'name_ru');
         } else {
             return false;
@@ -144,8 +145,8 @@ class Location extends \yii\db\ActiveRecord
     static function CitiesSuggest($term) {
         if ($term) {
             $cities = Yii::$app->db->
-                            createCommand("select id, name_ru as label, name_ru as value "
-                                    . "from sxgeo_cities where name_ru like '%$term%' order by name_ru asc limit 10")->queryAll();
+            createCommand("select id, name_ru as label, name_ru as value "
+                . "from sxgeo_cities where name_ru like '%$term%' order by name_ru asc limit 10")->queryAll();
             return $cities;
         } else {
             return false;

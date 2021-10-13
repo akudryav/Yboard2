@@ -1,12 +1,14 @@
 <?php
 
-class Menu extends CWidget {
+class Menu extends Widget
+{
 
     public $attributes = array('parent_id' => 1);
     public $tpl = false;
     private $model;
 
-    public function run() {
+    public function run()
+    {
         Yii::import('application.modules.cms.models.*');
         $items = $this->getMenu();
 

@@ -1,4 +1,5 @@
 <?php
+use app\models\Cms;
 
 class CmsController extends Controller {
 
@@ -63,7 +64,7 @@ class CmsController extends Controller {
 
             $model->type = $_GET['type'];
 
-            $parentNode = Cms::findOne($model->parent_id);
+            $parentNode = $this->loadModel($model->parent_id);
 
             if ($model->validate() && $parentNode->appendChild($model)) {
                 $this->redirect(array('view', 'id' => $model->id));
@@ -165,21 +166,23 @@ class CmsController extends Controller {
      * Performs the AJAX validation.
      * @param CModel the model to be validated
      */
-    protected function performAjaxValidation($model) {
+    protected function performAjaxValidation($model)
+    {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'cms-form') {
             echo CActiveForm::validate($model);
             Yii::$app->end();
         }
     }
 
-    public function actionSort($parent_id) {
-        $item = Cms::findOne($_POST['item']);
+    public function actionSort()
+    {
+        $item = $this->loadModel($_POST['item']);
 
         if ($item && $_POST['prev']) {
-            $prev = Cms::findOne($_POST['prev']);
+            $prev = $this->loadModel($_POST['prev']);
             $item->moveAfter($prev);
         } elseif ($item && $_POST['next']) {
-            $next = Cms::findOne($_POST['next']);
+            $next = $this->loadModel($_POST['next']);
             $item->moveBefore($next);
         }
         echo 'OK';
@@ -212,8 +215,7 @@ class CmsController extends Controller {
     }
 
     public function actionGetParentUrl() {
-        $parentId = $_POST['parent_id'];
-        $parent = Cms::findOne($parentId);
+        $parent = $this->loadModel(_POST['parent_id']);
         if ($parent && $parent->url)
             echo $parent->url . '/';
     }

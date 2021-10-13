@@ -1,6 +1,10 @@
 <?php
+namespace app\widgets;
 
-class UloginWidget extends CWidget {
+use yii\base\Widget;
+
+class UloginWidget extends Widget
+{
 
     //параметры по-умолчанию
     private $params = array(

@@ -32,7 +32,7 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 /config/install
-/config/db_local.php
 
 # All local files
-*-local.php
+*_local.php
+composer.lock

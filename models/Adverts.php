@@ -159,10 +159,11 @@ class Adverts extends \yii\db\ActiveRecord
         $criteria->limit(Yii::$app->params['adv_on_page']);
 
         if ($strict) {
-            $criteria->andWhere(['or',
-                ['like', 'adverts.name', $this->name],
-                ['like', 'text', $this->text]
-            ]);
+            if ($this->name && $this->text)
+                $criteria->andWhere(['or',
+                    ['like', 'adverts.name', $this->name],
+                    ['like', 'text', $this->text]
+                ]);
         } else {
             $search_str = explode(" ", $this->text);
             foreach ($search_str as $v) {

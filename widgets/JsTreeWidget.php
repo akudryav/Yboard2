@@ -1,4 +1,7 @@
 <?php
+namespace app\widgets;
+
+use yii\base\Widget;
 
 /**
  *   JsTreeWidget  class file.
@@ -11,7 +14,8 @@
  * @license  http://opensource.org/licenses/MIT  The MIT License (MIT)
  * @version 1.0.0
  */
-class JsTreeWidget extends CWidget {
+class JsTreeWidget extends Widget
+{
 
     /**
      * @var string the model class name with the NestedSetBehavior
