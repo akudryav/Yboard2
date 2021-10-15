@@ -7,9 +7,6 @@ use yii\data\ActiveDataProvider;
 
 class CompanyController extends DefaultController {
 
-    public $defaultAction = 'index';
-    public $layout = '//main-template';
-
     /**
      * @var ActiveRecord the currently loaded data model instance.
      */
@@ -78,7 +75,7 @@ class CompanyController extends DefaultController {
                 $model->save();
                 $profile->save();
                 Yii::$app->user->updateSession();
-                Yii::$app->user->setFlash('profileMessage', t("Changes is saved."));
+                Yii::$app->user->setFlash('profileMessage', Yii::t('app', "Changes is saved."));
                 $this->redirect(array('/user/profile'));
             } else
                 $profile->validate();

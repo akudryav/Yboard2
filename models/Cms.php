@@ -64,22 +64,22 @@ class Cms extends \yii\db\ActiveRecord
      */
     public function attributeLabels() {
         return array(
-            'id' => t('ID'),
-            'lft' => t('Lft'),
-            'rgt' => t('Rgt'),
-            'level' => t('Level'),
-            'parent_id' => t('Parent'),
-            'type' => t('Type'),
-            'url' => t('Url'),
-            'name' => t('Page name'),
-            'title' => t('Title'),
-            'content' => t('Content'),
-            'layout' => t('Layout'),
-            'section' => t('Section'),
-            'subsection' => t('Subsection'),
-            'keywords' => t('Keywords'),
-            'description' => t('Description'),
-            'access_level' => t('Page access'),
+            'id' => Yii::t('app', 'ID'),
+            'lft' => Yii::t('app', 'Lft'),
+            'rgt' => Yii::t('app', 'Rgt'),
+            'level' => Yii::t('app', 'Level'),
+            'parent_id' => Yii::t('app', 'Parent'),
+            'type' => Yii::t('app', 'Type'),
+            'url' => Yii::t('app', 'Url'),
+            'name' => Yii::t('app', 'Page name'),
+            'title' => Yii::t('app', 'Title'),
+            'content' => Yii::t('app', 'Content'),
+            'layout' => Yii::t('app', 'Layout'),
+            'section' => Yii::t('app', 'Section'),
+            'subsection' => Yii::t('app', 'Subsection'),
+            'keywords' => Yii::t('app', 'Keywords'),
+            'description' => Yii::t('app', 'Description'),
+            'access_level' => Yii::t('app', 'Page access'),
         );
     }
 
@@ -238,8 +238,7 @@ class Cms extends \yii\db\ActiveRecord
     }
 
     public function getTemplates($dir, $rootPath = '', $level = 0, $ignoredLayoutsMask = false) {
-        GLOBAL $App;
-        STATIC $list = array();
+        $list = array();
         $path = $dir;
 
         $pathPrefix = '';

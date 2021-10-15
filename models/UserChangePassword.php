@@ -18,12 +18,12 @@ class UserChangePassword extends Model
     {
         return Yii::$app->controller->id == 'recovery' ? array(
             array(['password', 'verifyPassword'], 'required'),
-            array(['password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => t("Incorrect password (minimal length 4 symbols).")),
-            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => t("Retype Password is incorrect.")),
-                ) : array(
+            array(['password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")),
+            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('app', "Retype Password is incorrect.")),
+        ) : array(
             array(['oldPassword', 'password', 'verifyPassword'], 'required'),
-            array(['oldPassword', 'password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => t("Incorrect password (minimal length 4 symbols).")),
-            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => t("Retype Password is incorrect.")),
+            array(['oldPassword', 'password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")),
+            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('app', "Retype Password is incorrect.")),
             array('oldPassword', 'verifyOldPassword'),
         );
     }
@@ -33,9 +33,9 @@ class UserChangePassword extends Model
      */
     public function attributeLabels() {
         return array(
-            'oldPassword' => t("Old Password"),
-            'password' => t("password"),
-            'verifyPassword' => t("Retype Password"),
+            'oldPassword' => Yii::t('app', "Old Password"),
+            'password' => Yii::t('app', "password"),
+            'verifyPassword' => Yii::t('app', "Retype Password"),
         );
     }
 
@@ -44,7 +44,7 @@ class UserChangePassword extends Model
      */
     public function verifyOldPassword($attribute, $params) {
         if (User::notsafe()->findOne(Yii::$app->user->id)->password != Yii::$app->getModule('user')->encrypting($this->$attribute))
-            $this->addError($attribute, t("Old Password is incorrect."));
+            $this->addError($attribute, Yii::t('app', "Old Password is incorrect."));
     }
 
 }

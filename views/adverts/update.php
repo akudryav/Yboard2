@@ -23,6 +23,6 @@ echo Menu::widget([
 ]);
 ?>
 
-<h4> <?= t('Redact advert') ?> "<?php echo $model->name; ?>"</h4>
+    <h4> <?= Yii::t('app', 'Redact advert') ?> "<?php echo $model->name; ?>"</h4>
 
 <?php echo $this->render('_form', array('model' => $model)); ?>

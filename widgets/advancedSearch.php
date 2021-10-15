@@ -77,7 +77,7 @@ class advancedSearch extends Widget
         echo "<label for='Adverts[price_max]' class='sh'>до</label><input type='text' name='Adverts[price_max]' value='" . $price_max . "' /><br/>";
 
         $loc = Location::geoDetect();
-        echo "<label for='locationName'>" . t("Location") . "</label>";
+        echo "<label for='locationName'>" . Yii::t('app', "Location") . "</label>";
         ?>
         <script>
             $(window).load(function () {

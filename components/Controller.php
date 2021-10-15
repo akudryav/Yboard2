@@ -20,15 +20,6 @@
 // In this example we assume that you unzipped the extension under protected/extensions.
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__) . '/../extensions/bootstrap');
 
-function t($str, $dict = 'lang') {
-    return Yii::t($dict, $str);
-}
-
-function mb_ucfirst($str) {
-    $fc = mb_strtoupper(mb_substr($str, 0, 1, 'utf8'), 'utf8');
-    return $fc . mb_substr($str, 1, NULL, 'utf8');
-}
-
 class Controller extends CController {
 
     /**
@@ -59,11 +50,9 @@ class Controller extends CController {
 
     public function __construct($id, $module = null) {
 
-        global $CONFIG;
-
         parent::__construct($id, $module);
 
-        if (!is_file(dirname($CONFIG) . "/install")) {
+        if (!is_file(Yii::getAlias('@config/install'))) {
             $this->settings = require Yii::getAlias('@config/params') . '.php';
             $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
             //$this->categories = $this->getCategories();

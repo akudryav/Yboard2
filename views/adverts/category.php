@@ -1,11 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\ActiveForm;
-use app\models\Adverts;
 use yii\widgets\ListView;
-use yii\helpers\VarDumper;
 
 /* @var $this SiteController */
 /* @var $model Category */

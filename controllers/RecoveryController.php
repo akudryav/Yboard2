@@ -32,13 +32,13 @@ class RecoveryController extends DefaultController {
                                 $find->status = 1;
                             }
                             $find->save();
-                            Yii::$app->user->setFlash('recoveryMessage', t("New password is saved."));
+                            Yii::$app->user->setFlash('recoveryMessage', Yii::t('app', "New password is saved."));
                             $this->redirect(Yii::$app->controller->module->recoveryUrl);
                         }
                     }
                     return $this->render('changepassword', array('form' => $form2));
                 } else {
-                    Yii::$app->user->setFlash('recoveryMessage', t("Incorrect recovery link."));
+                    Yii::$app->user->setFlash('recoveryMessage', Yii::t('app', "Incorrect recovery link."));
                     $this->redirect(Yii::$app->controller->module->recoveryUrl);
                 }
             } else {
@@ -48,10 +48,10 @@ class RecoveryController extends DefaultController {
                         $user = User::notsafe()->findOne($form->user_id);
                         $activation_url = 'http://' . $_SERVER['HTTP_HOST'] . $this->createUrl(implode(Yii::$app->controller->module->recoveryUrl), array("activkey" => $user->activkey, "email" => $user->email));
 
-                        $subject = t("You have requested the password recovery site {site_name}", array(
+                        $subject = Yii::t('app', "You have requested the password recovery site {site_name}", array(
                             '{site_name}' => Yii::$app->name,
                         ));
-                        $message = t("You have requested the password recovery site {site_name}. To receive a new password, go to {activation_url}.", array(
+                        $message = Yii::t('app', "You have requested the password recovery site {site_name}. To receive a new password, go to {activation_url}.", array(
                             '{site_name}' => Yii::$app->name,
                             '{activation_url}' => $activation_url,
                         ));
@@ -63,7 +63,7 @@ class RecoveryController extends DefaultController {
                         Yii::$app->email->send();
 
 
-                        Yii::$app->user->setFlash('recoveryMessage', t("Please check your email. An instructions was sent to your email address."));
+                        Yii::$app->user->setFlash('recoveryMessage', Yii::t('app', "Please check your email. An instructions was sent to your email address."));
                         $this->refresh();
                     }
                 }

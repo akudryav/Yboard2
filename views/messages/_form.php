@@ -22,11 +22,11 @@ use yii\widgets\ActiveForm;
     <?php echo $form->errorSummary($model); ?>
 
 
-        <?php echo $form->field($model, 'message')->textarea(); ?>
+    <?php echo $form->field($model, 'message')->textarea(); ?>
 
 
     <div class="row buttons">
-        <?php echo Html::submitButton($model->isNewRecord ? t('Send') : t('Save'), array('class' => 'btn btn-light')); ?>
+        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Send') : Yii::t('app', 'Save'), array('class' => 'btn btn-light')); ?>
     </div>
 
     <?php ActiveForm::end(); ?>

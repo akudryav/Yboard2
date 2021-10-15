@@ -8,7 +8,7 @@ use yii\widgets\Menu;
 
 echo Breadcrumbs::widget([
     'links' => array(
-        t('Messages'),
+        Yii::t('app', 'Messages'),
     )
 ]);
 
@@ -21,11 +21,11 @@ echo Menu::widget([
 
 ?>
 
-<h4><?= t('Messages') ?></h4>
+    <h4><?= Yii::t('app', 'Messages') ?></h4>
 
 <?php
 
-echo ListView::widget( array(
+echo ListView::widget(array(
     'dataProvider' => $dataProvider,
     'itemView' => '_list',
 ));

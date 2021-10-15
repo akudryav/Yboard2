@@ -144,12 +144,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
         return array(
             array('username', 'length', 'max' => 20, 'min' => 3,
-                'message' => t("Incorrect username (length between 3 and 20 characters).")),
+                'message' => Yii::t('app', "Incorrect username (length between 3 and 20 characters).")),
             array('password', 'length', 'max' => 128, 'min' => 4,
-                'message' => t("Incorrect password (minimal length 4 symbols).")),
+                'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")),
             array('email', 'email'),
-            array('username', 'unique', 'message' => t("This user's name already exists.")),
-            array('email', 'unique', 'message' => t("This user's email address already exists.")),
+            array('username', 'unique', 'message' => Yii::t('app', "This user's name already exists.")),
+            array('email', 'unique', 'message' => Yii::t('app', "This user's email address already exists.")),
             //array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u','message' => t("Incorrect symbols (A-z0-9).")),
             array('status', 'in', 'range' => array(self::STATUS_NOACTIVE, self::STATUS_ACTIVE, self::STATUS_BANNED)),
             array('superuser', 'in', 'range' => array(0, 1)),
@@ -194,23 +194,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function attributeLabels() {
         return array(
-            'id' => t("Id"),
-            'username' => t("username"),
-            'password' => t("password"),
-            'verifyPassword' => t("Retype Password"),
-            'email' => t("E-mail"),
-            'verifyCode' => t("Verification Code"),
-            'activkey' => t("activation key"),
-            'createtime' => t("Registration date"),
-            'create_at' => t("Registration date"),
-            'lastvisit_at' => t("Last visit"),
-            'superuser' => t("Superuser"),
-            'status' => t("Status"),
-            'full_name' => t("Full name"),
-            'phone' => t("phone"),
-            'birthday' => t("birthday"),
-            'contacts' => t("Contacts"),
-            'location' => t("Location"),
+            'id' => Yii::t('app', "Id"),
+            'username' => Yii::t('app', "username"),
+            'password' => Yii::t('app', "password"),
+            'verifyPassword' => Yii::t('app', "Retype Password"),
+            'email' => Yii::t('app', "E-mail"),
+            'verifyCode' => Yii::t('app', "Verification Code"),
+            'activkey' => Yii::t('app', "activation key"),
+            'createtime' => Yii::t('app', "Registration date"),
+            'create_at' => Yii::t('app', "Registration date"),
+            'lastvisit_at' => Yii::t('app', "Last visit"),
+            'superuser' => Yii::t('app', "Superuser"),
+            'status' => Yii::t('app', "Status"),
+            'full_name' => Yii::t('app', "Full name"),
+            'phone' => Yii::t('app', "phone"),
+            'birthday' => Yii::t('app', "birthday"),
+            'contacts' => Yii::t('app', "Contacts"),
+            'location' => Yii::t('app', "Location"),
         );
     }
 
@@ -243,13 +243,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function itemAlias($type, $code = NULL) {
         $_items = array(
             'UserStatus' => array(
-                self::STATUS_NOACTIVE => t('Not active'),
-                self::STATUS_ACTIVE => t('Active'),
-                self::STATUS_BANNED => t('Banned'),
+                self::STATUS_NOACTIVE => Yii::t('app', 'Not active'),
+                self::STATUS_ACTIVE => Yii::t('app', 'Active'),
+                self::STATUS_BANNED => Yii::t('app', 'Banned'),
             ),
             'AdminStatus' => array(
-                '0' => t('No'),
-                '1' => t('Yes'),
+                '0' => Yii::t('app', 'No'),
+                '1' => Yii::t('app', 'Yes'),
             ),
         );
         if (isset($code))

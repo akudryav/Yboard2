@@ -33,53 +33,53 @@ $this->beginPage();
     </head>
 
     <body>
-        <?php $this->beginBody() ?>
-        <?php
-        //echo Html::a("Ожидает", array("/view/adverts/update", "id" => $data->id ), array("target"=>"_blank")  );
-        ?>
+    <?php $this->beginBody() ?>
+    <?php
+    //echo Html::a("Ожидает", array("/view/adverts/update", "id" => $data->id ), array("target"=>"_blank")  );
+    ?>
 
-        <div id='header'>
-            <div id="topheader">
-                <a href='<?= Url::base() ?>' class="logo">Доска объявлений на Yii</a>
-                <div class="menu_area">
-                    <div class='ideas'>
-                        <a href="<?= Url::to("@web/adverts") ?>" class="general">Объявления</a>
-                        <a href='<?= Url::to("@web/adverts/create") ?>' class="menu_text">
-                            <i class='fa fa-plus'></i>добавить
-                        </a>
-                    </div>
-                    <?php
-                    echo Menu::widget(array(
-                        'encodeLabels' => false,
-                        'items' => array(
-                            array('url' => Url::to("@web/login"),
-                                'label' => "<i class='fa fa-sign-in'></i>" . t("Login"),
-                                'visible' => Yii::$app->user->isGuest
-                            ),
-                            array('url' => Url::to("@web/registration"),
-                                'label' => "<i class='fa fa-user-plus'></i>" . t("Register"),
-                                'visible' => Yii::$app->user->isGuest
-                            ),
-                            array('url' => Url::to('@web/user/' . Yii::$app->user->id),
-                                'label' => "<i class='fa fa-user'></i>" . t("Profile"),
-                                'visible' => !Yii::$app->user->isGuest
-                            ),
-                            array('url' => Url::to('@web/adverts/user', array('id' => Yii::$app->user->id)),
-                                'label' => "<i class='fa fa-bullhorn'></i>" . t("My adverts"),
-                                'visible' => !Yii::$app->user->isGuest
-                            ),
-                            array('url' => Url::to('@web/adverts/favorites'),
-                                'label' => "<i class='fa fa-bookmark-o'></i>" . t("Favorites advert"),
-                                'visible' => !Yii::$app->user->isGuest
-                            ),
-                            array('url' => Url::to("@web/messages"),
-                                'label' => "<i class='fa fa-comment-o'></i>" . t("Messages"),
-                                'visible' => !Yii::$app->user->isGuest
-                            ),
-                            array('url' => Url::to('@web/logout'),
-                                'label' => "<i class='fa fa-sign-out'></i>" . t("Logout") . ' (' . Yii::$app->user->identity->username . ')',
-                                'visible' => !Yii::$app->user->isGuest
-                            ),
+    <div id='header'>
+        <div id="topheader">
+            <a href='<?= Url::base() ?>' class="logo">Доска объявлений на Yii</a>
+            <div class="menu_area">
+                <div class='ideas'>
+                    <a href="<?= Url::to(['adverts/index']) ?>" class="general">Объявления</a>
+                    <a href='<?= Url::to(['adverts/create']) ?>' class="menu_text">
+                        <i class='fa fa-plus'></i>добавить
+                    </a>
+                </div>
+                <?php
+                echo Menu::widget(array(
+                    'encodeLabels' => false,
+                    'items' => array(
+                        array('url' => Url::to("@web/login"),
+                            'label' => "<i class='fa fa-sign-in'></i>" . Yii::t('app', "Login"),
+                            'visible' => Yii::$app->user->isGuest
+                        ),
+                        array('url' => Url::to("@web/registration"),
+                            'label' => "<i class='fa fa-user-plus'></i>" . Yii::t('app', "Register"),
+                            'visible' => Yii::$app->user->isGuest
+                        ),
+                        array('url' => Url::to('@web/user/' . Yii::$app->user->id),
+                            'label' => "<i class='fa fa-user'></i>" . Yii::t('app', "Profile"),
+                            'visible' => !Yii::$app->user->isGuest
+                        ),
+                        array('url' => Url::to('@web/adverts/user', array('id' => Yii::$app->user->id)),
+                            'label' => "<i class='fa fa-bullhorn'></i>" . Yii::t('app', "My adverts"),
+                            'visible' => !Yii::$app->user->isGuest
+                        ),
+                        array('url' => Url::to('@web/adverts/favorites'),
+                            'label' => "<i class='fa fa-bookmark-o'></i>" . Yii::t('app', "Favorites advert"),
+                            'visible' => !Yii::$app->user->isGuest
+                        ),
+                        array('url' => Url::to("@web/messages"),
+                            'label' => "<i class='fa fa-comment-o'></i>" . Yii::t('app', "Messages"),
+                            'visible' => !Yii::$app->user->isGuest
+                        ),
+                        array('url' => Url::to('@web/logout'),
+                            'label' => "<i class='fa fa-sign-out'></i>" . Yii::t('app', "Logout") . ' (' . Yii::$app->user->identity->username . ')',
+                            'visible' => !Yii::$app->user->isGuest
+                        ),
                         ),
                     ));
                     ?>
@@ -137,7 +137,7 @@ $this->beginPage();
                         <input type='text' name='searchStr'
                                value='<?= Yii::$app->request->get('searchStr') ?>'/>
                         <input type='submit' value='Поиск' class='btn btn-light'/> <br/>
-                        <a href="javascript:void(0)" onclick="open_search()"><?= t("Advanced search") ?></a>
+                        <a href="javascript:void(0)" onclick="open_search()"><?= Yii::t('app', "Advanced search") ?></a>
 
 
                         <div id='advanced_search' <?php echo is_array(Yii::$app->request->get("Adverts")) ? "" : "style='display:none'" ?> >
@@ -159,28 +159,20 @@ $this->beginPage();
                     <?php echo $content; ?>
 
                 </div>
-                <br style='clear:both' />
+                <br style='clear:both'/>
             </div>
         </div>
 
-        <div id="fotter">
-            <div class="fotter_copyrights">
-                <div class="lang_box"> <a class="it" href="<?= Url::to("@web/site/language/lang/it") ?>" class="lang_selecter" >It</a>
-                    <a class="ru" href="<?= Url::to("@web/site/language/lang/ru") ?>" class="lang_selecter" >Ru</a>
-                    <a class="en" href="<?= Url::to("@web/site/language/lang/ru") ?>" class="lang_selecter" >En</a>
-                </div>
-                <div align="center"> © Copyright Information Goes Here. All Rights Reserved  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    <a href="http://validator.w3.org/check?uri=referer" target="_blank" class="xhtml">XHTML</a> <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank" class="css">CSS</a>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-
-                    Developed By : <a href="http://vencendor.ru" class="fotter_designedlink">Vencendor</a> 
-
-
-                </div>
+    <div id="fotter">
+        <div class="fotter_copyrights">
+            <div align="center"> © Copyright Information Goes Here. All Rights Reserved &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <a href="http://validator.w3.org/check?uri=referer" target="_blank" class="xhtml">XHTML</a>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank" class="css">CSS</a>
             </div>
-
         </div>
-        <?= yii\bootstrap4\Progress::widget(['percent' => 60, 'label' => 'test']) ?>
+    </div>
+    <?= yii\bootstrap4\Progress::widget(['percent' => 60, 'label' => 'test']) ?>
         <?php $this->endBody() ?>
     </body>
 </html>

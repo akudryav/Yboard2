@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\UserLogin;
 use Yii;
 use app\models\Adverts;
 use app\models\InstallForm;
@@ -10,6 +11,7 @@ use app\models\Category;
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 use app\models\ConfigForm;
+use rmrevin\yii\ulogin\AuthAction;
 
 
 /**
@@ -18,19 +20,12 @@ use app\models\ConfigForm;
  * Форма контактов
  * Вывод дополнительных поляй для категории actionGetfields
  */
-class SiteController extends DefaultController {
+class SiteController extends DefaultController
+{
 
-    /**
-     * Declares class-based actions.
-     *
-     */
-    public $layout = '/main-template';
-
-
-    public function actions() {
+    public function actions()
+    {
         return array(
-            // Дублирование, метода "создание объявления" удален
-            // 'create' => 'application.controllers.site.CreateAction',
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
@@ -41,69 +36,26 @@ class SiteController extends DefaultController {
             'page' => array(
                 'class' => 'CViewAction',
             ),
-            'sitemap' => array(
-                'class' => 'ext.sitemap.ESitemapAction',
-                'importListMethod' => 'getBaseSitePageList',
-                'classConfig' => array(
-                    array('baseModel' => 'Adverts',
-                        'route' => '/adverts/view',
-                        'params' => array('id' => 'id')),
-                    array('baseModel' => 'Category',
-                        'route' => '/adverts/category',
-                        'params' => array('cat_id' => 'id')),
-                ),
-            ),
-            'sitemapxml' => array(
-                'class' => 'ext.sitemap.ESitemapXMLAction',
-                'classConfig' => array(
-                    array('baseModel' => 'Adverts',
-                        'route' => '/adverts/view',
-                        'params' => array('id' => 'id')),
-                    array('baseModel' => 'Category',
-                        'route' => '/adverts/category',
-                        'params' => array('cat_id' => 'id')),
-                ),
-                //'bypassLogs'=>true, // if using yii debug toolbar enable this line
-                'importListMethod' => 'getBaseSitePageList',
-            ),
+            'ulogin' => [
+                'class' => AuthAction::class,
+                'successCallback' => [$this, 'uloginSuccessCallback'],
+                'errorCallback' => function ($data) {
+                    \Yii::error($data['error']);
+                },
+            ]
         );
     }
 
-
-    public function actionLanguage($lang) {
-
-        $referer = Yii::$app->request->urlReferrer;
-
-        Yii::$app->session->add('language', $lang);
-
-        if ($referer) {
-            $this->redirect($referer);
-        } else {
-            $this->redirect(array("site/index"));
+    public function beforeAction($action)
+    {
+        if ($action->id == 'ulogin') {
+            $this->enableCsrfValidation = false;
         }
+        return parent::beforeAction($action);
     }
 
-    /**
-     * Получения списка дополнительных полей для категории
-     * используется при созданий объявления
-     * @param type $cat_id Id категории
-     */
-    public function actionGetfields($cat_id) {
-        $model = Category::findOne($cat_id);
-
-        $fields = json_decode($model->fields);
-
-        if (sizeof($fields) > 0) {
-            foreach ($fields as $f_iden => $fv) {
-                ?><div class="controls">
-                <label for='Fields[<?= $f_iden ?>]'><?= $fv->name ?></label>
-                <input type="text" id="Fields[<?= $f_iden ?>]" name="Fields[<?= $f_iden ?>]" >
-                </div><?php
-            }
-        }
-    }
-
-    public function accessRules() {
+    public function accessRules()
+    {
         return array(
             array('allow', // allow all users to perform actions
                 'actions' => array('index', 'error', 'contact', 'bulletin', 'category', 'captcha', 'page', 'advertisement', 'getfields', 'search'),
@@ -124,13 +76,9 @@ class SiteController extends DefaultController {
      * Вывод главной
      * отличается наличием виджета категорий вверху
      */
-    public function actionIndex() {
-
-
-        global $config_path;
-
-        if (is_file(dirname($config_path) . "/install")) {
-
+    public function actionIndex()
+    {
+        if (is_file(Yii::getAlias('@config/install'))) {
             //------------------- Start install------------------
             return $this->redirect("site/install");
         }
@@ -163,9 +111,58 @@ class SiteController extends DefaultController {
         /**/
     }
 
-    public function actionInstall() {
+    /**
+     * Displays the login page
+     */
+    public function actionLogin()
+    {
 
-        global $config_path; // Путь к файлу конфигурации для его изменения
+        if (Yii::$app->user->isGuest) {
+
+            $model = new UserLogin();
+            $model->load(Yii::$app->request->post());
+            // collect user input data
+            if ($model->login()) {
+
+                return $this->goBack();
+            }
+
+
+            // display the login form
+            return $this->render('/user/login', array('model' => $model));
+        } else
+            $this->redirect(array("site/index"));
+    }
+
+    public function uloginSuccessCallback($attributes)
+    {
+        print_r($attributes);
+        /*if (isset($_POST['token'])) {
+            $ulogin = new UloginModel();
+            $ulogin->setAttributes($_POST);
+            $ulogin->getAuthData();
+
+            if ($ulogin->validate() && $ulogin->login()) {
+                $this->redirect(Yii::$app->user->returnUrl);
+            } else {
+
+                return $this->render('error', array('errors' => $ulogin->errors));
+            }
+        } else {
+            $this->redirect(Yii::$app->homeUrl);
+        }*/
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        $this->redirect(Yii::$app->homeUrl);
+    }
+
+    public function actionInstall()
+    {
+
+        $config_path = Yii::getAlias('@config/main_conf') . '.php'; // Путь к файлу конфигурации для его изменения
         $this->layout = "install-layout";
         $db_error = false;
         $error = false;
@@ -195,8 +192,8 @@ class SiteController extends DefaultController {
                 $model->addError("site_name", "папка /assets должена быть доступена для записи");
             }
 
-            if (ini_get("short_open_tag") === "Off" or ! ini_get("short_open_tag")) {
-                $error = t("Your configuration requires changes.") . t("
+            if (ini_get("short_open_tag") === "Off" or !ini_get("short_open_tag")) {
+                $error = Yii::t('app', "Your configuration requires changes.") . Yii::t('app', "
 short_open_tag option must be enabled in the php.ini or another method available");
             }
 
@@ -214,7 +211,7 @@ short_open_tag option must be enabled in the php.ini or another method available
                     mysqli_select_db($db_con, $db_name) or $db_error = mysqli_error($db_con);
                 }
 
-                if (!$db_error and ! $model->errors) {
+                if (!$db_error and !$model->errors) {
                     $config_data = require $config_path;
 
                     $dump_file = file_get_contents(Yii::getAlias('@app/data/install') . '.sql');
@@ -269,36 +266,17 @@ short_open_tag option must be enabled in the php.ini or another method available
     }
 
 
-    public function actionAbout() {
+    public function actionAbout()
+    {
         return $this->render('pages/about');
-    }
-
-    public function actionGeoIp() {
-
-        //Yii::import('ext.sypexgeo.Sypexgeo');
-
-        $geo = new Sypexgeo();
-
-        // get by remote IP
-        $geo->get('85.250.187.241');                // also returned geo data as array
-        echo $geo->ip, '<br>';
-        echo $geo->ipAsLong, '<br>';
-        var_dump($geo->country);
-        echo '<br>';
-        var_dump($geo->region);
-        echo '<br>';
-        var_dump($geo->city);
-        echo '<br>';
-
-        // get by custom IP
-        //$geo->get('212.42.76.252');
     }
 
     /**
      * Displays the contact page
      * @param int $id User's id
      */
-    public function actionContact($id = null) {
+    public function actionContact($id = null)
+    {
         $user = $id ? $this->loadUser($id) : null;
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
@@ -320,46 +298,8 @@ short_open_tag option must be enabled in the php.ini or another method available
         return $this->render('contact', array('model' => $model, 'user' => $user));
     }
 
-    public function actionCron($code) {
-        if ($code === Yii::$app->params['cron_code']) {
-            $list = Yii::$app->db->createCommand("select count(adverts.id) as count, location, category_id, max(created_at) as last_date from adverts group by location, category_id")->queryAll();
-
-            $day_seconds = 3600 * 24;
-
-            foreach ($list as $ad) {
-
-                $days = 0;
-                if ($ad['count'] > 90)
-                    $days = 2;
-                if ($ad['count'] > 70 and $ad['count'] < 90)
-                    $days = 3;
-                if ($ad['count'] > 60 and $ad['count'] < 70)
-                    $days = 4;
-                if ($ad['count'] > 50 and $ad['count'] < 60)
-                    $days = 5;
-                if ($ad['count'] > 40 and $ad['count'] < 50)
-                    $days = 6;
-                if ($ad['count'] > 30 and $ad['count'] < 40)
-                    $days = 7;
-                if ($ad['count'] > 20 and $ad['count'] < 30)
-                    $days = 8;
-                if ($ad['count'] > 10 and $ad['count'] < 20)
-                    $days = 9;
-                if ($ad['count'] < 10)
-                    $days = 10;
-
-
-                if (strtotime($ad['last_date']) + $day_seconds * 10 < time()) {
-                    $count = Adverts::updateAll(array('created_at' => 'DATE_ADD(created_at, INTERVAL ' . $days . ' DAY)')
-                        , " location='" . $ad['location'] . "' and category_id ='" . $ad['category_id'] . "' ");
-
-                    var_dump($count);
-                }
-            }
-        }
-    }
-
-    public function actionView($id) {
+    public function actionView($id)
+    {
         $model = $this->loadAdvert($id);
         $model->views++;
         $model->save();
@@ -373,12 +313,12 @@ short_open_tag option must be enabled in the php.ini or another method available
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
-    public function loadAdvert($id) {
+    public function loadAdvert($id)
+    {
         $model = loadAdvert::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 
@@ -387,12 +327,12 @@ short_open_tag option must be enabled in the php.ini or another method available
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
-    public function loadCategory($id) {
+    public function loadCategory($id)
+    {
         $model = Category::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 
@@ -401,16 +341,17 @@ short_open_tag option must be enabled in the php.ini or another method available
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
-    public function loadUser($id) {
+    public function loadUser($id)
+    {
         $model = User::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 
-    public function getBaseSitePageList() {
+    public function getBaseSitePageList()
+    {
 
         $list = array(
             array(
@@ -437,7 +378,8 @@ short_open_tag option must be enabled in the php.ini or another method available
         return $list;
     }
 
-    public function actionLocation_list($term) {
+    public function actionLocation_list($term)
+    {
         if ($term) {
             echo json_encode(Location::CitiesSuggest($term));
         } else {
@@ -445,24 +387,26 @@ short_open_tag option must be enabled in the php.ini or another method available
         }
     }
 
-    public function actionGetRegions($id = "") {
+    public function actionGetRegions($id = "")
+    {
         if ($id) {
             echo Html::dropDownList('selectRegions', "", Location::Regions($id), array(
                 "onchange" => "getCityList()",
                 "class" => "form-control",
-                "empty" => t("Select region"),
+                "empty" => Yii::t('app', "Select region"),
             ));
         } else {
             return false;
         }
     }
 
-    public function actionGetCities($id = "") {
+    public function actionGetCities($id = "")
+    {
         if ($id) {
             echo Html::dropDownList('selectCities', "", Location::Cities($id), array(
                 "onchange" => "locationSelect()",
                 "class" => "form-control",
-                "empty" => t("Select city")
+                "empty" => Yii::t('app', "Select city")
             ));
         } else {
             return false;

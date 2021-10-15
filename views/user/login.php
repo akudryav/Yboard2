@@ -1,23 +1,19 @@
 <?php
 
-
 use rmrevin\yii\ulogin\ULogin;
 use yii\widgets\Breadcrumbs;
-use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\bootstrap\Button;
-use yii\widgets\ActiveForm;
 
 
-$this->context->pageTitle = Yii::$app->name . ' - ' . t("Login");
+$this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Login");
 echo Breadcrumbs::widget([
     "links" => [
-        t("Login"),
+        Yii::t('app', "Login"),
     ],
 ]);
 ?>
 
-<h1><?php echo t("Login"); ?></h1>
+<h1><?php echo Yii::t('app', "Login"); ?></h1>
 
 <?php if (Yii::$app->session->getFlash('loginMessage')): ?>
 
@@ -29,13 +25,10 @@ echo Breadcrumbs::widget([
 
 
 <div class="form well">
-    <h3><?= t('Social networks authorisation :') ?></h3>
+    <h3><?= Yii::t('app', 'Social networks authorisation :') ?></h3>
 
 
-
-
-
-    <?php     echo ULogin::widget([
+    <?php echo ULogin::widget([
         // widget look'n'feel
         'display' => ULogin::D_PANEL,
 
@@ -52,10 +45,10 @@ echo Breadcrumbs::widget([
         'hidden' => [],
 
         // where to should ULogin redirect users after successful login
-        'redirectUri' => Url::base() . '/index.php?r=login/ulogin',
+        'redirectUri' => ['site/ulogin'],
 
         // force use https in redirect uri
-        'forceRedirectUrlScheme' => 'https',
+        'forceRedirectUrlScheme' => 'http',
 
         // optional params (can be ommited)
         // force widget language (autodetect by default)
@@ -73,13 +66,13 @@ echo Breadcrumbs::widget([
     ?>
 
     <hr/>
-    <h3><?= t('Authorisation for members:') ?></h3>
+    <h3><?= Yii::t('app', 'Authorisation for members:') ?></h3>
 
     <?php echo Html::beginForm(); ?>
 
     <?php echo Html::errorSummary($model); ?>
 
-    <div >
+    <div>
         <?php echo Html::activeLabel($model, 'username'); ?>
         <?php echo Html::activeTextInput($model, 'username') ?>
     </div>
@@ -94,16 +87,16 @@ echo Breadcrumbs::widget([
         <?php echo Html::activeLabel($model, 'rememberMe'); ?>
     </div>
 
-    <div >
+    <div>
         <p class="hint">
-            <?php echo Html::a(t("Register"), Yii::$app->getModule('user')->registrationUrl); ?> | <?php echo Html::a(t("Lost Password?"), Yii::$app->getModule('user')->recoveryUrl); ?>
+            <?php echo Html::a(Yii::t('app', "Register"), Yii::$app->getModule('user')->registrationUrl); ?>
+            | <?php echo Html::a(Yii::t('app', "Lost Password?"), Yii::$app->getModule('user')->recoveryUrl); ?>
         </p>
     </div>
 
 
-
     <div class=" submit">
-        <?php echo Html::submitButton( t('Вход')); ?>
+        <?php echo Html::submitButton(Yii::t('app', 'Вход')); ?>
 
     </div>
 

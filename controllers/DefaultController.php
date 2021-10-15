@@ -6,27 +6,11 @@ use Yii;
 use yii\web\Controller;
 use app\models\Category;
 use yii\data\ActiveDataProvider;
-use yii\helpers\VarDumper;
 use app\models\Adverts;
-
-
-function t($str, $dict = 'lang') {
-    return Yii::t($dict, $str);
-}
-
-function mb_ucfirst($str) {
-    $fc = mb_strtoupper(mb_substr($str, 0, 1, 'utf8'), 'utf8');
-    return $fc . mb_substr($str, 1, NULL, 'utf8');
-}
-
-function dump( $var ){
-    VarDumper::dump( $var );
-}
-
 
 class DefaultController extends Controller {
 
-    public $layout = '/main-template';
+    public $layout = 'main-template';
     public $pageTitle = '';
 
     /**
@@ -56,13 +40,8 @@ class DefaultController extends Controller {
 
     public function __construct($id, $module = null) {
 
-        global $config_path;
-
         parent::__construct($id, $module);
-
-
-
-        if (!is_file(dirname($config_path) . "/install")) {
+        if (!is_file(Yii::getAlias('@config/install'))) {
 
             $this->settings = require Yii::getAlias('@config/params') . '.php';
             $this->banners = include_once Yii::getAlias('@config/banners') . '.php';

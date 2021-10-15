@@ -38,9 +38,9 @@ class UserLogin extends \yii\base\Model {
      */
     public function attributeLabels() {
         return array(
-            'rememberMe' => t("Remember me next time"),
-            'username' => t("username or email"),
-            'password' => t("password"),
+            'rememberMe' => Yii::t('app', "Remember me next time"),
+            'username' => Yii::t('app', "username or email"),
+            'password' => Yii::t('app', "password"),
         );
     }
 

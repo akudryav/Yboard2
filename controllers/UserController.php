@@ -89,7 +89,7 @@ class UserController extends DefaultController {
             if (isset($_GET['id']))
                 $this->_model = User::findOne($_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                throw new \yii\web\NotFoundHttpException();
         }
         return $this->_model;
     }
@@ -144,7 +144,7 @@ class UserController extends DefaultController {
             if ($id !== null || isset($_GET['id']))
                 $this->_model = User::findOne($id !== null ? $id : $_GET['id']);
             if ($this->_model === null)
-                throw new CHttpException(404, 'The requested page does not exist.');
+                throw new \yii\web\NotFoundHttpException();
         }
         return $this->_model;
     }

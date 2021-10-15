@@ -1,9 +1,7 @@
 <?php 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 use app\models\Adverts;
-use yii\helpers\VarDumper;
 
 /* @var $this AdvertsController */
 /* @var $model Adverts */
@@ -25,9 +23,9 @@ use yii\helpers\VarDumper;
         <div>
             <?php echo Html::a(Html::encode($model['name']), array('adverts/view', 'id' => $model['id'])); ?>
                <?php if ($model['user_id'] == Yii::$app->user->id and Yii::$app->user->id): ?>
-                <a href='<?= Url::to('@web/adverts/update', array('id' => $model['id']))
+                   <a href='<?= Url::to(['adverts/update', 'id' => $model['id']])
                    ?>' class='redact'> редактировать <?= Yii::$app->user->id ?></a>
-                <?php endif ?>
+               <?php endif ?>
         </div>
         <div><?php echo Html::encode(mb_substr($model['text'], 0, 220)); ?></div>
     </div>

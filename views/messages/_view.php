@@ -5,11 +5,11 @@
 
 <div class="view mes_dialog">
 
-    <b> <?php echo Html::encode($data->sender->username); ?></b> 
+    <b> <?php echo Html::encode($data->sender->username); ?></b>
     <i class='mesDate' style='font-size:10px; '>
-        (<?php echo PeopleDate::format($data->send_date); ?>)
-    </i>  :
+        (<?php echo Yii::$app->formatter->asDatetime($data->send_date); ?>)
+    </i> :
     <br/>
-<?php echo $data->message; ?>
+    <?php echo $data->message; ?>
 
 </div>

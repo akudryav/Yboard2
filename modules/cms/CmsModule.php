@@ -1,12 +1,15 @@
 <?php
+namespace app\modules\Cms;
 
-class CmsModule extends CWebModule {
+class CmsModule extends \yii\base\Module
+{
 
     public $defaultLayout = "//main-template";
     public $defaultController = '//main-template';
     public $ignoredLayoutsMask = "/^main/"; //regexp to ignore main layouts (main.php etc.)
 
-    public function init() {
+    public function init()
+    {
         // this method is called when the module is being created
         // you may place code here to customize the module or the application
         // import the module-level models and components

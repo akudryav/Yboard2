@@ -35,11 +35,12 @@ $('.search-form form').submit(function(){
 
 
 <p>
-    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>,
+    <b>&lt;&gt;</b>
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo Html::a(t('Advanced Search'), '#', array('class' => 'search-button')); ?>
+<?php echo Html::a(Yii::t('app', 'Advanced Search'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php
     $this->render('_search', array(
@@ -49,7 +50,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-echo GridView::widget( array(
+echo GridView::widget(array(
     'type' => 'striped bordered condensed',
     'id' => 'category-grid',
     'dataProvider' => $model->search(),

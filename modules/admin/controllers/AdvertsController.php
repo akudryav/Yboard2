@@ -109,12 +109,11 @@ class AdvertsController extends BackendController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return Adverts the loaded model
-     * @throws CHttpException
      */
     public function loadModel($id) {
         $model = Adverts::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 

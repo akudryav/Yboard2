@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     ));
     ?>
 
-    <p class="note"><?= t('Fields with <span class="required">*</span> are required.') ?></p>
+    <p class="note"><?= Yii::t('app', 'Fields with <span class="required">*</span> are required.') ?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="row buttons">
-        <?php echo Html::submitButton($model->isNewRecord ? t('Create') : t('Save'), array('class' => 'btn')); ?>
+        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), array('class' => 'btn')); ?>
     </div>
 
     <?php ActiveForm::end(); ?>

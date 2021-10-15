@@ -14,12 +14,12 @@ use yii\widgets\ActiveForm;
     ));
     ?>
 
-    <p class="note"><?= t('Fields with <span class="required">*</span> are required.') ?></p>
+    <p class="note"><?= Yii::t('app', 'Fields with <span class="required">*</span> are required.') ?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->field($model, 'parent_id')->dropDownList( $model->getParents()); ?>
+        <?php echo $form->field($model, 'parent_id')->dropDownList($model->getParents()); ?>
     </div>
 
     <div class="row">

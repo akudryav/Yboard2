@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use app\models\Category;
-use yii\bootstrap\Button;
 use zxbodya\yii2\galleryManager\GalleryManager;
 
 
@@ -33,11 +32,11 @@ use zxbodya\yii2\galleryManager\GalleryManager;
     <div>
         <?php if (isset($_POST['Adverts']['name']) or $model->name) { ?>
             <div>
-                <?php echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::findAll([]), "id", "name"), array('empty' => t('Choose category'))); ?>
+                <?php echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::findAll([]), "id", "name"), array('empty' => Yii::t('app', 'Choose category'))); ?>
 
             </div>
         <?php } else { ?>
-            <?php echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::roots(), "id", "name"), array('empty' => t('Choose category'), 'onchange' => 'loadFields(this)'));
+            <?php echo $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::roots(), "id", "name"), array('empty' => Yii::t('app', 'Choose category'), 'onchange' => 'loadFields(this)'));
         }
         ?>
 

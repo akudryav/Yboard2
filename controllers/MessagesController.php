@@ -11,13 +11,6 @@ use yii\data\ArrayDataProvider;
 class MessagesController extends DefaultController {
 
     /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout = '/main-template';
-
-
-    /**
      * Specifies the access control rules.
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
@@ -191,12 +184,11 @@ class MessagesController extends DefaultController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return Messages the loaded model
-     * @throws CHttpException
      */
     public function loadModel($id) {
         $model = Messages::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 

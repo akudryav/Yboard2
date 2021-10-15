@@ -4,22 +4,35 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db_local.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'Yboard2',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'language' => 'ru-RU',
+    'name' => 'Доска Юла',
+    'bootstrap' => ['log', 'debug'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
+        '@config' => '@app/config',
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\AdminModule',
+        ],
+        'cms' => [
+            'class' => 'app\modules\cms\CmsModule',
+            // ... другие настройки модуля ...
+        ],
     ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'fHrCgMo588XvnN6S-sYbLAMiZXdICZ6r',
+            'cookieValidationKey' => 'ba72a75d2502ab4172156918eb5ea627',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
+            'class' => 'app\components\WebUser',
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
@@ -33,6 +46,26 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'datetimeFormat' => 'dd.MM.yyyy HH:mm:ss',
+            'timeFormat' => 'H:i:s',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
+        ],
+        'i18n' => [
+            'translations' => [
+                'lang*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'lang' => 'lang.php',
+                    ],
+                ],
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -43,14 +76,25 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'admin/' => 'admin/default/index',
+                'category/<cat_id:\d+>' => 'adverts/category',
+                'logout' => 'site/logout',
+                'login' => 'site/login',
+                '/banner_edit' => '/view/banners/edit',
+                '/banner_show' => '/view/banners/show',
+                'site/category/<cat_id:\d+>' => 'adverts/category/cat_id/<cat_id>',
+                'cat_fields/<cat_id:\d+>' => 'adverts/getfields',
+                'view/moderate/<adv_id:\d+>' => 'view/adverts/moderate/id/<adv_id>',
+                'category/<action:\w+>/' => 'view/category/<action>',
+                'user/<id:\d+>/' => 'user/view',
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

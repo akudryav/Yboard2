@@ -14,8 +14,6 @@ use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 class AdvertsController extends DefaultController {
 
-    public $layout = '//main-template';
-
     public function actions() {
         return array(
             //'importAdvertss' => 'application.controllers.site.ImportAdvertssAction' ,
@@ -88,8 +86,6 @@ class AdvertsController extends DefaultController {
 
     public function actionGetfields($cat_id) {
 
-        $model_count = Category::find()->where(['root' => $cat_id])->count();
-
         // Получение категории
         $model = Category::findOne($cat_id);
 
@@ -141,7 +137,7 @@ class AdvertsController extends DefaultController {
                 $drop_cats[$cat['id']] = $cat['name'];
             }
 
-            echo Html::dropDownList('subcat_' . $cat_id, 0, $drop_cats, array('empty' => t('Choose category'), 'onchange' => 'loadFields(this)'));
+            echo Html::dropDownList('subcat_' . $cat_id, 0, $drop_cats, array('empty' => Yii::t('app', 'Choose category'), 'onchange' => 'loadFields(this)'));
 
             return;
         }
@@ -252,9 +248,7 @@ class AdvertsController extends DefaultController {
         $model->save();
         $model->fields = unserialize($model->fields);
 
-
         $this->meta = Yii::$app->params['adv_meta'][Yii::$app->language];
-
         $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
 
@@ -395,12 +389,11 @@ class AdvertsController extends DefaultController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
     public function loadAdverts($id) {
         $model = Adverts::findOne($id);
         if ($model === null) {
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         }
 
         return $model;
@@ -411,12 +404,11 @@ class AdvertsController extends DefaultController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
     public function loadCategory($id) {
         $model = Category::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 
@@ -425,12 +417,11 @@ class AdvertsController extends DefaultController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
     public function loadAdvertisement($id) {
         $model = Advertisement::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 
@@ -439,12 +430,11 @@ class AdvertsController extends DefaultController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
      * @return User the loaded model
-     * @throws CHttpException
      */
     public function loadUser($id) {
         $model = User::findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 
@@ -481,7 +471,7 @@ class AdvertsController extends DefaultController {
                         }
                         $model->fields .= '"' . $fn . '"[^"]+"' . $fv . '"';
                     } else {
-                        throw new CHttpException(400, ' Bad Request ');
+                        throw new yii\web\BadRequestHttpException(' Bad Request ');
                     }
                 }
             }

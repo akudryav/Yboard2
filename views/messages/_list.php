@@ -11,10 +11,11 @@ use yii\helpers\Html;
 
 
     <i class='mesDate' style='float:right; font-size:12px; '>
-        <?php echo PeopleDate::format($data['last_date']); ?>
+        <?php echo Yii::$app->formatter->asDatetime($data['last_date']); ?>
     </i>
 
-    <a href='<?php echo Url::to('@web/messages/dialog', array('user' => $data['interlocutor'])); ?>'> <b><?php echo Html::encode($data['username']); ?></b> </a>
+    <a href='<?php echo Url::to('@web/messages/dialog', array('user' => $data['interlocutor'])); ?>'>
+        <b><?php echo Html::encode($data['username']); ?></b> </a>
     <br/>
     Сообщений (<?php echo Html::encode($data['count_mes']); ?>)
 

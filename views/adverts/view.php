@@ -1,8 +1,6 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\helpers\VarDumper;
 use yii\widgets\ListView;
 
 /* @var $this SiteController */
@@ -22,18 +20,20 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
 <div class="advert_full">
     <div class='title' style='padding:0px 3px;'><?= $model->name ?>
         <div style='float:right'>
-            <a href='<?php             echo Url::toRoute(['adverts/update','id' => $model->id ]);
+            <a href='<?php echo Url::toRoute(['adverts/update', 'id' => $model->id]);
             ?>'><i class='fa fa-pencil'></i></a>
             <a href='javascript:void(0)' onclick='setFavoriteAdv("<?= $model->id ?>", this)'><i
                         class='fa fa-bookmark-o'></i></a>
         </div>
     </div>
     <div class='date'>
-        <span><a href='<?php echo Url::to('@web/user/view', array('id' => $model->user->id))
+        <span><a href='<?php echo Url::to(['user/view', 'id' => $model->user->id])
             ?>'>
                 <i class='fa fa-user'></i><?= $model->user->username ?>
             </a></span>
-        <span><i class='fa fa-clock-o'></i><?= PeopleDate::format($model->created_at) ?></span>
+        <span><i class='fa fa-clock-o'></i>
+            <?= Yii::$app->formatter->asDateTime($model->created_at) ?>
+        </span>
         <span><i class='fa fa-eye'></i><?= $model->views ?></span>
         <div style='float:right; margin-top:-6px; '>
             <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
@@ -64,19 +64,13 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
                 }
             ?>
         </div>
-        <div class='price'><?= t('Price') ?> -
+        <div class='price'><?= Yii::t('app', 'Price') ?> -
             <?php if ($model->price) { ?>
                 <?= $model->price ?> ( <?= Yii::$app->params['currency'][$model->currency] ?> )
                 <a href='javascript:void(0);' onclick='show_converter()'> открыть конвертор </a>
-                <div class='price_converter'><?php /*
-                        foreach (Yii::$app->params['currency'] as $cn => $cur) {
-                            printf("%.2f", $model->price / Yii::$app->params['exchange'][$model->currency] * Yii::$app->params['exchange'][$cn]);
-                            echo " " . $cur . " | ";
-                        }
-                        /**/
-                    ?></div>
-                <?php             } else {
-                echo "<i>" . t('Not set') . "</i>";
+                <div class='price_converter'><?php echo $model->price_converter() ?></div>
+            <?php } else {
+                echo "<i>" . Yii::t('app', 'Not set') . "</i>";
             }
             ?>
         </div>
@@ -100,14 +94,14 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
                 ?>
             </div>
 
-            <?php         }
+        <?php }
         ?>
 
-        <?php 
+        <?php
         ?>
 
-        <div class='related'><span><?= t("Related adverts") ?>:</span>
-            <?php             echo ListView::widget(array(
+        <div class='related'><span><?= Yii::t('app', "Related adverts") ?>:</span>
+            <?php echo ListView::widget(array(
                 'dataProvider' => $dataRel,
                 'itemView' => '_view_short',
                 'summary' => false,

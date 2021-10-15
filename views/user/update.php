@@ -2,12 +2,12 @@
 /* @var $this ReviewsController */
 /* @var $model Reviews */
 
-echo Breadcrumbs::widget( array(
-    t('Profile') => array('user', array("id" => $model->id)),
-    t('Update'),
-) );
+echo Breadcrumbs::widget(array(
+    Yii::t('app', 'Profile') => array('user', array("id" => $model->id)),
+    Yii::t('app', 'Update'),
+));
 ?>
 
-<h1> <?= t('Profile update') ?> </h1>
+    <h1> <?= Yii::t('app', 'Profile update') ?> </h1>
 
 <?php echo $this->render('_form', array('model' => $model)); ?>

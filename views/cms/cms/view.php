@@ -13,10 +13,10 @@ echo Breadcrumbs::widget([
 
 echo Menu::widget([
     'items' =>array(
-    array('label' => t('Update') . " \"" . $model->name . "\"", 'url' => array('update', 'id' => $model->id)),
-    array('label' => t('Delete'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?'), 'visible' => $model->id != 1),
-    array('label' => t('Manage pages'), 'url' => array('view', 'parent_id' => $model->parent_id ? $model->parent_id : 1)),
-)
+        array('label' => Yii::t('app', 'Update') . " \"" . $model->name . "\"", 'url' => array('update', 'id' => $model->id)),
+        array('label' => Yii::t('app', 'Delete'), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?'), 'visible' => $model->id != 1),
+        array('label' => Yii::t('app', 'Manage pages'), 'url' => array('view', 'parent_id' => $model->parent_id ? $model->parent_id : 1)),
+    )
 ]);
 ?>
 

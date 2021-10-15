@@ -23,15 +23,15 @@ class TextValidator extends Validator
 
         if ($this->format === "stopwords") {
             if (!$this->validateStopWords($object->$attribute)) {
-                $object->addError($attribute, t('Текст содержит недопустимые слова '));
+                $object->addError($attribute, Yii::t('app', 'Текст содержит недопустимые слова '));
             }
             if (!$this->validate_str($object->$attribute, "text")) {
-                $object->addError($attribute, t('Текст содержит недопустимые символы '));
+                $object->addError($attribute, Yii::t('app', 'Текст содержит недопустимые символы '));
             }
         }
 
         if (!$this->validate_str($object->$attribute, $this->format)) {
-            $object->addError($attribute, t('Неподходящий формат текстовых данных. '));
+            $object->addError($attribute, Yii::t('app', 'Неподходящий формат текстовых данных. '));
         }
     }
 

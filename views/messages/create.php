@@ -20,10 +20,10 @@ echo Menu::widget([
 //var_dump(User::findOne($receiver)->id);
 ?>
 
-<div><?= t('Write messages to') ?> 
-    <a href='<?= Url::to('@web/user/view', array('id' => $receiver)) ?>'>
-<?= User::findOne($receiver)->username ?>
-    </a>
-</div>
+    <div><?= Yii::t('app', 'Write messages to') ?>
+        <a href='<?= Url::to('@web/user/view', array('id' => $receiver)) ?>'>
+            <?= User::findOne($receiver)->username ?>
+        </a>
+    </div>
 
 <?php echo $this->render('_form', array('model' => $model, 'receiver' => $receiver)); ?>

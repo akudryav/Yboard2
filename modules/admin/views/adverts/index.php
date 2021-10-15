@@ -26,12 +26,10 @@ echo Menu::widget([
 ?>
 
 
+<h1><?php echo Yii::t('app', 'Manage Bulletins'); ?></h1>
 
 
-<h1><?php echo t('Manage Bulletins'); ?></h1>
-
-
-<?php echo Html::a(t('Advanced Search'), '#', array('class' => 'search-button')); ?>
+<?php echo Html::a(Yii::t('app', 'Advanced Search'), '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
     <?php
     $this->render('_search', array(
@@ -49,15 +47,15 @@ echo GridView::widget( array(
     'columns' => array(
         array(// display 'create_time' using an expression
             'class' => 'yii\grid\SerialColumn',
-            'header' => t('name'),
+            'header' => Yii::t('app', 'name'),
         ),
         array(// display 'create_time' using an expression
             'class' => 'yii\grid\SerialColumn',
-            'header' => t('user_id'),
+            'header' => Yii::t('app', 'user_id'),
         ),
         array(
             'class' => 'yii\grid\SerialColumn',
-            'header' => t('moderated'),
+            'header' => Yii::t('app', 'moderated'),
         ),
         array(
             'value' => '$data->category->name',

@@ -9,7 +9,6 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
 use yii\db\Query;
 use Yii;
 use yii\data\ActiveDataProvider;
-use function t;
 
 /**
  * This is the model class for table "adverts".
@@ -83,29 +82,29 @@ class Adverts extends \yii\db\ActiveRecord
      */
     public function attributeLabels() {
         return array(
-            'id' => t('ID'),
-            'name' => t('Name'),
-            'user_id' => t('User'),
-            'category_id' => t('Category'),
-            'type' => t('Type'),
-            'views' => t('Views'),
-            'text' => t('Text'),
-            'gallery_id' => t('Gallery'),
-            'youtube_id' => t('Youtube'),
-            'created_at' => t('Created At'),
-            'updated_at' => t('Updated At'),
-            'fields' => t('Fields'),
-            'price' => t('Price'),
-            'location' => t('Location'),
-            'moderated' => t('Мoderated'),
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'user_id' => Yii::t('app', 'User'),
+            'category_id' => Yii::t('app', 'Category'),
+            'type' => Yii::t('app', 'Type'),
+            'views' => Yii::t('app', 'Views'),
+            'text' => Yii::t('app', 'Text'),
+            'gallery_id' => Yii::t('app', 'Gallery'),
+            'youtube_id' => Yii::t('app', 'Youtube'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'fields' => Yii::t('app', 'Fields'),
+            'price' => Yii::t('app', 'Price'),
+            'location' => Yii::t('app', 'Location'),
+            'moderated' => Yii::t('app', 'Мoderated'),
         );
     }
 
     public static function itemAlias($type, $code = NULL) {
         $_items = array(
             'type' => array(
-                self::TYPE_DEMAND => t('Demand'),
-                self::TYPE_OFFER => t('Offer'),
+                self::TYPE_DEMAND => Yii::t('app', 'Demand'),
+                self::TYPE_OFFER => Yii::t('app', 'Offer'),
             ),
         );
         if (isset($code))
@@ -185,12 +184,6 @@ class Adverts extends \yii\db\ActiveRecord
 
     }
 
-    public function scopes() {
-        return array(
-            'sitemap' => array('select' => 'id', 'condition' => 'created_at <= NOW()', 'order' => 'created_at ASC'),
-        );
-    }
-
     public function behaviors() {
         return [
             TimestampBehavior::class,
@@ -234,14 +227,27 @@ class Adverts extends \yii\db\ActiveRecord
      * return first GalleryPhoto
      * @return GalleryPhoto
      */
-    public function getPhoto() {
+    public function getPhoto()
+    {
 
         $images = $this->getBehavior('galleryBehavior')->getImages();
 
-        if (!empty($images) ) {
+        if (!empty($images)) {
 
             return $images[0];
         }
     }
 
+    /*
+     * Конвертер валют для выода цены
+     */
+    public function price_converter()
+    {
+        $vars = [];
+        foreach (Yii::$app->params['currency'] as $cn => $cur) {
+            $vars[] = round($this->price / Yii::$app->params['exchange'][$this->currency]
+                    * Yii::$app->params['exchange'][$cn], 2) . ' ' . $cur;
+        }
+        return implode(' | ', $vars);
+    }
 }

@@ -122,7 +122,7 @@ class CmsController extends Controller {
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('view'));
         } else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new yii\web\BadRequestHttpException('Invalid request. Please do not repeat this request again.');
     }
 
     /**
@@ -158,7 +158,7 @@ class CmsController extends Controller {
     public function loadModel($id) {
         $model = Cms::findOne((int) $id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 

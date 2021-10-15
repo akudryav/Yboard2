@@ -1,6 +1,7 @@
 <?php
 
-class UloginModel extends CModel {
+class UloginModel extends \yii\base\Model
+{
 
     public $identity;
     public $network;

@@ -58,8 +58,8 @@ class RegistrationController extends DefaultController {
                             $activation_url = $this->createAbsoluteUrl('/user/registration/activation', array("activkey" => $model->activkey, "email" => $model->email));
 
                             Yii::$app->email->to = $model->email;
-                            Yii::$app->email->subject = t("You registered from {site_name}", array('{site_name}' => Yii::$app->name));
-                            Yii::$app->email->message = t("Please activate you account go to {activation_url}", array('{activation_url}' => $activation_url, '{username}' => $model->username, '{password}' => $model->password, '{site_name}' => Yii::$app->name));
+                            Yii::$app->email->subject = Yii::t('app', "You registered from {site_name}", array('{site_name}' => Yii::$app->name));
+                            Yii::$app->email->message = Yii::t('app', "Please activate you account go to {activation_url}", array('{activation_url}' => $activation_url, '{username}' => $model->username, '{password}' => $model->password, '{site_name}' => Yii::$app->name));
                             Yii::$app->email->send();
                         }
 
@@ -70,13 +70,13 @@ class RegistrationController extends DefaultController {
                             $this->redirect(Yii::$app->controller->module->returnUrl);
                         } else {
                             if (!Yii::$app->controller->module->activeAfterRegister && !Yii::$app->controller->module->sendActivationMail) {
-                                Yii::$app->user->setFlash('registration', t("Thank you for your registration. Contact Admin to activate your account."));
+                                Yii::$app->user->setFlash('registration', Yii::t('app', "Thank you for your registration. Contact Admin to activate your account."));
                             } elseif (Yii::$app->controller->module->activeAfterRegister && Yii::$app->controller->module->sendActivationMail == false) {
-                                Yii::$app->user->setFlash('registration', t("Thank you for your registration. Please {{login}}.", array('{{login}}' => Html::a(t('Login'), Yii::$app->controller->module->loginUrl))));
+                                Yii::$app->user->setFlash('registration', Yii::t('app', "Thank you for your registration. Please {{login}}.", array('{{login}}' => Html::a(Yii::t('app', 'Login'), Yii::$app->controller->module->loginUrl))));
                             } elseif (Yii::$app->controller->module->loginNotActiv) {
-                                Yii::$app->user->setFlash('registration', t("Thank you for your registration. Please check your email or login."));
+                                Yii::$app->user->setFlash('registration', Yii::t('app', "Thank you for your registration. Please check your email or login."));
                             } else {
-                                Yii::$app->user->setFlash('registration', t("Thank you for your registration. Please check your email."));
+                                Yii::$app->user->setFlash('registration', Yii::t('app', "Thank you for your registration. Please check your email."));
                             }
                             $this->refresh();
                         }
@@ -95,28 +95,28 @@ class RegistrationController extends DefaultController {
             $find = User::notsafe()->findByAttributes(array('email' => $email));
             if (isset($find) && $find->status) {
                 return $this->render('/user/message', array(
-                    'title' => t("User activation"),
-                    'content' => t("You account is active.")
-                        )
+                        'title' => Yii::t('app', "User activation"),
+                        'content' => Yii::t('app', "You account is active.")
+                    )
                 );
             } elseif (isset($find->activkey) && ($find->activkey == $activkey)) {
                 $find->activkey = Yii::$app->user->crypt(microtime());
                 $find->status = 1;
                 $find->save();
                 return $this->render('/user/' . $find->id, array(
-                    'title' => t("User activation"),
-                    'content' => t("You account is activated.")
+                    'title' => Yii::t('app', "User activation"),
+                    'content' => Yii::t('app', "You account is activated.")
                 ));
             } else {
                 return $this->render('/user/message', array(
-                    'title' => t("User activation"),
-                    'content' => t("Incorrect activation URL.")
+                    'title' => Yii::t('app', "User activation"),
+                    'content' => Yii::t('app', "Incorrect activation URL.")
                 ));
             }
         } else {
             return $this->render('/user/message', array(
-                'title' => t("User activation"),
-                'content' => t("Incorrect activation URL.")
+                'title' => Yii::t('app', "User activation"),
+                'content' => Yii::t('app', "Incorrect activation URL.")
             ));
         }
     }

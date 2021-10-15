@@ -58,12 +58,12 @@ class Messages extends \yii\db\ActiveRecord
      */
     public function attributeLabels() {
         return array(
-            'id' => t('ID'),
-            'sender_id' => t('Sender'),
-            'receiver_id' => t('Receiver'),
-            'message' => t('Message'),
-            'send_date' => t('Send Date'),
-            'read' => t('Read'),
+            'id' => Yii::t('app', 'ID'),
+            'sender_id' => Yii::t('app', 'Sender'),
+            'receiver_id' => Yii::t('app', 'Receiver'),
+            'message' => Yii::t('app', 'Message'),
+            'send_date' => Yii::t('app', 'Send Date'),
+            'read' => Yii::t('app', 'Read'),
         );
     }
 

@@ -12,12 +12,12 @@ echo Breadcrumbs::widget([
 
 echo Menu::widget([
     'items' =>array(
-    array('label' => t('Add Page'), 'url' => array('create', 'type' => Cms::PAGE, 'parent_id' => $_GET['parent_id'])),
-    array('label' => t('Add Set of Pages'), 'url' => array('create', 'type' => Cms::PAGESET, 'parent_id' => $_GET['parent_id'])),
-    array('label' => t('Add Link'), 'url' => array('create', 'type' => Cms::LINK, 'parent_id' => $_GET['parent_id'])),
-    array('label' => t('View') . $page->name, 'url' => array('view', 'id' => $page->id)),
-    array('label' => t('Update') . " " . $page->name, 'url' => array('update', 'id' => $page->id)),
-)
+        array('label' => Yii::t('app', 'Add Page'), 'url' => array('create', 'type' => Cms::PAGE, 'parent_id' => $_GET['parent_id'])),
+        array('label' => Yii::t('app', 'Add Set of Pages'), 'url' => array('create', 'type' => Cms::PAGESET, 'parent_id' => $_GET['parent_id'])),
+        array('label' => Yii::t('app', 'Add Link'), 'url' => array('create', 'type' => Cms::LINK, 'parent_id' => $_GET['parent_id'])),
+        array('label' => Yii::t('app', 'View') . $page->name, 'url' => array('view', 'id' => $page->id)),
+        array('label' => Yii::t('app', 'Update') . " " . $page->name, 'url' => array('update', 'id' => $page->id)),
+    )
 ]);
 
 Yii::$app->clientScript->registerScript('search', "

@@ -153,13 +153,13 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'name' => t('Category name'),
-            'icon' => t('Icon'),
-            'fields' => t('Aditionl fields'),
-            'meta_title' => t('Meta title'),
-            'meta_descr' => t('Meta description'),
-            'meta_key' => t('Meta keywords'),
-            'description' => t('Description'),
+            'name' => Yii::t('app', 'Category name'),
+            'icon' => Yii::t('app', 'Icon'),
+            'fields' => Yii::t('app', 'Aditionl fields'),
+            'meta_title' => Yii::t('app', 'Meta title'),
+            'meta_descr' => Yii::t('app', 'Meta description'),
+            'meta_key' => Yii::t('app', 'Meta keywords'),
+            'description' => Yii::t('app', 'Description'),
         );
     }
 
@@ -188,12 +188,6 @@ class Category extends \yii\db\ActiveRecord
         $query->andFilterWhere('level', $this->level, true);
 
         return $dataProvider;
-    }
-
-    public function scopes() {
-        return array(
-            'sitemap' => array('select' => 'id', 'order' => 'id ASC'),
-        );
     }
 
     public function fieldsSave() {

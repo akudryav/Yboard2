@@ -28,8 +28,6 @@ class GalleryController extends BackendController {
         foreach ($photos as $photo) {
             if ($photo !== null)
                 $photo->delete();
-            else
-                throw new CHttpException(400, 'Photo, not found');
         }
         echo 'OK';
     }
@@ -38,7 +36,6 @@ class GalleryController extends BackendController {
      * Method to handle file upload thought XHR2
      * On success returns JSON object with image info.
      * @param $gallery_id string Gallery Id to upload images
-     * @throws CHttpException
      */
     public function actionAjaxUpload($gallery_id = null) {
         $model = new GalleryPhoto();
@@ -64,11 +61,10 @@ class GalleryController extends BackendController {
     /**
      * Saves images order according to request.
      * Variable $_POST['order'] - new arrange of image ids, to be saved
-     * @throws CHttpException
      */
     public function actionOrder() {
         if (!isset($_POST['order']))
-            throw new CHttpException(400, 'No data, to save');
+            throw new yii\web\BadRequestHttpException('No data, to save');
         $gp = $_POST['order'];
         $orders = array();
         $i = 0;
@@ -96,11 +92,10 @@ class GalleryController extends BackendController {
     /**
      * Method to update images name/description via AJAX.
      * On success returns JSON array od objects with new image info.
-     * @throws CHttpException
      */
     public function actionChangeData() {
         if (!isset($_POST['photo']))
-            throw new CHttpException(400, 'Nothing, to save');
+            throw new yii\web\BadRequestHttpException('Nothing to save');
         $data = $_POST['photo'];
         $criteria = new CDbCriteria();
         $criteria->index = 'id';

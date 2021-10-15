@@ -262,7 +262,7 @@ class JsTreeBehavior extends CBehavior {
     public function loadModel($id) {
         $model = ActiveRecord::model($this->modelClassName)->findOne($id);
         if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+            throw new \yii\web\NotFoundHttpException();
         return $model;
     }
 

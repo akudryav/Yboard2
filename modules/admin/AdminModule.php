@@ -3,10 +3,7 @@
 namespace app\modules\admin;
 
 
-
-use yii\base\Module;
-
-class AdminModule extends Module
+class AdminModule extends \yii\base\Module
 {
 
     public $controllerNamespace = 'app\modules\admin\controllers';
@@ -30,7 +27,7 @@ class AdminModule extends Module
         if (parent::beforeControllerAction($controller, $action)) {
             // this method is called before any module controller action is performed
             // you may place customized code here
-            Yii::$app->widgetFactory->widgets['CBreadcrumbs'] = Yii::$app->widgetFactory->widgets['TbBreadcrumbs'] = array('homeLink' => Html::a(t('lang', 'Home'), array('/view')));
+            Yii::$app->widgetFactory->widgets['CBreadcrumbs'] = Yii::$app->widgetFactory->widgets['TbBreadcrumbs'] = array('homeLink' => Html::a(Yii::t('app', 'lang', 'Home'), array('/view')));
 
             return true;
         } else
