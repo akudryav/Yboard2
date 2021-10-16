@@ -27,7 +27,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
         </div>
     </div>
     <div class='date'>
-        <span><a href='<?php echo Url::to(['user/view', 'id' => $model->user->id])
+        <span><a href='<?php echo Url::to(['user/view', 'id' => $model->user_id])
             ?>'>
                 <i class='fa fa-user'></i><?= $model->user->username ?>
             </a></span>
@@ -75,16 +75,15 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
             ?>
         </div>
 
-        <div style="padding:30px;">
-            <br/>
-            <span> Контакты : </span> <br/>
-            <?= $model->user->phone ?> <br/>
-            <?= $model->user->email ?> <br/>
-            <?= $model->user->skype ?>
-        </div>
+        <?php if (isset($model->user) && Yii::$app->user->id != $model->user_id): ?>
+            <div style="padding:30px;">
+                <br/>
+                <span> Контакты : </span> <br/>
+                <?= $model->user->phone ?> <br/>
+                <?= $model->user->email ?> <br/>
+                <?= $model->user->skype ?>
+            </div>
 
-
-        <?php if (Yii::$app->user->id != $model->user->id and isset($model->user->id)) { ?>
             <div>
                 <?php
                 echo $this->render('/messages/_form', array(
@@ -94,11 +93,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
                 ?>
             </div>
 
-        <?php }
-        ?>
-
-        <?php
-        ?>
+        <?php endif ?>
 
         <div class='related'><span><?= Yii::t('app', "Related adverts") ?>:</span>
             <?php echo ListView::widget(array(
