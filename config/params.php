@@ -2,45 +2,33 @@
  return array (
   'meta' => //Основные мета данные [hidden]
   array (
-    'it' => 
-    array (
-      'title' => 'Categoria "<cat_name>". Annunci gratuiti <site_name>. [page_number Pagina <page_number>]',
-      'description' => 'Bollettino di anunci <site_name>. <cat_name> comprare vendere. Pubblicità <adv_name>.',
-      'keywords' => 'annunci, comprare, vendere',
-    ),
-    'ru' => 
-    array (
-      'title' => 'Категория "<cat_name>". Бесплатная доска объявлений <site_name>. [page_number Страница <page_number>]',
-      'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
-      'keywords' => 'объявления, купить, продать',
-    ),
-    'en' => 
-    array (
-      'title' => 'Категория "<cat_name>". Бесплатная доска объявлений <site_name>. [page_number Страница <page_number>]',
-      'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
-      'keywords' => 'объявления, купить, продать',
-    ),
+    'ru-RU' =>
+        array(
+            'title' => 'Категория "<cat_name>". Бесплатная доска объявлений <site_name>. [page_number Страница <page_number>]',
+            'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
+            'keywords' => 'объявления, купить, продать',
+        ),
+      'en-EN' =>
+          array(
+              'title' => 'Категория "<cat_name>". Бесплатная доска объявлений <site_name>. [page_number Страница <page_number>]',
+              'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
+              'keywords' => 'объявления, купить, продать',
+          ),
   ),
   'adv_meta' => //Основные мета данные [hidden]//Мета данные для вывода объявления [hidden]
   array (
-    'it' => 
-    array (
-      'title' => 'Bollettino di  annunci. <cat_name> comprare vendere. Pubblicità <adv_name>.',
-      'description' => 'Bollettino di  annunci. <cat_name> comprare vendere. Pubblicità <adv_name>.',
-      'keywords' => 'annunci, comprare, vendere',
-    ),
-    'ru' => 
-    array (
-      'title' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
-      'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
-      'keywords' => 'объявления, купить, продать',
-    ),
-    'en' => 
-    array (
-      'title' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
-      'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
-      'keywords' => 'объявления, купить, продать',
-    ),
+      'ru-RU' =>
+          array(
+              'title' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
+              'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
+              'keywords' => 'объявления, купить, продать',
+          ),
+      'en-EN' =>
+          array(
+              'title' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
+              'description' => 'Доска объявлений. <cat_name> купить продать. Объявление <adv_name>.',
+              'keywords' => 'объявления, купить, продать',
+          ),
   ),
   'moder_type' => '0',//Тип модерации:  [options|0(постмодерация)|1(премодерация)]
   'stop_words' => //Список запрещеных слов [dinamic] [hidden]
