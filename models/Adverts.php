@@ -72,6 +72,11 @@ class Adverts extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
+    public function getUserName()
+    {
+        return ($this->user) ? $this->user->username : 'Автор';
+    }
+
     public function getCategory()
     {
         return $this->hasOne(Category::class, ['category_id' => 'id']);
@@ -80,7 +85,8 @@ class Adverts extends \yii\db\ActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),

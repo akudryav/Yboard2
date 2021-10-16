@@ -29,7 +29,7 @@ $this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $mod
     <div class='date'>
         <span><a href='<?php echo Url::to(['user/view', 'id' => $model->user_id])
             ?>'>
-                <i class='fa fa-user'></i><?= $model->user->username ?>
+                <i class='fa fa-user'></i><?= $model->username ?>
             </a></span>
         <span><i class='fa fa-clock-o'></i>
             <?= Yii::$app->formatter->asDateTime($model->created_at) ?>
