@@ -1,13 +1,12 @@
 <?php
-
-use yii\base\Model;
+namespace app\models\forms;
 
 /**
  * UserRecoveryForm class.
  * UserRecoveryForm is the data structure for keeping
  * user recovery form data. It is used by the 'recovery' action of 'UserController'.
  */
-class UserRecoveryForm extends Model
+class UserRecoveryForm extends \yii\base\Model
 {
 
     public $login_or_email, $user_id;

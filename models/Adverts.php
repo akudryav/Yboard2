@@ -69,12 +69,12 @@ class Adverts extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['category_id' => 'id']);
+        return $this->hasOne(Category::class, ['category_id' => 'id']);
     }
 
     /**
@@ -194,7 +194,7 @@ class Adverts extends \yii\db\ActiveRecord
                 'value' => new Expression('NOW()'),
             ],
             'galleryBehavior' => [
-                'class' => GalleryBehavior::className(),
+                'class' => GalleryBehavior::class,
                 'type' => 'product',
                 'tableName' => 'gallery_images',
                 'extension' => 'jpg',

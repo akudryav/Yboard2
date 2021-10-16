@@ -23,10 +23,10 @@ class AdvertsController extends DefaultController {
             // They can be accessed via: index.php?r=site/page&view=FileName
             'page' => array('class' => 'CViewAction',),
             'galleryApi' => [
-                'class' => GalleryManagerAction::className(),
+                'class' => GalleryManagerAction::class,
                 // mappings between type names and model classes (should be the same as in behaviour)
                 'types' => [
-                    'product' => Adverts::className()
+                    'product' => Adverts::class
                 ]
             ],
         );

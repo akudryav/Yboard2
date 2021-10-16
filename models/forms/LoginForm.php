@@ -5,11 +5,13 @@
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
 
-namespace app\models;
+namespace app\models\forms;
 
 use Yii;
+use app\models\User;
 
-class UserLogin extends \yii\base\Model {
+class LoginForm extends \yii\base\Model
+{
 
     public $username;
     public $password;
@@ -54,7 +56,7 @@ class UserLogin extends \yii\base\Model {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, Yii::t('app', 'Incorrect username or password.'));
             }
         }
     }

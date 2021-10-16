@@ -10,7 +10,7 @@ use app\models\Adverts;
 
 class DefaultController extends Controller {
 
-    public $layout = 'main-template';
+    //public $layout = 'main-template';
     public $pageTitle = '';
 
     /**
@@ -38,29 +38,19 @@ class DefaultController extends Controller {
         parent::init();
     }
 
-    public function __construct($id, $module = null) {
+    public function __construct($id, $module = null)
+    {
 
         parent::__construct($id, $module);
-        if (!is_file(Yii::getAlias('@config/install'))) {
 
-            $this->settings = require Yii::getAlias('@config/params') . '.php';
-            $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
-            //$this->categories = $this->getCategories();
-
-            Yii::$app->params['categories'] = Category::getCategories();
-        } elseif (Yii::$app->getRequest()->getPathInfo() !== "site/install") {
-
-            //------------------- Start install------------------
-            return $this->actionInstall();
-
-        }
-
+        $this->settings = require Yii::getAlias('@config/params') . '.php';
+        $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
+        //$this->categories = $this->getCategories();
+        Yii::$app->params['categories'] = Category::getCategories();
         Yii::$app->params['meta'] = Yii::$app->params['meta'][Yii::$app->language];
 
         $this->meta = Yii::$app->params['meta'];
         $this->meta['vars']['site_name'] = Yii::$app->name;
-
-
 
         $query = Adverts::find()->where(['fixed' => 1])->limit(2);
         $this->fixedAdvers = new ActiveDataProvider(array(
@@ -73,12 +63,6 @@ class DefaultController extends Controller {
             ini_set("display_errors", 1);
         }
     }
-
-    public function actionInstall()
-    {
-        return "Default controller empty install";
-    }
-
 
     public function getBanner($var = false) {
         $debug = "";

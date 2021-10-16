@@ -1,12 +1,13 @@
 <?php
-namespace app\models;
+namespace app\models\forms;
 
 /**
  * ContactForm class.
  * ContactForm is the data structure for keeping
  * contact form data. It is used by the 'contact' action of 'SiteController'.
  */
-class ContactForm extends \yii\base\Model {
+class ContactForm extends \yii\base\Model
+{
 
     public $name;
     public $email;

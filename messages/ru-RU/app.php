@@ -120,7 +120,7 @@ return array(
     'List pages' => 'Список страниц',
     'Pages' => 'Страницы',
     'Please fill out the following form with your login credentials:' => "Пожалуйста, заполните следующую форму с вашими учетными данными для входа:",
-    'username or email' => "Емайл",
+    'username or email' => "Логин или Емайл",
     'password' => "Пароль",
     'Remember me next time' => 'Запомнить меня',
     'Lost Password?' => 'Забыли пароль?',

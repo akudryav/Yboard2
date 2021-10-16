@@ -76,9 +76,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-
+        if (strpos($username, '@')) {
+            return static::findOne(['email' => $username]);
+        }
         return static::findOne(['username' => $username]);
-
     }
 
     /**
@@ -234,12 +235,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         );
     }
 
-    public function defaultScope() {
-        return CMap::mergeArray(Yii::$app->getModule('user')->defaultScope, array(
-            'alias' => 'user',
-        ));
-    }
-
     public static function itemAlias($type, $code = NULL) {
         $_items = array(
             'UserStatus' => array(
@@ -300,10 +295,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $return_name;
     }
 
-    public static function getUserByName($username) {
-        return self::findByAttributes(array('username' => $username));
-    }
-
     public function getCreatetime() {
         return strtotime($this->create_at);
     }
@@ -321,7 +312,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     public function getAdverts(){
-        return $this->hasMany( Adverts::className(), ['customer_id' => 'id']);
+        return $this->hasMany(Adverts::class, ['customer_id' => 'id']);
     }
 
 }

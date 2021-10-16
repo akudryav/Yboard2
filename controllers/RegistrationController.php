@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\helpers\Html;
-use app\models\RegistrationForm;
+use app\models\forms\RegistrationForm;
 
 class RegistrationController extends DefaultController {
 
@@ -25,7 +25,8 @@ class RegistrationController extends DefaultController {
     /**
      * Registration user
      */
-    public function actionRegistration() {
+    public function actionIndex()
+    {
         $model = new RegistrationForm;
 
 

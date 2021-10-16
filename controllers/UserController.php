@@ -68,12 +68,7 @@ class UserController extends DefaultController {
 
         $query = User::find()->where(['status', '>', User::STATUS_BANNED]);
 
-        $dataProvider = new ActiveDataProvider('User', array(
-            'query' => $query,
-            'pagination' => array(
-                'pageSize' => Yii::$app->controller->module->user_page_size,
-            ),
-        ));
+        $dataProvider = new ActiveDataProvider('User');
 
         return $this->render('index', array(
             'dataProvider' => $dataProvider,

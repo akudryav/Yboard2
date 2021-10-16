@@ -3,16 +3,19 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\forms\UserRecoveryForm;
+use app\models\forms\UserChangePassword;
 
-
-class RecoveryController extends DefaultController {
+class RecoveryController extends DefaultController
+{
 
     public $defaultAction = 'recovery';
 
     /**
      * Recovery password
      */
-    public function actionRecovery() {
+    public function actionRecovery()
+    {
         $form = new UserRecoveryForm;
         if (Yii::$app->user->id) {
             $this->redirect(Yii::$app->controller->module->returnUrl);

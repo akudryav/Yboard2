@@ -206,7 +206,7 @@ class Category extends \yii\db\ActiveRecord
     public function behaviors() {
         return [
             'tree' => [
-                'class' => NestedSetsBehavior::className(),
+                'class' => NestedSetsBehavior::class,
                 // 'treeAttribute' => 'tree',
                 // 'leftAttribute' => 'lft',
                 // 'rightAttribute' => 'rgt',
