@@ -1,14 +1,9 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
+
 use yii\grid\GridView;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array_merge(array(
-        'Cms' => array('cms/view')), $page->adminBreadcrumbs
-    )
-]);
 
 echo Menu::widget([
     'items' =>array(

@@ -73,9 +73,9 @@ class AdvertsController extends DefaultController {
             ->join('inner join', 'favorites', 't.id=favorites.obj_id ')
             ->where(['user_id' => Yii::$app->user->id ]);
 
-        $dataProvider = new ActiveDataProvider( array(
+        $dataProvider = new ActiveDataProvider([
             'query' => $query
-        ));
+        ]);
 
 
         return $this->render('index', array(
@@ -363,9 +363,9 @@ class AdvertsController extends DefaultController {
 
         $query = Adverts::find()->where(['user_id' => $id])->orderBy('sort', 'desc');
 
-        $dataProvider = new ActiveDataProvider('Adverts', array(
-            'query' =>$query,
-        ));
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
 
         return $this->render('index', array(
             //'model'=>$this->loadCategory($cat_id),

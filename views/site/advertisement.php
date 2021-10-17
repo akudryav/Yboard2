@@ -6,7 +6,6 @@ use yii\helpers\Html;
 
 
 $this->context->pageTitle = Yii::$app->name;
-echo Breadcrumbs::widget( array() );
 $this->breadcrumbs[] = Html::encode($model->name);
 ?>
 

@@ -2,16 +2,14 @@
 /* @var $this ReviewsController */
 /* @var $model Reviews */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget( [
-        'links' => array(
+$this->params['breadcrumbs'] = array(
     ['label' => 'Reviews', 'url' => array('index')],
-    ['label' => $model->id , 'url' => array('view', 'id' => $model->id)],
+    ['label' => $model->id, 'url' => array('view', 'id' => $model->id)],
     'Update',
-)
-]);
+);
 
 echo Menu::widget([
     'items' => array(

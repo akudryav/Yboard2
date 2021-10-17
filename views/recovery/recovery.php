@@ -1,9 +1,9 @@
 <?php
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Restore");
-echo Breadcrumbs::widget(array(
+$this->params['breadcrumbs'] = array(
     Yii::t('app', "Login") => array('/user/login'),
     Yii::t('app', "Restore"),
-));
+);
 ?>
 
     <h1><?php echo Yii::t('app', "Restore"); ?></h1>

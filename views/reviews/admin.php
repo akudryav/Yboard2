@@ -2,17 +2,15 @@
 /* @var $this ReviewsController */
 /* @var $model Reviews */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        'Reviews' => array('index'),
-        'Manage',
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    'Reviews' => array('index'),
+    'Manage',
+);
 
 echo Menu::widget([
     'items' => array(

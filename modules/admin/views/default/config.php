@@ -7,9 +7,7 @@
 use app\components\configer\Configer;
 
 $this->context->pageTitle = Yii::$app->name . ' - Настройки';
-echo Breadcrumbs::widget(array(
-    'Настройки',
-));
+
 ?>
 
 <h1>Настройки</h1>

@@ -2,16 +2,13 @@
 /* @var $this FavoritesController */
 /* @var $model Favorites */
 
-use yii\widgets\Breadcrumbs;
 use yii\grid\GridView;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        'Favorites' => array('index'),
-        'Manage',
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    'Favorites' => array('index'),
+    'Manage',
+);
 
 echo Menu::widget([
     'items' =>array(

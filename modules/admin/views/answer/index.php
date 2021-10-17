@@ -2,16 +2,13 @@
 /* @var $this AnswerController */
 /* @var $dataProvider ActiveDataProvider */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\ListView;
 use yii\widgets\Menu;
 
-
-echo Breadcrumbs::widget([
-       'links' =>  array(
+$this->params['breadcrumbs'] = array(
     Yii::t('lang', 'Answers'),
-)
-]);
+);
 
 echo Menu::widget([
     'items' =>array(
@@ -28,8 +25,4 @@ echo ListView::widget( array(
     'dataProvider' => $dataProvider,
     'itemView' => '_view',
 ));
-?>
-
-
-<?php
 ?>

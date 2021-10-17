@@ -53,10 +53,10 @@ class DefaultController extends Controller {
         $this->meta['vars']['site_name'] = Yii::$app->name;
 
         $query = Adverts::find()->where(['fixed' => 1])->limit(2);
-        $this->fixedAdvers = new ActiveDataProvider(array(
+        $this->fixedAdvers = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false,
-        ));
+        ]);
 
         if (isset($_COOKIE['YII_DEBUG'])) {
             error_reporting(E_ALL ^ E_NOTICE);

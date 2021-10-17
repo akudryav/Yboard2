@@ -2,17 +2,14 @@
 /* @var $this MessagesController */
 /* @var $model Messages */
 
-use yii\widgets\Breadcrumbs;
 use yii\widgets\DetailView;
 use yii\widgets\Menu;
 
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        'Messages' => array('index'),
-        $model->id,
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    'Messages' => array('index'),
+    $model->id,
+);
 
 echo Menu::widget([
     'items' =>array(

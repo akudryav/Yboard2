@@ -1,14 +1,12 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
 use yii\bootstrap\Button;
 
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Registration");
-echo Breadcrumbs::widget([
-    "links" => ["label" => Yii::t('app', "Registration"),]
-]);
+$this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];
 ?>
 
     <h1><?php echo Yii::t('app', "Registration"); ?></h1>
@@ -88,10 +86,7 @@ echo Breadcrumbs::widget([
         */
         ?>
         <div>
-            <?php echo $form->field($model, 'verifyCode')->textInput(); ?>
-
-            <p class="hint"><?php echo Yii::t('app', "Please enter the letters as they are shown in the image above."); ?>
-                <br/><?php echo Yii::t('app', "Letters are not case-sensitive."); ?></p>
+            <?php echo $form->field($model, 'verifyCode')->widget(Captcha::class) ?>
         </div>
 
 

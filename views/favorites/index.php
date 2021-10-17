@@ -3,12 +3,11 @@
 /* @var $dataProvider ActiveDataProvider */
 
 use yii\widgets\ListView;
-use yii\widgets\Breadcrumbs;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget( array(
+$this->params['breadcrumbs'] = array(
     'Favorites',
-) );
+);
 
 echo Menu::widget([
     'items' => array(

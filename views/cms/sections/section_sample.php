@@ -1,9 +1,7 @@
 <?php
-use yii\widgets\Breadcrumbs;
 
-echo Breadcrumbs::widget([
-        'links' => $page->breadcrumbs
-]);
+
+$this->params['breadcrumbs'] = $page->breadcrumbs;
 
 ?>
 <div style="background-color:#DDD">

@@ -1,12 +1,9 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        'Install Site Structure mosule',
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    'Install Site Structure mosule',
+);
 ?>
 <h1>Install Site Structure module</h1>
 
@@ -21,6 +18,4 @@ echo Breadcrumbs::widget([
 
 <p><?php if ($result) echo $result; ?></p>
 
-<?php
-?>
 

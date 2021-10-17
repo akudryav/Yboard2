@@ -49,4 +49,16 @@ class WebUser extends User
         else
             return hash($hash, $string . $salt);
     }
+
+    public function isAdmin()
+    {
+        if (Yii::$app->user->isGuest)
+            return false;
+        else {
+            if (User::findOne($this->id)->superuser)
+                return true;
+            else
+                return false;
+        }
+    }
 }

@@ -1,17 +1,15 @@
 <?php
 
 use rmrevin\yii\ulogin\ULogin;
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
 
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Login");
-echo Breadcrumbs::widget([
-    "links" => [
-        Yii::t('app', "Login"),
-    ],
-]);
+$this->params['breadcrumbs'] = [
+    Yii::t('app', "Login"),
+];
 ?>
 
 <h1><?php echo Yii::t('app', "Login"); ?></h1>

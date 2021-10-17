@@ -1,13 +1,8 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget( array(
-    ['label' => Yii::t('app', 'Users'), 'url' => array('index')],
-    $model->username,
-) );
-$this->layout = '//main-template';
+
 echo Menu::widget([
     'items' => array(
         array('label' => Yii::t('app', 'List User'), 'icon' => 'icon-list', 'url' => array('index')),

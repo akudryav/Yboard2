@@ -4,14 +4,11 @@
 /* @var $dataProvider ActiveDataProvider */
 
 use yii\widgets\ListView;
-use yii\widgets\Breadcrumbs;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        Yii::t('lang', 'Bulletins'),
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    Yii::t('lang', 'Bulletins'),
+);
 
 echo Menu::widget([
     'items' => array(

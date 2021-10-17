@@ -4,13 +4,13 @@
 /** @var BootActiveForm $form */
 
 use yii\widgets\ListView;
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Button;
 
-echo Breadcrumbs::widget( array(
+$this->params['breadcrumbs'] = array(
     Yii::t('main', 'Answers'),
-) );
+);
 ?>
 <h1><?php echo Yii::t('main', 'Answers'); ?></h1>
 

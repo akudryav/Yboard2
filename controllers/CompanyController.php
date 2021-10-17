@@ -43,9 +43,9 @@ class CompanyController extends DefaultController {
 
         $query = Profile::find()->limit(10);
 
-        $dataProvider = new ActiveDataProvider( array(
+        $dataProvider = new ActiveDataProvider([
             'query' => $query
-        ));
+        ]);
 
         return $this->render('index', array(
             'dataProvider' => $dataProvider,

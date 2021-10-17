@@ -1,15 +1,13 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        'Cms' => array('index'),
-        $model->name => array('view', 'id' => $model->id),
-        'Update',
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    'Cms' => array('index'),
+    $model->name => array('view', 'id' => $model->id),
+    'Update',
+);
 
 echo Menu::widget([
     'items' => array(

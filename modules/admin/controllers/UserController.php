@@ -66,9 +66,9 @@ class UserController extends DefaultController {
     public function actionIndex() {
 
 
-        $query = User::find()->where(['status', '>', User::STATUS_BANNED]);
+        $query = User::find()->where(['>', 'status', User::STATUS_BANNED]);
 
-        $dataProvider = new ActiveDataProvider('User');
+        $dataProvider = new ActiveDataProvider(['query' => $query]);
 
         return $this->render('index', array(
             'dataProvider' => $dataProvider,

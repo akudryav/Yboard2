@@ -2,19 +2,12 @@
 /* @var $this BulletinController */
 /* @var $model Bulletin */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\grid\GridView;
 use yii\widgets\Menu;
 use yii\helpers\Html;
 use yii\grid\SerialColumn;
 
-
-echo Breadcrumbs::widget( /*
-        array(
-    Yii::t('lang', 'Bulletins') => array('index'),
-    Yii::t('lang', 'Manage'),
-)*/
- );
 
 echo Menu::widget([
     'items' => array(

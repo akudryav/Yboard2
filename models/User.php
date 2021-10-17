@@ -10,15 +10,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_NOACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_BANNED = -1;
-    //TODO: Delete for next version (backward compatibility)
-    const STATUS_BANED = -1;
+    const STATUS_ADMIN = 2;
 
     public $full_name;
     public $skype;
     public $username;
     public $auth_key;
-
-    const USERS_PROCESSING = 10;
 
     /**
      * The followings are the available columns in table 'users':
@@ -26,10 +23,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      * @var string $username
      * @var string $password
      * @var string $email
-     * @var string $activkey
-     * @var integer $createtime
-     * @var integer $lastvisit
-     * @var integer $superuser
      * @var integer $status
      * @var timestamp $create_at
      * @var timestamp $lastvisit_at
@@ -41,20 +34,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return 'users';
     }
 
-    public function can($permissionName, $params = [], $allowCaching = true)
-    {
-        die("web user");
-    }
-
     /**
-     * Finds an identity by the given ID.
-     *
-     * @param string|int $id the ID to be looked for
-     * @return IdentityInterface|null the identity object that matches the given ID.
+     * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return static::findOne($id);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -77,9 +62,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         if (strpos($username, '@')) {
-            return static::findOne(['email' => $username]);
+            return static::findOne(['email' => $username, 'status' => self::STATUS_ACTIVE]);
         }
-        return static::findOne(['username' => $username]);
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -87,7 +72,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->getPrimaryKey();
     }
 
     /**
@@ -116,7 +101,25 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
 
@@ -124,7 +127,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->auth_key = Yii::$app->security->generateRandomString();
+                $this->generateAuthKey();
             }
             return true;
         }
@@ -132,68 +135,24 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return string the associated database table name
+     * @inheritdoc
      */
-
-
-    /**
-     * @return array validation rules for model attributes.
-     */
-    public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.CConsoleApplication
-
-        return array(
-            array('username', 'length', 'max' => 20, 'min' => 3,
-                'message' => Yii::t('app', "Incorrect username (length between 3 and 20 characters).")),
-            array('password', 'length', 'max' => 128, 'min' => 4,
-                'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")),
-            array('email', 'email'),
-            array('username', 'unique', 'message' => Yii::t('app', "This user's name already exists.")),
-            array('email', 'unique', 'message' => Yii::t('app', "This user's email address already exists.")),
-            //array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u','message' => t("Incorrect symbols (A-z0-9).")),
-            array('status', 'in', 'range' => array(self::STATUS_NOACTIVE, self::STATUS_ACTIVE, self::STATUS_BANNED)),
-            array('superuser', 'in', 'range' => array(0, 1)),
-            array('create_at', 'default', 'value' => date('Y-m-d H:i:s'),
-                'setOnEmpty' => true, 'on' => 'insert'),
-            array('lastvisit_at', 'default', 'value' => date('Y-m-d H:i:s'),
-                'setOnEmpty' => true, 'on' => 'insert'),
-            array('username, email, superuser, status', 'required'),
-            array('superuser, status', 'numerical', 'integerOnly' => true),
-            array('location, contacts, skype', 'type', 'type' => 'string'),
-            array('lastvisit_at, birthday, create_at', 'date', 'format' => array('yyyy-MM-dd', 'yyyy-MM-dd hh:mm:ss')),
-            //array('phone', 'match', 'pattern' => '/^[-\+0-9 ]+$/'),
-            array(['id', ' username', ' password', ' email', ' activkey', ' create_at', ' birthday', ' location', ' phone', ' skype', ' contacts', ' lastvisit_at', ' superuser', ' status'], 'safe'),
-        );
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        /*
-          $relations = Yii::$app->getModule('user')->relations;
-          if (!isset($relations['profile']))
-          $relations['profile'] = array(self::HAS_ONE, 'Profile', 'user_id');
-          return $relations;
-         * 
-         */
-        return array();
-    }
-
-    static function usersPage($page = 0) {
-        $criteria = new CDbCriteria();
-        $criteria->compare('status', USER::STATUS_ACTIVE);
-        $criteria->limit = self::USERS_PROCESSING;
-        $criteria->offset = self::USERS_PROCESSING * $users_pagem;
-
-        return self::findAll($criteria);
+    public function rules()
+    {
+        return [
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOACTIVE, self::STATUS_BANNED]],
+            ['create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'on' => 'insert'],
+            ['lastvisit_at', 'default', 'value' => null, 'on' => 'insert'],
+            ['username', 'safe', 'on' => 'insert'],
+        ];
     }
 
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'id' => Yii::t('app', "Id"),
             'username' => Yii::t('app', "username"),
@@ -202,10 +161,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'email' => Yii::t('app', "E-mail"),
             'verifyCode' => Yii::t('app', "Verification Code"),
             'activkey' => Yii::t('app', "activation key"),
-            'createtime' => Yii::t('app', "Registration date"),
             'create_at' => Yii::t('app', "Registration date"),
             'lastvisit_at' => Yii::t('app', "Last visit"),
-            'superuser' => Yii::t('app', "Superuser"),
             'status' => Yii::t('app', "Status"),
             'full_name' => Yii::t('app', "Full name"),
             'phone' => Yii::t('app', "phone"),
@@ -227,10 +184,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
                 'condition' => 'status=' . self::STATUS_BANNED,
             ),
             'superuser' => array(
-                'condition' => 'superuser=1 or superuser=2',
-            ),
-            'notsafe' => array(
-                'select' => 'id, username, password, email, activkey, create_at, lastvisit_at, superuser, status',
+                'condition' => 'status=' . self::STATUS_ADMIN,
             ),
         );
     }
@@ -280,27 +234,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $query->andFilterWhere('activkey', $this->activkey);
         $query->andFilterWhere('create_at', $this->create_at);
         $query->andFilterWhere('lastvisit_at', $this->lastvisit_at);
-        $query->andFilterWhere('superuser', $this->superuser);
         $query->andFilterWhere('status', $this->status);
 
         return $dataProvider;
     }
 
     public static function getAdmins() {
-        $admins = self::find()->where(['superuser'=>1])->all();
+        $admins = self::find()->where(['status' => 2])->all();
         $return_name = array();
         foreach ($admins as $admin)
             array_push($return_name, $admin->username);
 
         return $return_name;
-    }
-
-    public function getCreatetime() {
-        return strtotime($this->create_at);
-    }
-
-    public function setCreatetime($value) {
-        $this->create_at = date('Y-m-d H:i:s', $value);
     }
 
     public function getLastvisit() {

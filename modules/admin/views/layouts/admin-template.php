@@ -1,7 +1,7 @@
 <?php 
 use yii\helpers\Url;
 use yii\widgets\Menu;
-use yii\widgets\Breadcrumbs;
+
 
 
 ?><!DOCTYPE html>
@@ -159,23 +159,9 @@ use yii\widgets\Breadcrumbs;
                             <div class="page-content">
                                 <!-- Page Breadcrumb -->
                                 <div class="page-breadcrumbs">
-                                    <?php                                     /*
-                                    if (!isset($this->breadcrumbs))
-                                        echo Breadcrumbs::widget( array("Главная") );
-                                    /**/
-                                    echo Breadcrumbs::widget( array(
-                                            /*
-                                        'links' => $this->breadcrumbs,
-                                        'homeLink' => '<li><i class="fa fa-home"></i><a href="/yboard/view/">Админка</a></li>',
-                                        //'options' => array('class' => 'breadcrumb'),
-                                        /*
-                                        'inactiveLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
-                                        'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>',
-                                        'tagName' => 'ul',
-                                        'separator' => '',
-                                        */
-                                    ));
-                                    ?><!-- breadcrumbs -->
+                                    <?php echo Breadcrumbs::widget([
+                                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                    ]); ?>
                                 </div>
                                 <!-- /Page Breadcrumb -->
                                 <!-- Page Body -->

@@ -2,16 +2,14 @@
 /* @var $this AnswerController */
 /* @var $model Answer */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        AdminModule::t('Answers') => array('index'),
-        $model->id => array('view', 'id' => $model->id),
-        AdminModule::t('Update'),
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    AdminModule::t('Answers') => array('index'),
+    $model->id => array('view', 'id' => $model->id),
+    AdminModule::t('Update'),
+);
 
 echo Menu::widget([
     'items' => array(

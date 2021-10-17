@@ -53,9 +53,9 @@ class MessagesController extends DefaultController {
             ['and', ['sender_id' => Yii::$app->user->id, 'receiver_id'=>$user] ]
         ]);
 
-        $dataProvider = new ActiveDataProvider('Messages', array(
+        $dataProvider = new ActiveDataProvider([
             'query' => $query
-        ));
+        ]);
 
         $userData = User::findOne($user);
 

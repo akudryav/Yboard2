@@ -2,22 +2,20 @@
 /* @var $this SiteController */
 /* @var $model ContactForm */
 /* @var $form CActiveForm */
+
 /* @var $user User */
 
 use yii\widgets\ActiveForm;
 
 $this->context->pageTitle = Yii::$app->name . ' - Обратная связь';
-/*
-  $this->breadcrumbs=array(
-  'Обратная связь',
-  );
- */
-echo Breadcrumbs::widget( array(
-    'links' => array('', 'Обратная связь'),
-));
+$this->params['breadcrumbs'] = array(
+    'Обратная связь',
+);
+
+$this->params['breadcrumbs'] = array('Обратная связь');
 ?>
 
-<h1>Отправить сообщение <?php echo $user ? $user->username : 'администратору'; ?></h1>
+    <h1>Отправить сообщение <?php echo $user ? $user->username : 'администратору'; ?></h1>
 
 <?php if (Yii::$app->user->hasFlash('contact')): ?>
 

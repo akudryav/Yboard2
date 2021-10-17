@@ -109,21 +109,20 @@ class SiteController extends DefaultController
      */
     public function actionLogin()
     {
+        if (!Yii::$app->user->isGuest) {
+            $this->redirect(["site/index"]);
+        }
 
-        if (Yii::$app->user->isGuest) {
-
-            $model = new LoginForm();
-            $model->load(Yii::$app->request->post());
-            // collect user input data
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post())) {
             if ($model->login()) {
                 return $this->goBack();
             }
+        }
 
+        // display the login form
+        return $this->render('/user/login', ['model' => $model]);
 
-            // display the login form
-            return $this->render('/user/login', array('model' => $model));
-        } else
-            $this->redirect(array("site/index"));
     }
 
     public function uloginSuccessCallback($attributes)

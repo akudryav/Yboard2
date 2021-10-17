@@ -1,13 +1,8 @@
 <?php
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\ListView;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        'Cms',
-    )
-]);
 
 echo Menu::widget([
     'items' => array(

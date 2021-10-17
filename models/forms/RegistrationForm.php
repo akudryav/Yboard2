@@ -3,7 +3,7 @@
 namespace app\models\forms;
 
 use Yii;
-
+use app\models\User;
 /**
  * RegistrationForm class.
  * RegistrationForm is the data structure for keeping
@@ -20,22 +20,54 @@ class RegistrationForm extends \yii\base\Model
 
     public function rules()
     {
-        $rules = array(
-
-            array(['username', 'password', 'verifyPassword', 'email'], 'required'),
-            ['username', 'string', 'length' => [3, 20], 'message' => Yii::t('app', "Incorrect username (length between 3 and 20 characters).")],
-            ['password', 'string', 'length' => [4, 128], 'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")],
-            array('email', 'email'),
-            array('email', 'unique', 'message' => Yii::t('app', "This user's email address already exists.")),
-            array('username', 'unique', 'message' => Yii::t('app', "This username already exists.")),
-            array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'on' => 'insert'),
-            array('lastvisit_at', 'default', 'value' => null, 'on' => 'insert'),
-            //array('verifyPassword', 'compare', 'compareAttribute'=>'password', 'message' => t("Retype Password is incorrect.")),
-            array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z0-9).")),
-
-        );
-
-        return $rules;
+        return [
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app', "This username already exists.")],
+            ['username', 'string', 'min' => 3, 'max' => 20],
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app', "This user's email address already exists.")],
+            ['password', 'required'],
+            ['password', 'string', 'min' => 6],
+            ['username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z0-9).")],
+            ['verifyCode', 'captcha'],
+        ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', "Id"),
+            'username' => Yii::t('app', "username"),
+            'password' => Yii::t('app', "password"),
+            'verifyPassword' => Yii::t('app', "Retype Password"),
+            'email' => Yii::t('app', "E-mail"),
+            'verifyCode' => Yii::t('app', "Verification Code"),
+        ];
+    }
+
+    /**
+     * Signs user up.
+     *
+     * @return User|null the saved model or null if saving fails
+     */
+    public function signup()
+    {
+
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        return $user->save() ? $user : null;
+    }
+
 
 }

@@ -3,14 +3,12 @@
 /* @var $dataProvider ActiveDataProvider */
 
 use yii\widgets\ListView;
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        Yii::t('app', 'Messages'),
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    Yii::t('app', 'Messages'),
+);
 
 echo Menu::widget([
     'items' => array(

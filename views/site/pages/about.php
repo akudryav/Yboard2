@@ -2,9 +2,7 @@
 /* @var $this SiteController */
 
 $this->context->pageTitle = Yii::$app->name . ' - Правила работы';
-echo Breadcrumbs::widget( array(
-    'links' => array('', 'Правила работы'),
-));
+$this->params['breadcrumbs'] = array('Правила работы');
 ?>
 <h1>Правила работы с "Доской объявлений".</h1>
 

@@ -2,13 +2,13 @@
 /* @var $this BulletinController */
 /* @var $model Bulletin */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget( array(
+$this->params['breadcrumbs'] = array(
     Yii::t('lang', 'Bulletins') => array('index'),
     Yii::t('lang', 'Create'),
-) );
+);
 
 echo Menu::widget([
     'items' =>array(

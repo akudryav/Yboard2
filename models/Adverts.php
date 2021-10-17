@@ -181,12 +181,12 @@ class Adverts extends \yii\db\ActiveRecord
             }
         }
 
-        return new ActiveDataProvider(array(
+        return new ActiveDataProvider([
             'query' => $criteria,
             'pagination' => [
                 'pageSize' => 2,
             ],
-        ));
+        ]);
 
     }
 

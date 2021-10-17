@@ -1,15 +1,14 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
 $path = $model->getAdminBreadcrumbs(true);
 
-echo Breadcrumbs::widget([
-    'links' => array_merge(array(
-        'Cms' => array('index'),
-    ), $path, array('View'))
-]);
+$this->params['breadcrumbs'] = array_merge(array(
+    'Cms' => array('index'),
+), $path, array('View')
+);
 
 echo Menu::widget([
     'items' =>array(

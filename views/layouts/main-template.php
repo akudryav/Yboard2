@@ -146,13 +146,9 @@ $this->beginPage();
                             ?>
                         </div>
                     </form>
-                    <?php if (isset($this->breadcrumbs)): ?>
-                        <?php
-                        echo Breadcrumbs::widget(array(
-                            'links' => $this->breadcrumbs,
-                        ));
-                        ?><!-- breadcrumbs -->
-                    <?php endif; ?>
+                    <?php echo Breadcrumbs::widget([
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ]); ?>
 
 
 

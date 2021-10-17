@@ -14,18 +14,16 @@
 -->
 <?php
 
-use yii\widgets\Breadcrumbs;
+
 use yii\grid\GridView;
 use yii\widgets\DetailView;
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget([
-    'links' => array(
-        Yii::t('lang', 'Categories') => array('index'),
-        $model->name => array('view', 'id' => $model->id),
-        Yii::t('lang', 'View Category'),
-    )
-]);
+$this->params['breadcrumbs'] = array(
+    Yii::t('lang', 'Categories') => array('index'),
+    $model->name => array('view', 'id' => $model->id),
+    Yii::t('lang', 'View Category'),
+);
 
 echo Menu::widget([
     'items' => array(

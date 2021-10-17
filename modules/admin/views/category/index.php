@@ -4,12 +4,12 @@
 /* @var $dataProvider ActiveDataProvider */
 
 use yii\widgets\ListView;
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget( array(
+$this->params['breadcrumbs'] = array(
     Yii::t('lang', 'Categories'),
-) );
+);
 
 echo Menu::widget([
     'items' => array(
@@ -27,16 +27,11 @@ $this->widget('application.widgets.JsTreeWidget', array('modelClassName' => 'Cat
     'themes' => array('theme' => 'apple', 'dots' => true, 'icons' => false),
     'plugins' => array('themes', 'html_data', 'contextmenu', 'crrm', 'dnd', 'cookies', 'ui')
 ));
-/*
-  echo ListView::widget( array(
+
+echo ListView::widget( array(
   'dataProvider' => $dataProvider,
   'itemView' => '_view',
   ));
- * 
- */
 ?>
 
-
-<?php
-?>
 

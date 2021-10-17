@@ -2,15 +2,15 @@
 /* @var $this CategoryController */
 /* @var $model Category */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\grid\GridView;
 use yii\widgets\Menu;
 use yii\helpers\Url;
 
-echo Breadcrumbs::widget( array(
-    ['label' => Yii::t('lang', 'Categories') , 'url' => array('index')],
+$this->params['breadcrumbs'] = array(
+    ['label' => Yii::t('lang', 'Categories'), 'url' => array('index')],
     Yii::t('lang', 'Manage'),
-) );
+);
 
 echo Menu::widget([
     'items' => array(

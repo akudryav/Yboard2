@@ -2,13 +2,13 @@
 /* @var $this AnswerController */
 /* @var $model Answer */
 
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\Menu;
 
-echo Breadcrumbs::widget( array(
-    ['label' => Yii::t('lang', 'Answers') , 'url' => array('index'),],
+$this->params['breadcrumbs'] = array(
+    ['label' => Yii::t('lang', 'Answers'), 'url' => array('index'),],
     Yii::t('lang', 'Create'),
-) );
+);
 
 echo Menu::widget([
     'items' => array(

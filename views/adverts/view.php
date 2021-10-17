@@ -8,13 +8,6 @@ use yii\widgets\ListView;
 
 $this->context->pageTitle = Yii::$app->name;
 
-/*
-echo Breadcrumbs::widget( array();
-if ($model->category->parent)
-    $this->breadcrumbs[$model->category->parent->name] = array('site/category', 'id' => $model->category->parent->id);
-$this->breadcrumbs[$model->category->name] = array('site/category', 'id' => $model->category->id);
-
-/**/
 
 ?>
 <div class="advert_full">

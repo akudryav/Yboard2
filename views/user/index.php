@@ -1,15 +1,14 @@
 <?php
 
-use yii\widgets\Breadcrumbs;
+
 use yii\grid\GridView;
 use yii\widgets\Menu;
 use yii\helpers\Html;
 
-echo Breadcrumbs::widget( array(
+$this->params['breadcrumbs'] = array(
     Yii::t('app', "Users"),
-) );
+);
 if (Yii::$app->user->isAdmin()) {
-    $this->layout = '//main-template';
     echo Menu::widget([
         'items' => array(
             array('label' => Yii::t('app', 'Manage Users'), 'icon' => 'icon-folder-open', 'url' => array('/user/view')),
@@ -36,8 +35,4 @@ echo GridView::widget(array(
         'lastvisit_at',
     ),
 ));
-?>
-
-
-<?php
 ?>
