@@ -15,25 +15,27 @@ class WebUser extends User
 {
     public function can($permissionName, $params = [], $allowCaching = true)
     {
-
-        if ($permissionName === "admin" and $this->identity->superuser) {
-            return true;
-        }
-
-        if ($permissionName === "permision" and $this->identity->superuser) {
-            return true;
-        }
-
-        if( $permissionName === "permision"  ){
-
-            if (class_exists("\\app\\models\\" . ucfirst(Yii::$app->controller->id))) {
-
-
+        /** @var \app\models\User $user */
+        $user = $this->identity;
+        $access = false;
+        do {
+            if (\Yii::$app->user->isGuest) {
+                break;
             }
 
-            return true;
-        }
+            if ($user->status === \app\models\User::STATUS_ADMIN) {
+                $access = true;
+                break;
+            }
 
+            if (is_array($permissionName)) {
+                $access = in_array($user->status, $permissionName);
+            } else {
+                $access = $permissionName === $user->status;
+            }
+        } while (false);
+
+        return $access;
     }
 
     public static function crypt($string = "") {

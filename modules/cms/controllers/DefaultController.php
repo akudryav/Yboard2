@@ -1,11 +1,22 @@
 <?php
+use app\models\User;
 
-class DefaultController extends Controller {
+class DefaultController extends yii\web\Controller
+{
 
-    public $layout = '//main-template';
-
-    public function actionIndex() {
-        return $this->render('index');
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'status' => [User::STATUS_ADMIN]
+                    ]
+                ]
+            ]
+        ];
     }
 
 }
