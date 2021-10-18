@@ -29,9 +29,11 @@ class RegistrationForm extends \yii\base\Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app', "This user's email address already exists.")],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app', "This email address already exists.")],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['verifyPassword', 'required'],
+            ['verifyPassword', 'compare', 'compareAttribute'=>'password', 'message'=>Yii::t('app', "Passwords don't match") ],
             ['username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z0-9).")],
             ['verifyCode', 'captcha'],
         ];

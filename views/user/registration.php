@@ -39,19 +39,15 @@ $this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];
 
 
         <div>
-
-            <?= $form->field($model, 'username')->textInput(); ?>
+            <?php echo $form->field($model, 'username')->textInput(); ?>
         </div>
 
         <div>
-            <?php echo $form->field($model, 'password')->textInput(); ?>
-            <p class="hint">
-                <?php echo Yii::t('app', "Minimal password length 4 symbols."); ?>
-            </p>
+            <?php echo $form->field($model, 'password')->passwordInput(); ?>
         </div>
 
         <div>
-            <?php echo $form->field($model, 'verifyPassword')->textInput(); ?>
+            <?php echo $form->field($model, 'verifyPassword')->passwordInput(); ?>
         </div>
 
         <div>

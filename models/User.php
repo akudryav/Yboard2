@@ -3,6 +3,7 @@ namespace app\models;
 
 use Yii;
 use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
 
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -12,11 +13,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_BANNED = -1;
     const STATUS_ADMIN = 2;
 
-    public $full_name;
-    public $skype;
-    public $username;
-    public $auth_key;
-
     /**
      * The followings are the available columns in table 'users':
      * @var integer $id
@@ -24,7 +20,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      * @var string $password
      * @var string $email
      * @var integer $status
-     * @var timestamp $create_at
+     * @var timestamp $created_at
      * @var timestamp $lastvisit_at
      */
 
@@ -32,6 +28,19 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return 'users';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'updatedAtAttribute' => false,
+            ],
+        ];
     }
 
     /**
@@ -92,7 +101,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
-
     /**
      * Validates password
      *
@@ -125,13 +133,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function beforeSave($insert)
     {
-        if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                $this->generateAuthKey();
-            }
-            return true;
+        if($insert) {
+            $this->generateAuthKey();
         }
-        return false;
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -140,11 +145,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'default', 'value' => self::STATUS_NOACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOACTIVE, self::STATUS_BANNED]],
-            ['create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'on' => 'insert'],
-            ['lastvisit_at', 'default', 'value' => null, 'on' => 'insert'],
-            ['username', 'safe', 'on' => 'insert'],
+            ['lastvisit_at', 'default', 'value' => null],
         ];
     }
 
@@ -157,18 +160,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'id' => Yii::t('app', "Id"),
             'username' => Yii::t('app', "username"),
             'password' => Yii::t('app', "password"),
-            'verifyPassword' => Yii::t('app', "Retype Password"),
             'email' => Yii::t('app', "E-mail"),
-            'verifyCode' => Yii::t('app', "Verification Code"),
-            'activkey' => Yii::t('app', "activation key"),
-            'create_at' => Yii::t('app', "Registration date"),
+            'created_at' => Yii::t('app', "Registration date"),
             'lastvisit_at' => Yii::t('app', "Last visit"),
             'status' => Yii::t('app', "Status"),
-            'full_name' => Yii::t('app', "Full name"),
-            'phone' => Yii::t('app', "phone"),
-            'birthday' => Yii::t('app', "birthday"),
-            'contacts' => Yii::t('app', "Contacts"),
-            'location' => Yii::t('app', "Location"),
         );
     }
 
@@ -231,8 +226,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $query->andFilterWhere('username', $this->username, true);
         $query->andFilterWhere('password', $this->password);
         $query->andFilterWhere('email', $this->email, true);
-        $query->andFilterWhere('activkey', $this->activkey);
-        $query->andFilterWhere('create_at', $this->create_at);
+        $query->andFilterWhere('created_at', $this->created_at);
         $query->andFilterWhere('lastvisit_at', $this->lastvisit_at);
         $query->andFilterWhere('status', $this->status);
 

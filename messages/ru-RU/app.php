@@ -100,7 +100,10 @@ return array(
     'birthday' => 'День рождения',
     'contacts' => 'Дополнительные контакты',
     'moderated' => 'Отмодерировано',
-    // Страницы 
+    'This email address already exists.' => 'Этот email уже используется',
+    'This username already exists.' => 'Это имя пользователя уже используется',
+    'Incorrect symbols (A-z0-9).' => 'Недопустимые символы (A-z0-9).',
+    // Страницы
     'Lft' => 'левый',
     'Rgt' => 'правый',
     'Level' => 'Уровень',
@@ -128,7 +131,8 @@ return array(
     'Verification Code' => 'Проверочный код',
     'Authorisation for members:' => 'Авторизация зарегистрированых пользователей:',
     'Advanced search' => 'Расширеный поиск',
-    'Minimal password length 4 symbols.' => 'Минимальная длина пароля 4 символа',
+    "Passwords don't match" => 'Пароли не совпадают',
+    'Incorrect username or password.' => 'Неверное имя пользователя или пароль.',
     'Registration' => 'Регистрация',
     // Сообщения
     'Write messages to' => 'Написать сообщение для ',

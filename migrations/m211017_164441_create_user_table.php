@@ -22,7 +22,7 @@ class m211017_164441_create_user_table extends Migration
             'email' => $this->string()->notNull()->unique(),
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
             'created_at' => $this->integer()->notNull(),
-            'lastvisit_at' => $this->integer()->notNull(),
+            'lastvisit_at' => $this->integer(),
         ]);
     }
 
