@@ -134,6 +134,7 @@ return array(
     "Passwords don't match" => 'Пароли не совпадают',
     'Incorrect username or password.' => 'Неверное имя пользователя или пароль.',
     'Registration' => 'Регистрация',
+    'Page is under construction' => 'Страница в процессе разработки',
     // Сообщения
     'Write messages to' => 'Написать сообщение для ',
     'Sender' => 'Отправитель ',
