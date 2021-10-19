@@ -42,7 +42,6 @@ class DefaultController extends Controller {
         $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
         //$this->categories = $this->getCategories();
         Yii::$app->params['categories'] = Category::getCategories();
-        Yii::$app->params['meta'] = Yii::$app->params['meta'][Yii::$app->language];
 
         $this->meta = Yii::$app->params['meta'];
         $this->meta['vars']['site_name'] = Yii::$app->name;
