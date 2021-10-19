@@ -13,7 +13,6 @@ use yii\widgets\ActiveForm;
     $form = ActiveForm::begin( array(
         'action' => Url::to($this->route),
         'method' => 'get',
-        'id' => 'verticalForm',
         'options' => array('class' => 'well'),
     ));
     ?>

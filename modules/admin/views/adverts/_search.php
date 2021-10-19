@@ -16,7 +16,6 @@ use yii\bootstrap\Button;
     $form = ActiveForm::begin( array(
         'action' => Url::to($this->context->route),
         'method' => 'get',
-        'id' => 'verticalForm',
         'options' => array('class' => 'well'),
     ));
     ?>

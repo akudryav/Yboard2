@@ -6,6 +6,8 @@
 /* @var $user User */
 
 use yii\widgets\ActiveForm;
+use yii\captcha\Captcha;
+use yii\helpers\Html;
 
 $this->context->pageTitle = Yii::$app->name . ' - Обратная связь';
 $this->params['breadcrumbs'] = array(
@@ -17,24 +19,13 @@ $this->params['breadcrumbs'] = array('Обратная связь');
 
     <h1>Отправить сообщение <?php echo $user ? $user->username : 'администратору'; ?></h1>
 
-<?php if (Yii::$app->user->hasFlash('contact')): ?>
-
-    <div class="flash-success">
-        <?php echo Yii::$app->session->getFlash('contact'); ?>
-    </div>
-
-<?php else: ?>
-
-    <p>
-
-    </p>
 
     <div class="form">
 
 
         <?php
         $form = ActiveForm::begin( array(
-            'id' => 'verticalForm',
+            'id' => 'conactForm',
             'options' => array('class' => 'well'),
         ));
         ?>
@@ -44,38 +35,27 @@ $this->params['breadcrumbs'] = array('Обратная связь');
 
         <?php echo $form->errorSummary($model); ?>
 
-        <div >
+        <div>
             <?php echo $form->field($model, 'name')->textInput(); ?>
         </div>
 
-        <div >
+        <div>
             <?php echo $form->field($model, 'email')->textInput(); ?>
         </div>
 
-        <div >
-            <?php echo $form->field($model, 'subject', array('size' => 60, 'maxlength' => 128))->textInput(); ?>
+        <div>
+            <?php echo $form->field($model, 'subject')->textInput(); ?>
         </div>
 
-        <div >
-            <?php echo $form->field($model, 'body', array('rows' => 6, 'cols' => 50))->textarea(); ?>
+        <div>
+            <?php echo $form->field($model, 'body')->textarea(['rows' => 6, 'cols' => 50]); ?>
         </div>
 
-        <?php if (CCaptcha::checkRequirements()): ?>
-            <div >
-                <?php echo $form->field($model, 'verifyCode')->textInput(); ?>
-                <div>
-                    <?php echo Captcha::widget(); ?>
-                    <?php echo $form->field($model, 'verifyCode')->textInput(); ?>
-                </div>
-                <div class="hint">Пожалуйста, введите буквы, показанные на картинке выше.
-                    <br/>Регистр значение не имеет.</div>
-                <?php echo $form->field($model, 'verifyCode')->textInput(); ?>
-            </div>
-        <?php endif; ?>
+        <div>
+            <?php echo $form->field($model, 'verifyCode')->widget(Captcha::class) ?>
+        </div>
 
-        <?php echo Button::widget( array('buttonType' => 'submit', 'label' => 'Отправить')); ?>
+        <?php echo Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
 
         <?php ActiveForm::end(); ?>
     </div><!-- form -->
-
-<?php endif; ?>

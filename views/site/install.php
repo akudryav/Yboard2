@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 <?php
 $form = ActiveForm::begin( array(
-    'id' => 'verticalForm',
+    'id' => 'installForm',
     'options' => array('class' => 'well'),
         ));
 ?>

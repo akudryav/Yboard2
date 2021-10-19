@@ -16,12 +16,6 @@ class AdvertsController extends DefaultController {
 
     public function actions() {
         return array(
-            //'importAdvertss' => 'application.controllers.site.ImportAdvertssAction' ,
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => array('class' => 'CCaptchaAction', 'backColor' => 0xFFFFFF,),
-            // page action renders "static" pages stored under 'protected/views/site/pages'
-            // They can be accessed via: index.php?r=site/page&view=FileName
-            'page' => array('class' => 'CViewAction',),
             'galleryApi' => [
                 'class' => GalleryManagerAction::class,
                 // mappings between type names and model classes (should be the same as in behaviour)

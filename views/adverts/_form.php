@@ -50,7 +50,7 @@ use zxbodya\yii2\galleryManager\GalleryManager;
             <script>
 
                 $("#locationName").autocomplete({
-                    source: baseUrl + "/site/location_list",
+                    source: "/site/location_list",
                     minLength: 2,
                     select: function (event, ui) {
                         $("#location").val(ui.item.id);
@@ -74,7 +74,7 @@ use zxbodya\yii2\galleryManager\GalleryManager;
 
         <?php
         /*
-          <div >
+          <div>
           <?php  echo $form->field($model, 'type'); ?>
           <?php
           echo Html::activeRadioButtonList($model, 'type', array(

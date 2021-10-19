@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Max
- * Date: 01.03.2019
- * Time: 23:32
- */
 
 namespace app\components;
 
@@ -19,7 +13,7 @@ class WebUser extends User
         $user = $this->identity;
         $access = false;
         do {
-            if (\Yii::$app->user->isGuest) {
+            if (Yii::$app->user->isGuest) {
                 break;
             }
 
@@ -38,10 +32,7 @@ class WebUser extends User
         return $access;
     }
 
-    public static function crypt($string = "") {
-
-        $hash = 'md5';
-
+    public static function crypt($string = "", $hash = 'md5') {
         $salt = "!~ALZ875(%";
 
         if ($hash == "md5")
@@ -57,10 +48,7 @@ class WebUser extends User
         if (Yii::$app->user->isGuest)
             return false;
         else {
-            if (User::findOne($this->id)->superuser)
-                return true;
-            else
-                return false;
+            return $this->identity->status === \app\models\User::STATUS_ADMIN;
         }
     }
 }

@@ -82,7 +82,7 @@ class advancedSearch extends Widget
         <script>
             $(window).load(function () {
                 $("#form_locationName").autocomplete({
-                    source: baseUrl + "/site/location_list",
+                    source: "/site/location_list",
                     minLength: 2,
                     select: function (event, ui) {
                         $("#form_location").val(ui.item.id);

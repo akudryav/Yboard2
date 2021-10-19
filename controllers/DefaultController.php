@@ -32,11 +32,6 @@ class DefaultController extends Controller {
         'location' => false,
         'cat_id' => false,
     );
-    public $indexAdv;
-
-    public function init() {
-        parent::init();
-    }
 
     public function __construct($id, $module = null)
     {

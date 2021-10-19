@@ -1,72 +1,41 @@
 <?php
+namespace app\components;
 
-class UloginUserIdentity implements IUserIdentity
+use Yii;
+use app\models\User;
+use app\models\Profile;
+
+class UloginUserIdentity
 {
-
-    private $id;
-    private $username;
-    private $isAuthenticated = false;
-    private $states = array();
 
     public function authenticate($uloginModel = null)
     {
+        $user = User::findByUsername($uloginModel->email);
 
-        $user = User::find()->where([
-            'identity' => $uloginModel->identity,
-            'network' => $uloginModel->network,
-        ])->one();
-
-
-        if (null !== $user) {
-            $this->id = $user->id;
-            if ($user->full_name)
-                $this->username = $user->full_name;
-            elseif ($user->username)
-                $this->username = $user->username;
-        } else {
+        if (null == $user) {
             $user = new User();
-            $user->identity = $uloginModel->identity;
-            $user->network = $uloginModel->network;
             $user->email = $uloginModel->email;
-            $user->full_name = $uloginModel->full_name;
-            $user->username = $uloginModel->full_name;
-            $user->password = md5($uloginModel->identity);
-            $user->create_at = date("Y-m-d H:i:s");
+            $user->username = $uloginModel->uid;
+            $pass = Yii::$app->security->generateRandomString();
+            $user->setPassword($pass);
+            $user->generateAuthKey();
 
-            $user->save();
+            if($user->save())
+            {
+                $profile = new Profile();
+                $profile->user_id = $user->id;
+                $profile->first_name = $uloginModel->first_name;
+                $profile->last_name = $uloginModel->last_name;
+                $profile->country = $uloginModel->country;
+                $profile->phone = $uloginModel->phone;
+                $profile->network = $uloginModel->network;
+                $profile->uid = $uloginModel->uid;
+                $profile->birthdate = (string)strtotime($uloginModel->bdate);
+                $profile->save();
+            }
 
-            /*
-              if(sizeof($user->erros)>0){
-              return false;
-              }
-             * 
-             */
-
-            $this->id = $user->id;
-            $this->name = $user->full_name;
         }
-        $this->isAuthenticated = true;
-        return true;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getIsAuthenticated()
-    {
-        return $this->isAuthenticated;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getPersistentStates()
-    {
-        return $this->states;
+        return $user;
     }
 
 }

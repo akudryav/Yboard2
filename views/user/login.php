@@ -5,7 +5,6 @@ use rmrevin\yii\ulogin\ULogin;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
-
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Login");
 $this->params['breadcrumbs'] = [
     Yii::t('app', "Login"),
@@ -39,7 +38,7 @@ $this->params['breadcrumbs'] = [
         // login providers that are shown when user clicks on additonal providers button
         'hidden' => [],
         // where to should ULogin redirect users after successful login
-        'redirectUri' => ['site/ulogin'],
+        'redirectUri' => ['user/ulogin'],
         // force use https in redirect uri
         'forceRedirectUrlScheme' => 'http',
         // optional params (can be ommited)
@@ -55,35 +54,24 @@ $this->params['breadcrumbs'] = [
     ?>
 
     <hr/>
-    <h3><?= Yii::t('app', 'Authorisation for members:') ?></h3>
+    <h3><?= Yii::t('app', 'Authorisation by login:') ?></h3>
 
-    <div class="form">
-        <?php
-        $form = ActiveForm::begin(array(
-            'id' => 'login-form',
-            'enableClientValidation' => true,
-        ));
-        ?>
+    <?php
+    $form = ActiveForm::begin(array(
+        'id' => 'login-form',
+        'enableClientValidation' => true,
+    ));
+    ?>
+    <?php echo $form->field($model, 'username') ?>
+    <?php echo $form->field($model, 'password')->passwordInput() ?>
+    <?php echo $form->field($model, 'rememberMe')->checkbox(); ?>
 
-        <div class="row">
-            <?php echo $form->field($model, 'username')->textInput(); ?>
-        </div>
+    <div class="form-group">
+        <?php echo Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary']); ?>
+        <?php echo Html::a(Yii::t('app', "Register"), ['user/registration'], ['class' => 'btn btn-info']); ?>
+        <?php echo Html::a(Yii::t('app', "Lost Password?"), ['user/recovery'], ['class' => 'btn btn-warning']); ?>
+    </div>
 
-        <div class="row">
-            <?php echo $form->field($model, 'password')->passwordInput(); ?>
-        </div>
+    <?php ActiveForm::end(); ?>
 
-        <div class="row rememberMe">
-            <?php echo $form->field($model, 'rememberMe')->checkbox(); ?>
-        </div>
-
-        <div class="row buttons">
-            <?php echo Html::submitButton('Login'); ?>
-        </div>
-
-        <?php ActiveForm::end(); ?>
-        <p class="hint">
-            <?php echo Html::a(Yii::t('app', "Register"), ['registration/index']); ?>
-            <?php echo Html::a(Yii::t('app', "Lost Password?"), []); ?>
-        </p>
-    </div><!-- form -->
+</div>

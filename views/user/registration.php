@@ -3,7 +3,7 @@
 
 use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
-use yii\bootstrap\Button;
+use yii\helpers\Html;
 
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Registration");
 $this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];
@@ -21,38 +21,13 @@ $this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];
         <?php
         $form = ActiveForm::begin(array(
             'id' => 'registration-form',
-            'enableAjaxValidation' => false,
-                //'disableAjaxValidationAttributes' => array('RegistrationForm_verifyCode'),
-                /*
-                  'clientOptions' => array(
-                  'validateOnSubmit' => true,
-                  ),
-                 * 
-                 */
-            'options' => array('enctype' => 'multipart/form-data'),
         ));
-
-
         ?>
-
-        <p class="note"><?php echo Yii::t('app', 'Fields with <span class="required">*</span> are required.'); ?></p>
-
-
-        <div>
-            <?php echo $form->field($model, 'username')->textInput(); ?>
-        </div>
-
-        <div>
-            <?php echo $form->field($model, 'password')->passwordInput(); ?>
-        </div>
-
-        <div>
-            <?php echo $form->field($model, 'verifyPassword')->passwordInput(); ?>
-        </div>
-
-        <div>
-            <?php echo $form->field($model, 'email')->textInput(); ?>
-        </div>
+        <?php echo $form->field($model, 'username'); ?>
+        <?php echo $form->field($model, 'password')->passwordInput(); ?>
+        <?php echo $form->field($model, 'verifyPassword')->passwordInput(); ?>
+        <?php echo $form->field($model, 'email'); ?>
+        <?php echo $form->field($model, 'verifyCode')->widget(Captcha::class) ?>
 
         <?php
         /*
@@ -81,17 +56,8 @@ $this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];
                 }
         */
         ?>
-        <div>
-            <?php echo $form->field($model, 'verifyCode')->widget(Captcha::class) ?>
-        </div>
-
-
-        <div class="row submit">
-            <?php
-            echo Button::widget(array(
-                'label' => "Зарегистрироваться"
-            ));
-            ?>
+        <div class="form-group">
+            <?php echo Html::submitButton(Yii::t('app', 'Register'), ['class' => 'btn btn-primary']); ?>
         </div>
 
         <?php ActiveForm::end(); ?>

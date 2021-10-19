@@ -38,7 +38,7 @@ foreach (Yii::$app->params['categories'] as $cat) {
 <div class="container">
 <?php
        echo ListView::widget([
-            'dataProvider' => $this->context->indexAdv,
+            'dataProvider' => $indexAdv,
             'itemView' => '/adverts/_view',
             'itemOptions' => ['class' => 'row']
         ]  );

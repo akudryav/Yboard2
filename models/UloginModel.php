@@ -1,64 +1,47 @@
 <?php
+namespace app\models;
+
+use Yii;
+use app\components\UloginUserIdentity;
 
 class UloginModel extends \yii\base\Model
 {
-
-    public $identity;
+    public $uid;
     public $network;
     public $email;
-    public $full_name;
-    public $token;
-    public $error_type;
-    public $error_message;
-    private $uloginAuthUrl = 'http://ulogin.ru/token.php?token=';
+    public $last_name;
+    public $first_name;
+    public $country;
+    public $phone;
+    public $bdate;
 
     public function rules() {
-        return array(
-            array('identity,network,token', 'required'),
-            array('email', 'email'),
-            array(['identity','network','email'], 'length', 'max' => 255),
-            array('full_name', 'length', 'max' => 55),
-        );
+        return [
+            [['uid', 'network', 'email', 'last_name', 'first_name'], 'required'],
+            ['email', 'email'],
+            [['country', 'phone', 'bdate'], 'string'],
+        ];
     }
 
     public function attributeLabels() {
         return array(
             'network' => 'Сервис',
-            'identity' => 'Идентификатор сервиса',
+            'uid' => 'Идентификатор сервиса',
             'email' => 'eMail',
-            'full_name' => 'Имя',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
         );
-    }
-
-    public function getAuthData() {
-
-        $authData = json_decode(file_get_contents($this->uloginAuthUrl . $this->token . '&host=' . $_SERVER['HTTP_HOST']), true);
-
-        $this->setAttributes($authData);
-
-        $this->full_name = $authData['first_name'] . ' ' . $authData['last_name'];
     }
 
     public function login() {
         $identity = new UloginUserIdentity();
-        if ($identity->authenticate($this)) {
+        $user = $identity->authenticate($this);
+        if ($user) {
             $duration = 3600 * 24 * 30;
-            Yii::$app->user->login($identity, $duration);
+            Yii::$app->user->login($user, $duration);
             return true;
         }
         return false;
-    }
-
-    public function attributeNames() {
-        return array(
-            'identity'
-            , 'network'
-            , 'email'
-            , 'full_name'
-            , 'token'
-            , 'error_type'
-            , 'error_message'
-        );
     }
 
 }
