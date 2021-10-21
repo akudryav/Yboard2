@@ -14,7 +14,7 @@ use rmrevin\yii\ulogin\AuthAction;
 /**
  * Контролер действий с пользователем
  */
-class UserController extends DefaultController
+class UserController extends Controller
 {
 
     public function actions()

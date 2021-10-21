@@ -6,7 +6,8 @@ use app\models\User;
 use Yii;
 
 
-class DefaultController extends BackendController {
+class DefaultController extends Controller
+{
 
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',

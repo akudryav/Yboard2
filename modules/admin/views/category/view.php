@@ -20,26 +20,23 @@ use yii\widgets\DetailView;
 use yii\widgets\Menu;
 
 $this->params['breadcrumbs'] = array(
-    Yii::t('lang', 'Categories') => array('index'),
+    Yii::t('app', 'Categories') => array('index'),
     $model->name => array('view', 'id' => $model->id),
-    Yii::t('lang', 'View Category'),
+    Yii::t('app', 'View Category'),
 );
 
 echo Menu::widget([
     'items' => array(
-        array('label' => Yii::t('lang', 'List Category'), 'icon' => 'icon-list', 'url' => array('index')),
-        array('label' => Yii::t('lang', 'Manage Category'), 'icon' => 'icon-folder-open', 'url' => array('view')),
-        array('label' => Yii::t('lang', 'Redact Category'), 'icon' => 'icon-folder-open', 'url' => array('update', 'id' => $model->id)),
+        array('label' => Yii::t('app', 'List Category'), 'icon' => 'icon-list', 'url' => array('index')),
+        array('label' => Yii::t('app', 'Manage Category'), 'icon' => 'icon-folder-open', 'url' => array('view')),
+        array('label' => Yii::t('app', 'Redact Category'), 'icon' => 'icon-folder-open', 'url' => array('update', 'id' => $model->id)),
     )
 ]);
 ?>
 
 
 <div class="page-header">
-    <h2> <?php echo Yii::t('lang', 'Category') . '  "' . $model->name . '"'; ?>    </h2>
-
-
-
+    <h2> <?php echo Yii::t('app', 'Category') . '  "' . $model->name . '"'; ?>    </h2>
 
 
     <?php

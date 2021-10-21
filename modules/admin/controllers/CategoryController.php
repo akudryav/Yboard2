@@ -7,21 +7,17 @@ use app\models\Category;
 use yii\widgets\ActiveForm;
 
 
+class CategoryController extends Controller
+{
 
-class CategoryController extends BackendController {
-
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout = '/view-template';
-    // public $title = 'Категории';
+    public $title = 'Категории';
 
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
@@ -107,7 +103,6 @@ class CategoryController extends BackendController {
         $last_level = 1;
 
 
-
         error_reporting(E_ALL ^ E_NOTICE);
         ini_set("display_errors", 1);
 
@@ -121,10 +116,8 @@ class CategoryController extends BackendController {
                 preg_match("#(\t*)(?=[^\s])#i", $cat, $m);
 
 
-
                 $cat_name = trim($cat);
                 $cat_level = strlen($m[0]) + 1;
-
 
 
                 if ($cat_level > 1) {
@@ -191,7 +184,6 @@ class CategoryController extends BackendController {
                     $levels_tab = array();
                     $last_level = 1;
                 }
-
 
 
                 echo $model->id . "  ";

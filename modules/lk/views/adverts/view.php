@@ -1,5 +1,6 @@
 <?php
 /* @var $this BulletinController */
+
 /* @var $model Bulletin */
 
 

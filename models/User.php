@@ -48,7 +48,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::find()
+            ->where(['id' => $id])
+            ->andWhere(['>', 'status', self::STATUS_NOACTIVE])
+            ->one();
     }
 
     /**
@@ -71,9 +74,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         if (strpos($username, '@')) {
-            return static::findOne(['email' => $username, 'status' => self::STATUS_ACTIVE]);
+            return static::find()
+                ->where(['email' => $username])
+                ->andWhere(['>', 'status', self::STATUS_NOACTIVE])
+                ->one();
         }
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::find()
+            ->where(['username' => $username])
+            ->andWhere(['>', 'status', self::STATUS_NOACTIVE])
+            ->one();
     }
 
     /**
@@ -233,13 +242,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $dataProvider;
     }
 
-    public static function getAdmins() {
-        $admins = self::find()->where(['status' => 2])->all();
-        $return_name = array();
-        foreach ($admins as $admin)
-            array_push($return_name, $admin->username);
-
-        return $return_name;
+    public static function getAdmins()
+    {
+        return self::find()->select('username')
+            ->where(['status' => self::STATUS_ADMIN])->asArray()->all();
     }
 
     public function getLastvisit() {

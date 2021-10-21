@@ -1,5 +1,6 @@
 <?php
 /* @var $this BulletinController */
+
 /* @var $model Bulletin */
 
 
@@ -34,7 +35,7 @@ echo Menu::widget([
 <?php
 
 
-echo GridView::widget( array(
+echo GridView::widget(array(
     'id' => 'bulletin-grid',
     'dataProvider' => $model->search(),
     'columns' => array(

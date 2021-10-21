@@ -12,9 +12,11 @@ use yii\data\SqlDataProvider;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 
-class AdvertsController extends DefaultController {
+class AdvertsController extends Controller
+{
 
-    public function actions() {
+    public function actions()
+    {
         return array(
             'galleryApi' => [
                 'class' => GalleryManagerAction::class,

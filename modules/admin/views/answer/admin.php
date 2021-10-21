@@ -7,14 +7,14 @@ use yii\helpers\Html;
 use yii\widgets\Menu;
 
 $this->params['breadcrumbs'] = array(
-    ['label' => Yii::t('lang', 'Answers'), 'url' => array('index')],
-    Yii::t('lang', 'Manage'),
+    ['label' => Yii::t('app', 'Answers'), 'url' => array('index')],
+    Yii::t('app', 'Manage'),
 );
 
 echo Menu::widget([
     'items' => array(
-        array('label' => Yii::t('lang', 'List Answer'), 'icon' => 'icon-list', 'url' => array('index')),
-        array('label' => Yii::t('lang', 'Create Answer'), 'icon' => 'icon-plus', 'url' => array('create')),
+        array('label' => Yii::t('app', 'List Answer'), 'icon' => 'icon-list', 'url' => array('index')),
+        array('label' => Yii::t('app', 'Create Answer'), 'icon' => 'icon-plus', 'url' => array('create')),
     )
 ]);
 
@@ -32,10 +32,11 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php Yii::t('lang', 'Manage Answers'); ?></h1>
+<h1><?php Yii::t('app', 'Manage Answers'); ?></h1>
 
 <p>
-    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>,
+    <b>&lt;&gt;</b>
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 

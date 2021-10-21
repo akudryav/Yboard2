@@ -1,22 +1,21 @@
 <?php
-use app\models\User;
 
-class DefaultController extends yii\web\Controller
+namespace app\modules\lk\controllers;
+
+class Controller extends \yii\web\Controller
 {
-
     public function behaviors()
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => \yii\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
-                        'status' => [User::STATUS_ADMIN]
+                        'roles' => ['@'],
                     ]
                 ]
             ]
         ];
     }
-
 }

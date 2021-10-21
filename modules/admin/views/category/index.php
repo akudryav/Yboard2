@@ -8,13 +8,13 @@ use yii\widgets\ListView;
 use yii\widgets\Menu;
 
 $this->params['breadcrumbs'] = array(
-    Yii::t('lang', 'Categories'),
+    Yii::t('app', 'Categories'),
 );
 
 echo Menu::widget([
     'items' => array(
-        array('label' => "<i class='fa fa-folder-open-o'></i>" . Yii::t('lang', 'Create Category'), 'url' => array('create'), "itemOptions" => array('class' => 'btn')),
-        array('label' => "<i class='fa fa-cogs'></i>" . Yii::t('lang', 'Manage Category'), 'url' => array('view'), "itemOptions" => array('class' => 'btn')),
+        array('label' => "<i class='fa fa-folder-open-o'></i>" . Yii::t('app', 'Create Category'), 'url' => array('create'), "itemOptions" => array('class' => 'btn')),
+        array('label' => "<i class='fa fa-cogs'></i>" . Yii::t('app', 'Manage Category'), 'url' => array('view'), "itemOptions" => array('class' => 'btn')),
         array('label' => "<i class='fa fa-spinner'></i>Обновить древо", 'url' => "javascript:void(0)", "itemOptions" => array('class' => 'btn', 'id' => 'reload')),
     )
 ]);

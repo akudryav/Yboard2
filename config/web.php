@@ -18,8 +18,8 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\AdminModule',
         ],
-        'cms' => [
-            'class' => 'app\modules\cms\CmsModule',
+        'lk' => [
+            'class' => 'app\modules\lk\LkModule',
             // ... другие настройки модуля ...
         ],
     ],
@@ -60,9 +60,6 @@ $config = [
                     'class' => 'yii\i18n\PhpMessageSource',
                     //'basePath' => '@app/messages',
                     //'sourceLanguage' => 'en-US',
-                    'fileMap' => [
-                        'lang' => 'lang.php',
-                    ],
                 ],
             ],
         ],
@@ -84,13 +81,11 @@ $config = [
                 'category/<cat_id:\d+>' => 'adverts/category',
                 'logout' => 'user/logout',
                 'login' => 'user/login',
-                '/banner_edit' => '/view/banners/edit',
-                '/banner_show' => '/view/banners/show',
                 'cat_fields/<cat_id:\d+>' => 'adverts/getfields',
                 'view/moderate/<adv_id:\d+>' => 'view/adverts/moderate/id/<adv_id>',
                 'category/<action:\w+>/' => 'view/category/<action>',
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                //'<controller:\w+>/<id:\d+>' => '<controller>/view',
+                //'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],
         ],
     ],

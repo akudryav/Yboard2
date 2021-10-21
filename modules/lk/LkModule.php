@@ -1,7 +1,7 @@
 <?php
-namespace app\modules\Cms;
+namespace app\modules\lk;
 
-class CmsModule extends \yii\base\Module
+class LkModule extends \yii\base\Module
 {
 
     public function init()

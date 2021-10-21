@@ -5,7 +5,8 @@ namespace app\controllers;
 use Yii;
 use yii\data\ActiveDataProvider;
 
-class ReviewsController extends DefaultController {
+class ReviewsController extends Controller
+{
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

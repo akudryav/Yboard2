@@ -5,7 +5,8 @@ namespace app\controllers;
 use Yii;
 use yii\data\ActiveDataProvider;
 
-class CompanyController extends DefaultController {
+class CompanyController extends Controller
+{
 
     /**
      * @var ActiveRecord the currently loaded data model instance.
@@ -15,7 +16,8 @@ class CompanyController extends DefaultController {
     /**
      * Shows a particular model.
      */
-    public function actionView() {
+    public function actionView()
+    {
         $model = $this->loadUser();
         return $this->render('profile', array(
             'model' => $model,

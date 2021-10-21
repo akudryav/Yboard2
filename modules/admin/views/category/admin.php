@@ -8,14 +8,14 @@ use yii\widgets\Menu;
 use yii\helpers\Url;
 
 $this->params['breadcrumbs'] = array(
-    ['label' => Yii::t('lang', 'Categories'), 'url' => array('index')],
-    Yii::t('lang', 'Manage'),
+    ['label' => Yii::t('app', 'Categories'), 'url' => array('index')],
+    Yii::t('app', 'Manage'),
 );
 
 echo Menu::widget([
     'items' => array(
-        array('label' => Yii::t('lang', 'List Category'), 'icon' => 'icon-list', 'url' => array('index'), "itemOptions" => array('class' => 'btn')),
-        array('label' => Yii::t('lang', 'Create Category'), 'icon' => 'icon-plus', 'url' => array('create'), "itemOptions" => array('class' => 'btn')),
+        array('label' => Yii::t('app', 'List Category'), 'icon' => 'icon-list', 'url' => array('index'), "itemOptions" => array('class' => 'btn')),
+        array('label' => Yii::t('app', 'Create Category'), 'icon' => 'icon-plus', 'url' => array('create'), "itemOptions" => array('class' => 'btn')),
     )
 ]);
 

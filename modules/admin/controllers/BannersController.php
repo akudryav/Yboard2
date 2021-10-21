@@ -6,13 +6,9 @@ use yii\web\Controller;
 use Yii;
 use yii\helpers\Url;
 
-class BannersController extends BackendController {
+class BannersController extends Controller
+{
 
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout = '/view-template';
     public $title = "Рекламные блоки";
 
     /**
@@ -20,7 +16,8 @@ class BannersController extends BackendController {
      * If deletion is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be deleted
      */
-    public function actionShow() {
+    public function actionShow()
+    {
         ob_get_clean();
         ?><html><head></head><body>
                 <?= $this->banners[$_GET['b_name']][$_GET['b_id']]['code'] ?>

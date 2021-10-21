@@ -5,13 +5,9 @@ namespace app\modules\admin\controllers;
 use app\components\TextValidator;
 use Yii;
 
-class DeliveryController extends BackendController {
+class DeliveryController extends Controller
+{
 
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout = '/view-template';
     public $title = "Рассылка";
     public $error;
 

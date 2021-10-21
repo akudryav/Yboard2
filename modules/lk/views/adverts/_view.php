@@ -1,55 +1,33 @@
 <?php
 /* @var $this BulletinController */
-
-/* @var $dataProvider ActiveDataProvider */
-
-use yii\widgets\ListView;
-use yii\widgets\Menu;
-
-$this->params['breadcrumbs'] = array(
-    Yii::t('app', 'Bulletins'),
-);
-
-echo Menu::widget([
-    'items' => array(
-        array('label' => Yii::t('app', 'Create Bulletin'), 'icon' => 'icon-plus', 'url' => array('create')),
-        array('label' => Yii::t('app', 'Manage Bulletin'), 'icon' => 'icon-folder-open', 'url' => array('view')),
-    )
-]);
+/* @var $data Bulletin */
 ?>
 
-<h1><?php echo Yii::t('app', 'Bulletins'); ?></h1>
 
-<table>
-    <th>
-    <td><?php echo Html::encode($data->getAttributeLabel('id')); ?></td>
+<tr class="alert-info">
+    <td><b><?php echo Html::encode($data->getAttributeLabel('id')); ?>:</b>
+        <?php echo Html::a(Html::encode($data->id), array('view', 'id' => $data->id)); ?>
+    </td>
     <td><b><?php echo Html::encode($data->getAttributeLabel('name')); ?>:</b>
         <?php echo Html::encode($data->name); ?>
     </td>
+
     <td><b><?php echo Html::encode($data->getAttributeLabel('user_id')); ?>:</b>
         <?php echo Html::encode($data->user_id); ?>
     </td>
-    <td><b><?php echo Html::encode($data->getAttributeLabel('moderated')); ?>:</b>
-        <?php echo Html::encode($data->moderated); ?>
-    </td>
+
     <td><b><?php echo Html::encode($data->getAttributeLabel('category_id')); ?>:</b>
         <?php echo Html::encode($data->category_id); ?>
     </td>
+
     <td><b><?php echo Html::encode($data->getAttributeLabel('type')); ?>:</b>
         <?php echo Html::encode($data->type); ?>
     </td>
+
     <td><b><?php echo Html::encode($data->getAttributeLabel('views')); ?>:</b>
         <?php echo Html::encode($data->views); ?>
     </td>
     <td><b><?php echo Html::encode($data->getAttributeLabel('text')); ?>:</b>
         <?php echo Html::encode($data->text); ?>
     </td>
-    </th>
-    <?php
-    echo ListView::widget(array(
-        'dataProvider' => $dataProvider,
-        'itemView' => '_view',
-    ));
-    ?>
-</table>
-
+</tr>

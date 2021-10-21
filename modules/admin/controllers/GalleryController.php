@@ -14,14 +14,16 @@ use Yii;
  *
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  */
-class GalleryController extends BackendController {
+class GalleryController extends Controller
+{
 
 
     /**
      * Removes image with ids specified in post request.
      * On success returns 'OK'
      */
-    public function actionDelete() {
+    public function actionDelete()
+    {
         $id = $_POST['id'];
         /** @var $photos GalleryPhoto[] */
         $photos = GalleryPhoto::findAllByPk($id);

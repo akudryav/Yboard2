@@ -1,13 +1,14 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
 use yii\data\ActiveDataProvider;
 use app\models\Messages;
 use app\models\User;
 
-class UserController extends DefaultController {
+class UserController extends Controller
+{
 
     /**
      * @var ActiveRecord the currently loaded data model instance.

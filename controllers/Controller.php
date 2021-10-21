@@ -3,12 +3,12 @@
 namespace app\controllers;
 
 use Yii;
-use yii\web\Controller;
 use app\models\Category;
 use yii\data\ActiveDataProvider;
 use app\models\Adverts;
 
-class DefaultController extends Controller {
+class Controller extends \yii\web\Controller
+{
 
     //public $layout = 'main-template';
     public $pageTitle = '';

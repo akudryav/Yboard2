@@ -16,7 +16,7 @@ use yii\data\ActiveDataProvider;
  * Форма контактов
  * Вывод дополнительных поляй для категории actionGetfields
  */
-class SiteController extends DefaultController
+class SiteController extends Controller
 {
 
     public function actions()

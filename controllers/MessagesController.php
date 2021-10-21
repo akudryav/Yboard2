@@ -8,14 +8,16 @@ use yii\data\ActiveDataProvider;
 use app\models\Messages;
 use yii\data\ArrayDataProvider;
 
-class MessagesController extends DefaultController {
+class MessagesController extends Controller
+{
 
     /**
      * Specifies the access control rules.
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
      */
-    public function accessRules() {
+    public function accessRules()
+    {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update', 'index', 'view'),

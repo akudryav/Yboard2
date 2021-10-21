@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\modules\lk\controllers;
 
 use Yii;
 use app\models\Adverts;
@@ -26,7 +26,8 @@ class AdvertsController extends Controller
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Adverts;
 
         // Uncomment the following line if AJAX validation is needed
@@ -48,7 +49,8 @@ class AdvertsController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
@@ -65,24 +67,13 @@ class AdvertsController extends Controller
         ));
     }
 
-    public function actionModerate($id) {
-        $model = $this->loadModel($id);
-        $model->moderated = 1;
-        if ($model->save()) {
-            echo "ok";
-            return true;
-        }
-
-        echo "error";
-        return false;
-    }
-
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be deleted
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->loadModel($id)->delete();
 
         // if AJAX request (triggered by deletion via view grid view), we should not redirect the browser
@@ -93,7 +84,8 @@ class AdvertsController extends Controller
     /**
      * Manages all models.
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $model = new Adverts();
 
         return $this->render('index', array(
@@ -107,7 +99,8 @@ class AdvertsController extends Controller
      * @param integer $id the ID of the model to be loaded
      * @return Adverts the loaded model
      */
-    public function loadModel($id) {
+    public function loadModel($id)
+    {
         $model = Adverts::findOne($id);
         if ($model === null)
             throw new \yii\web\NotFoundHttpException();
@@ -118,7 +111,8 @@ class AdvertsController extends Controller
      * Performs the AJAX validation.
      * @param Adverts $model the model to be validated
      */
-    protected function performAjaxValidation($model) {
+    protected function performAjaxValidation($model)
+    {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'bulletin-form') {
             echo CActiveForm::validate($model);
             Yii::$app->end();
