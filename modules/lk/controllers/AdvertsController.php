@@ -4,6 +4,7 @@ namespace app\modules\lk\controllers;
 
 use Yii;
 use app\models\Adverts;
+use yii\data\ActiveDataProvider;
 
 
 class AdvertsController extends Controller
@@ -30,18 +31,13 @@ class AdvertsController extends Controller
     {
         $model = new Adverts;
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Adverts'])) {
-            $model->attributes = $_POST['Adverts'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         }
 
-        return $this->render('create', array(
+        return $this->render('create', [
             'model' => $model,
-        ));
+        ]);
     }
 
     /**
@@ -53,18 +49,13 @@ class AdvertsController extends Controller
     {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Adverts'])) {
-            $model->attributes = $_POST['Adverts'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         }
 
-        return $this->render('update', array(
+        return $this->render('update', [
             'model' => $model,
-        ));
+        ]);
     }
 
     /**
@@ -75,10 +66,12 @@ class AdvertsController extends Controller
     public function actionDelete($id)
     {
         $this->loadModel($id)->delete();
+        $request = Yii::$app->request;
+        if (!$request->isAjax) {
+            $returnUrl = Yii::$app->request->referrer ?: ['index'];
+            $this->redirect($returnUrl);
+        }
 
-        // if AJAX request (triggered by deletion via view grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('view'));
     }
 
     /**
@@ -86,11 +79,15 @@ class AdvertsController extends Controller
      */
     public function actionIndex()
     {
-        $model = new Adverts();
+        $dataProvider = new ActiveDataProvider([
+            'query' => Adverts::find()->where(['user_id' => $this->currentUser->id]),
+        ]);
 
-        return $this->render('index', array(
-            'model' => $model,
-        ));
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'user' => $this->currentUser,
+        ]);
+
     }
 
     /**
@@ -101,22 +98,10 @@ class AdvertsController extends Controller
      */
     public function loadModel($id)
     {
-        $model = Adverts::findOne($id);
+        $model = Adverts::findOne(['id' => $id, 'user_id' => $this->currentUser->id]);
         if ($model === null)
-            throw new \yii\web\NotFoundHttpException();
+            throw new \yii\web\NotFoundHttpException(Yii::t('app', 'Advert not Found'));
         return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param Adverts $model the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'bulletin-form') {
-            echo CActiveForm::validate($model);
-            Yii::$app->end();
-        }
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\modules\lk\controllers;
 
 use app\models\User;
 use Yii;

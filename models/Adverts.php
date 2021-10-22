@@ -27,6 +27,8 @@ class Adverts extends \yii\db\ActiveRecord
 
     const TYPE_DEMAND = 0;
     const TYPE_OFFER = 1;
+    const STATUS_MODERATED = 0;
+    const STATUS_PUBLISHED = 1;
 
     public $price_min;
     public $price_max;
@@ -34,7 +36,8 @@ class Adverts extends \yii\db\ActiveRecord
     /**
      * @return string the associated database table name
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'adverts';
     }
 
@@ -45,19 +48,33 @@ class Adverts extends \yii\db\ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            [[ 'name', 'user_id', 'category_id', 'text'], 'required'],
-            [['user_id', 'category_id', 'gallery_id', 'views', 'location', 'currency'], 'integer' ],
+            [['name', 'user_id', 'category_id', 'text'], 'required'],
+            [['user_id', 'category_id', 'gallery_id', 'views', 'location', 'currency'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['price', 'type'],  'double'],
+            [['price', 'type'], 'double'],
             [['type'], 'safe'],
             [['id', 'name', 'user_id', 'category_id', 'type', 'views', 'text', 'price', 'currency', 'moderated'], 'safe', 'on' => 'search'],
         );
     }
 
+    public static function statusList()
+    {
+        return [
+            self::STATUS_MODERATED => 'На модерации',
+            self::STATUS_PUBLISHED => 'Опубликовано',
+        ];
+    }
+
+    public function statusName()
+    {
+        return isset(self::statusList()[$this->moderated]) ? self::statusList()[$this->moderated] : 'unknown';
+    }
+
     /**
      * @return array relational rules.
      */
-    public function relations() {
+    public function relations()
+    {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
