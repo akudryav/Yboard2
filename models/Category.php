@@ -230,7 +230,7 @@ class Category extends \yii\db\ActiveRecord
     public function countBulletins() {
         $count = Yii::$app->params['categories'][$this->id]['count'];
         if ($this->isRoot()) {
-            $descendants = $this->children()->findAll();
+            $descendants = $this->children()->all();
             foreach ($descendants as $descendant) {
                 $count += $descendant->countBulletins();
             }

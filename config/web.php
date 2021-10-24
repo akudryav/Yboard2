@@ -47,6 +47,9 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'yandexMapsApi' => [
+            'class' => 'mirocow\yandexmaps\Api',
+        ],
         'formatter' => [
             'dateFormat' => 'dd.MM.yyyy',
             'datetimeFormat' => 'dd.MM.yyyy HH:mm:ss',
@@ -86,7 +89,7 @@ $config = [
                 'view/moderate/<adv_id:\d+>' => 'view/adverts/moderate/id/<adv_id>',
                 'category/<action:\w+>/' => 'view/category/<action>',
                 //'<controller:\w+>/<id:\d+>' => '<controller>/view',
-                //'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],
         ],
     ],

@@ -49,11 +49,11 @@ class Adverts extends \yii\db\ActiveRecord
         // will receive user inputs.
         return array(
             [['name', 'user_id', 'category_id', 'text'], 'required'],
-            [['user_id', 'category_id', 'gallery_id', 'views', 'location', 'currency'], 'integer'],
+            [['user_id', 'category_id', 'gallery_id', 'views', 'location'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['price', 'type'], 'double'],
             [['type'], 'safe'],
-            [['id', 'name', 'user_id', 'category_id', 'type', 'views', 'text', 'price', 'currency', 'moderated'], 'safe', 'on' => 'search'],
+            [['id', 'name', 'user_id', 'category_id', 'type', 'views', 'text', 'price', 'moderated'], 'safe', 'on' => 'search'],
         );
     }
 

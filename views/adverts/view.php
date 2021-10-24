@@ -59,9 +59,7 @@ $this->context->pageTitle = Yii::$app->name;
         </div>
         <div class='price'><?= Yii::t('app', 'Price') ?> -
             <?php if ($model->price) { ?>
-                <?= $model->price ?> ( <?= Yii::$app->params['currency'][$model->currency] ?> )
-                <a href='javascript:void(0);' onclick='show_converter()'> открыть конвертор </a>
-                <div class='price_converter'><?php echo $model->price_converter() ?></div>
+                <?= $model->price ?> ( ₽ )
             <?php } else {
                 echo "<i>" . Yii::t('app', 'Not set') . "</i>";
             }

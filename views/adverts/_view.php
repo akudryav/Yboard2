@@ -22,10 +22,6 @@ use app\models\Adverts;
     <div style='margin-left:100px'>
         <div>
             <?php echo Html::a(Html::encode($model['name']), array('adverts/view', 'id' => $model['id'])); ?>
-               <?php if ($model['user_id'] == Yii::$app->user->id and Yii::$app->user->id): ?>
-                   <a href='<?= Url::to(['adverts/update', 'id' => $model['id']])
-                   ?>' class='redact'> редактировать <?= Yii::$app->user->id ?></a>
-               <?php endif ?>
         </div>
         <div><?php echo Html::encode(mb_substr($model['text'], 0, 220)); ?></div>
     </div>

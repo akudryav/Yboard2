@@ -139,33 +139,13 @@ class AdvertsController extends Controller
         }
     }
 
-    public function actionUpdate($id) {
-        $model = $this->loadAdverts($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Reviews'])) {
-            $model->attributes = $_POST['Reviews'];
-            if ($_POST['Adverts']['no_price'] === "on") {
-                $model->price = 0;
-            }
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
-
-        return $this->render('update', array(
-            'model' => $model,
-        ));
-    }
-
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
 
-        $query = Adverts::find()->where(['moderated' => 1])->limit(10)->orderBy('id', 'desc');
+        $query = Adverts::find()->where(['moderated' => 1])->limit(10)->orderBy('id DESC');
 
         $dataProvider = new ActiveDataProvider([
                 'query' => $query
@@ -190,45 +170,6 @@ class AdvertsController extends Controller
             else
                 return $this->render('error', $error);
         }
-    }
-
-    /**
-     * Displays the contact page
-     * @param int $id User's id
-     */
-    public function actionCreate() {
-
-
-        $model = new Adverts;
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Adverts'])) {
-            $model->attributes = $_POST['Adverts'];
-            $model->user_id = Yii::$app->user->id;
-            $model->created_at = date("Y-m-d H:i:s");
-            $model->fields = serialize($_POST['Fields']);
-            if ($_POST['Adverts']['no_price'] === "on") {
-                $model->price = 0;
-            }
-
-            /*
-            if ($model->save()) {
-                $video = CUploadedFile::getInstances($model, 'youtube_id');
-                //YoutubeHelper::processAdverts($model, $video);
-
-                $images = CUploadedFile::getInstancesByName('images');
-                // proceed if the images have been set
-                ImagesHelper::processImages($model, $images);
-                $this->redirect(array('adverts/view', 'id' => $model->id));
-            }
-            */
-        }
-
-        return $this->render('create', array(
-            'model' => $model,
-        ));
     }
 
     /**

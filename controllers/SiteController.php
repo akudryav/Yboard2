@@ -6,6 +6,7 @@ use Yii;
 use app\models\Adverts;
 use app\models\forms\ContactForm;
 use app\models\Category;
+use app\models\Location;
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 

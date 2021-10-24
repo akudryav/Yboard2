@@ -2,9 +2,11 @@
 
 namespace app\modules\lk\controllers;
 
+use app\models\Category;
 use Yii;
 use app\models\Adverts;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 
 class AdvertsController extends Controller
@@ -30,13 +32,21 @@ class AdvertsController extends Controller
     public function actionCreate()
     {
         $model = new Adverts;
+        $model->user_id = $this->currentUser->id;
+        $model->location = 0;
+        $model->fields = '{}';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
 
+        $categories = Category::find()
+            ->orderBy('name')
+            ->all();
+
         return $this->render('create', [
             'model' => $model,
+            'categories' => ArrayHelper::map($categories, 'id', 'name'),
         ]);
     }
 
@@ -53,8 +63,13 @@ class AdvertsController extends Controller
             return $this->redirect(['index']);
         }
 
+        $categories = Category::find()
+            ->orderBy('name')
+            ->all();
+
         return $this->render('update', [
             'model' => $model,
+            'categories' => ArrayHelper::map($categories, 'id', 'name'),
         ]);
     }
 
