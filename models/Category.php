@@ -119,8 +119,8 @@ class Category extends \yii\db\ActiveRecord
 
     static function getCategories() {
         // поставить кэширование запроса и обработку fields 
-        $categories = Yii::$app->db->createCommand('SELECT * FROM category')
-                ->queryAll();
+        $categories = Yii::$app->db->createCommand('SELECT * FROM category where icon is not null')
+            ->queryAll();
 
 
         $ret_cat = Array();
@@ -135,15 +135,15 @@ class Category extends \yii\db\ActiveRecord
                 }
             }
         }
-
-        $cat_count = (new Query())
-            ->select('category_id, COUNT(*) count')
-            ->from(Adverts::tableName())
-            ->groupBy('category_id')
-            ->all();
-        foreach ($cat_count as $row)
-            $ret_cat[$row['category_id']]['count'] = $row['count'];
-
+        /*
+                $cat_count = (new Query())
+                    ->select('category_id, COUNT(*) count')
+                    ->from(Adverts::tableName())
+                    ->groupBy('category_id')
+                    ->all();
+                foreach ($cat_count as $row)
+                    $ret_cat[$row['category_id']]['count'] = $row['count'];
+        */
         return $ret_cat;
     }
 

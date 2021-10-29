@@ -34,7 +34,7 @@ class AdvertsController extends Controller
         $model = new Adverts;
         $model->user_id = $this->currentUser->id;
         $model->location = 0;
-        $model->fields = '{}';
+        $model->fields = '';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);

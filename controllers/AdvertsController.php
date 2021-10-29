@@ -80,10 +80,11 @@ class AdvertsController extends Controller
     }
 
 
-    public function actionGetfields($cat_id) {
+    public function actionGetfields($id)
+    {
 
         // Получение категории
-        $model = Category::findOne($cat_id);
+        $model = Category::findOne($id);
 
         // Проверка есть ли дочерние 
         if ($model->lft + 1 == $model->rgt) {
@@ -116,8 +117,8 @@ class AdvertsController extends Controller
 
             echo "</div>";
 
-            echo '<input type="hidden" class="error" value="' . $cat_id . '" '
-            . 'id="Adverts_category_id" name="Adverts[category_id]">';
+            echo '<input type="hidden" class="error" value="' . $id . '" '
+                . 'id="Adverts_category_id" name="Adverts[category_id]">';
         } else {
             // Вывод дочерних категории
             $subcat = Yii::$app->db->createCommand('select id,name  from category  '
@@ -133,7 +134,7 @@ class AdvertsController extends Controller
                 $drop_cats[$cat['id']] = $cat['name'];
             }
 
-            echo Html::dropDownList('subcat_' . $cat_id, 0, $drop_cats, array('empty' => Yii::t('app', 'Choose category'), 'onchange' => 'loadFields(this)'));
+            echo Html::dropDownList('subcat_' . $id, 0, $drop_cats, array('empty' => Yii::t('app', 'Choose category'), 'onchange' => 'loadFields(this)'));
 
             return;
         }
@@ -211,13 +212,14 @@ class AdvertsController extends Controller
 
     /**
      * Show category.
-     * @param int $cat_id Category's id
+     * @param int $id Category's id
      */
-    public function actionCategory($cat_id) {
+    public function actionCategory($id)
+    {
 
         /*
         $query = \app\models\Adverts::findAllBySql("select adverts.* from adverts ".
-            "where category_id ='".$cat_id."' inner join category on category.id=t.category_id ");
+            "where category_id ='".$id."' inner join category on category.id=t.category_id ");
 
         $dataProvider = new ActiveDataProvider( array(
             'query' => $query
@@ -229,11 +231,11 @@ class AdvertsController extends Controller
             ' inner join category on category.id=t.category_id where '.
             ' t.category_id = :id or (category.lft > :cat_lft ' .
             ' and category.rgt< :cat_rgt and category.root = :cat_root)', array(
-            ':id' => (int) $cat_id,
-            ':cat_lft' => Yii::$app->params['categories'][$cat_id]['lft'],
-            ':cat_rgt' => Yii::$app->params['categories'][$cat_id]['rgt'],
-            ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
-            ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
+            ':id' => (int) $id,
+            ':cat_lft' => Yii::$app->params['categories'][$id]['lft'],
+            ':cat_rgt' => Yii::$app->params['categories'][$id]['rgt'],
+            ':cat_root' => Yii::$app->params['categories'][$id]['root'],
+            ':cat_root' => Yii::$app->params['categories'][$id]['root'],
         ))->queryScalar();
         /**/
 
@@ -243,10 +245,10 @@ class AdvertsController extends Controller
                 ' t.category_id = :id or (category.lft > :cat_lft ' .
                 ' and category.rgt< :cat_rgt and category.root = :cat_root)',
             'params' => array(
-                ':id' => (int) $cat_id,
-                ':cat_lft' => Yii::$app->params['categories'][$cat_id]['lft'],
-                ':cat_rgt' => Yii::$app->params['categories'][$cat_id]['rgt'],
-                ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
+                ':id' => (int)$id,
+                ':cat_lft' => Yii::$app->params['categories'][$id]['lft'],
+                ':cat_rgt' => Yii::$app->params['categories'][$id]['rgt'],
+                ':cat_root' => Yii::$app->params['categories'][$id]['root'],
             ),
             /*
             'totalCount' => $count,
@@ -271,11 +273,11 @@ class AdvertsController extends Controller
                 . 'and category.rgt< :cat_rgt and category.root = :cat_root)',
                 'order' => 'sort DESC',
                 'params' => array(
-                    ':id' => (int) $cat_id,
-                    ':cat_lft' => Yii::$app->params['categories'][$cat_id]['lft'],
-                    ':cat_rgt' => Yii::$app->params['categories'][$cat_id]['rgt'],
-                    ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
-                    ':cat_root' => Yii::$app->params['categories'][$cat_id]['root'],
+                    ':id' => (int) $id,
+                    ':cat_lft' => Yii::$app->params['categories'][$id]['lft'],
+                    ':cat_rgt' => Yii::$app->params['categories'][$id]['rgt'],
+                    ':cat_root' => Yii::$app->params['categories'][$id]['root'],
+                    ':cat_root' => Yii::$app->params['categories'][$id]['root'],
                 ),
                 'limit' => Yii::$app->params['adv_on_page'],
                 'join' => 'inner join category on category.id=t.category_id ',
@@ -283,10 +285,10 @@ class AdvertsController extends Controller
         ));
         */
 
-        $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$cat_id]['name'];
+        $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$id]['name'];
 
         return $this->render('category', array(
-            'model' => $this->loadCategory($cat_id),
+            'model' => $this->loadCategory($id),
             'dataProvider' => $dataProvider,
         ));
     }
@@ -305,7 +307,6 @@ class AdvertsController extends Controller
         ]);
 
         return $this->render('index', array(
-            //'model'=>$this->loadCategory($cat_id),
             'data' => $dataProvider,
         ));
     }

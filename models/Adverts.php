@@ -123,7 +123,25 @@ class Adverts extends \yii\db\ActiveRecord
         );
     }
 
-    public static function itemAlias($type, $code = NULL) {
+    public function beforeSave($insert)
+    {
+        $post = Yii::$app->request->post();
+        if ($post['Adpackage']['Page']) {
+            $this->fields = serialize($_POST['Adpackage']['Page']);
+        }
+        return parent::beforeSave($insert);
+    }
+
+    public function afterFind()
+    {
+        if ($this->fields) {
+            $this->fields = unserialize($this->fields);
+        }
+        parent::afterFind();
+    }
+
+    public static function itemAlias($type, $code = NULL)
+    {
         $_items = array(
             'type' => array(
                 self::TYPE_DEMAND => Yii::t('app', 'Demand'),
