@@ -59,11 +59,9 @@ $this->context->pageTitle = Yii::$app->name;
     <?php
     echo ListView::widget([
         'dataProvider' => $indexAdv,
-        'itemView' => '/adverts/_view',
-        'itemOptions' => ['class' => 'row']
+        'itemView' => '/adverts/_item',
     ]);
-
-?>
+    ?>
 </div>
 
 
