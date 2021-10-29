@@ -1,6 +1,9 @@
 <?php
 namespace app\models\forms;
 
+use Yii;
+use app\models\User;
+
 /**
  * UserRecoveryForm class.
  * UserRecoveryForm is the data structure for keeping
@@ -9,22 +12,16 @@ namespace app\models\forms;
 class UserRecoveryForm extends \yii\base\Model
 {
 
-    public $login_or_email, $user_id;
+    public $login_or_email;
 
-    /**
-     * Declares the validation rules.
-     * The rules state that username and password are required,
-     * and password needs to be authenticated.
-     */
     public function rules()
     {
-        return array(
-            // username and password are required
-            array('login_or_email', 'required'),
-            array('login_or_email', 'match', 'pattern' => '/^[A-Za-z0-9@.-\s,]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z0-9).")),
-            // password needs to be authenticated
-            array('login_or_email', 'checkexists'),
-        );
+        return [
+            ['login_or_email', 'trim'],
+            ['login_or_email', 'required'],
+            ['login_or_email', 'match', 'pattern' => '/^[A-Za-z0-9@.-\s,]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z@0-9).")],
+            ['login_or_email', 'checkexists'],
+        ];
     }
 
     /**
@@ -36,25 +33,48 @@ class UserRecoveryForm extends \yii\base\Model
         );
     }
 
-    public function checkexists($attribute, $params) {
-        if (!$this->hasErrors()) {  // we only want to authenticate when no input errors
-            if (strpos($this->login_or_email, "@")) {
-                $user = User::findByAttributes(array('email' => $this->login_or_email));
-                if ($user)
-                    $this->user_id = $user->id;
-            } else {
-                $user = User::findByAttributes(array('username' => $this->login_or_email));
-                if ($user)
-                    $this->user_id = $user->id;
-            }
+    public function checkexists($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = User::findByUsername($this->$attribute);
 
-            if ($user === null)
-                if (strpos($this->login_or_email, "@")) {
-                    $this->addError("login_or_email", Yii::t('app', "Email is incorrect."));
-                } else {
-                    $this->addError("login_or_email", Yii::t('app', "Username is incorrect."));
-                }
+            if ($user === null) {
+                $msg = strpos($this->$attribute, '@') ?
+                    Yii::t('user', 'Email is incorrect.') :
+                    Yii::t('user', 'Username is incorrect.');
+                $this->addError($attribute, $msg);
+            }
         }
+    }
+
+    public function process()
+    {
+        if (!$this->validate()) {
+            return false;
+        }
+
+        $user = User::findByUsername($this->login_or_email);
+        $user->generatePasswordToken();
+        echo $user->password_reset_token;
+        $activation_url = Yii::$app->urlManager->createAbsoluteUrl(['user/recovery', 'token' => $user->password_reset_token], 'http');
+
+        $subject = Yii::t('user', 'Password recovery site {site_name}', array(
+            'site_name' => Yii::$app->name,
+        ));
+        $message = Yii::t('user', 'You have requested the password recovery site {site_name}. To receive a new password, go to {activation_url}.',
+            [
+                'site_name' => Yii::$app->name,
+                'activation_url' => $activation_url,
+            ]);
+
+        Yii::$app->mailer->compose()
+            ->setFrom(Yii::$app->params['adminEmail'])
+            ->setTo($user->email)
+            ->setSubject($subject)
+            ->setTextBody($message)
+            ->send();
+
+        return $user->save();
     }
 
 }

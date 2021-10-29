@@ -65,6 +65,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return static::findOne(['access_token' => $token]);
     }
 
+    public static function findUserByPasswordToken($token)
+    {
+        return static::findOne(['password_reset_token' => $token]);
+    }
+
     /**
      * Finds user by username
      *
@@ -139,10 +144,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    public function generatePasswordToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString();
+    }
+
 
     public function beforeSave($insert)
     {
-        if($insert) {
+        if ($insert) {
             $this->generateAuthKey();
         }
         return parent::beforeSave($insert);

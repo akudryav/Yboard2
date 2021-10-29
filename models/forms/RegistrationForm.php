@@ -60,7 +60,7 @@ class RegistrationForm extends \yii\base\Model
     {
 
         if (!$this->validate()) {
-            return null;
+            return false;
         }
 
         $user = new User();

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use app\models\forms\RegistrationForm;
 use app\models\forms\UserChangePassword;
@@ -79,6 +80,7 @@ class UserController extends Controller
         Yii::$app->user->logout();
         $this->redirect(Yii::$app->homeUrl);
     }
+
     /**
      * Registration user
      */
@@ -106,17 +108,17 @@ class UserController extends Controller
         $email = $_GET['email'];
         $activkey = $_GET['activkey'];
         if ($email && $activkey) {
-            $find = User::notsafe()->findByAttributes(array('email' => $email));
-            if (isset($find) && $find->status) {
+            $user = User::notsafe()->findByAttributes(array('email' => $email));
+            if (isset($user) && $user->status) {
                 return $this->render('message', array(
                         'title' => Yii::t('app', "User activation"),
                         'content' => Yii::t('app', "You account is active.")
                     )
                 );
-            } elseif (isset($find->activkey) && ($find->activkey == $activkey)) {
-                $find->activkey = Yii::$app->user->crypt(microtime());
-                $find->status = 1;
-                $find->save();
+            } elseif (isset($user->activkey) && ($user->activkey == $activkey)) {
+                $user->activkey = Yii::$app->user->crypt(microtime());
+                $user->status = 1;
+                $user->save();
                 return $this->render('message', array(
                     'title' => Yii::t('app', "User activation"),
                     'content' => Yii::t('app', "You account is activated.")
@@ -140,64 +142,34 @@ class UserController extends Controller
      */
     public function actionRecovery()
     {
-        $form = new UserRecoveryForm;
+        $request = Yii::$app->request;
         if (Yii::$app->user->id) {
-            $this->redirect(Yii::$app->controller->module->returnUrl);
-        } else {
-            $email = ((isset($_GET['email'])) ? $_GET['email'] : '');
-            $activkey = ((isset($_GET['activkey'])) ? $_GET['activkey'] : '');
-            if ($email && $activkey) {
-                $form2 = new UserChangePassword;
-                $find = User::notsafe()->findByAttributes(array('email' => $email));
-                if (isset($find) && $find->activkey == $activkey) {
-                    if (isset($_POST['UserChangePassword'])) {
-                        $form2->attributes = $_POST['UserChangePassword'];
-                        if ($form2->validate()) {
-                            $find->password = Yii::$app->controller->module->encrypting($form2->password);
-                            $find->activkey = Yii::$app->controller->module->encrypting(microtime() . $form2->password);
-                            if ($find->status == 0) {
-                                $find->status = 1;
-                            }
-                            $find->save();
-                            Yii::$app->user->setFlash('recoveryMessage', Yii::t('app', "New password is saved."));
-                            $this->redirect(Yii::$app->controller->module->recoveryUrl);
-                        }
-                    }
-                    return $this->render('changepassword', array('form' => $form2));
-                } else {
-                    Yii::$app->user->setFlash('recoveryMessage', Yii::t('app', "Incorrect recovery link."));
-                    $this->redirect(Yii::$app->controller->module->recoveryUrl);
+            return $this->goHome();
+        }
+        $token = $request->get('token');
+        if ($token) {
+            $form = new UserChangePassword();
+            $user = User::findUserByPasswordToken($token);
+            if ($user) {
+                if ($form->load($request->post()) && $form->process($user)) {
+                    Yii::$app->session->setFlash('success', Yii::t('user', 'New password is saved.'));
+                    return $this->goHome();
                 }
+                return $this->render('changepassword', array('model' => $form));
             } else {
-                if (isset($_POST['UserRecoveryForm'])) {
-                    $form->attributes = $_POST['UserRecoveryForm'];
-                    if ($form->validate()) {
-                        $user = User::notsafe()->findOne($form->user_id);
-                        $activation_url = 'http://' . $_SERVER['HTTP_HOST'] . $this->createUrl(implode(Yii::$app->controller->module->recoveryUrl), array("activkey" => $user->activkey, "email" => $user->email));
-
-                        $subject = Yii::t('app', "You have requested the password recovery site {site_name}", array(
-                            '{site_name}' => Yii::$app->name,
-                        ));
-                        $message = Yii::t('app', "You have requested the password recovery site {site_name}. To receive a new password, go to {activation_url}.", array(
-                            '{site_name}' => Yii::$app->name,
-                            '{activation_url}' => $activation_url,
-                        ));
-
-
-                        Yii::$app->email->to = $user->email;
-                        Yii::$app->email->subject = $subject;
-                        Yii::$app->email->message = $message;
-                        Yii::$app->email->send();
-
-
-                        Yii::$app->user->setFlash('recoveryMessage', Yii::t('app', "Please check your email. An instructions was sent to your email address."));
-                        $this->refresh();
-                    }
-                }
-                return $this->render('recovery', array('form' => $form));
+                Yii::$app->session->setFlash('error', Yii::t('user', 'Incorrect recovery link.'));
+                $this->redirect('recovery');
             }
+        } else {
+            $form = new UserRecoveryForm();
+            if ($form->load(Yii::$app->request->post())) {
+                if ($form->process()) {
+                    Yii::$app->session->setFlash('success', Yii::t('user', "Please check your email. An instructions was sent to your email address."));
+                    return $this->refresh();
+                }
+            }
+            return $this->render('recovery', array('model' => $form));
         }
     }
-
 
 }

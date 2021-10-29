@@ -1,6 +1,7 @@
 <?php
 namespace app\models\forms;
 
+use Yii;
 /**
  * UserChangePassword class.
  * UserChangePassword is the data structure for keeping
@@ -9,41 +10,40 @@ namespace app\models\forms;
 class UserChangePassword extends \yii\base\Model
 {
 
-    public $oldPassword;
     public $password;
     public $verifyPassword;
 
     public function rules()
     {
-        return Yii::$app->controller->id == 'recovery' ? array(
-            array(['password', 'verifyPassword'], 'required'),
-            array(['password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")),
-            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('app', "Retype Password is incorrect.")),
-        ) : array(
-            array(['oldPassword', 'password', 'verifyPassword'], 'required'),
-            array(['oldPassword', 'password', 'verifyPassword'], 'length', 'max' => 128, 'min' => 4, 'message' => Yii::t('app', "Incorrect password (minimal length 4 symbols).")),
-            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('app', "Retype Password is incorrect.")),
-            array('oldPassword', 'verifyOldPassword'),
-        );
+        return [
+            ['password', 'required'],
+            ['password', 'string', 'min' => 6],
+            ['verifyPassword', 'required'],
+            ['verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('app', "Passwords don't match")],
+        ];
     }
 
     /**
      * Declares attribute labels.
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
-            'oldPassword' => Yii::t('app', "Old Password"),
             'password' => Yii::t('app', "password"),
             'verifyPassword' => Yii::t('app', "Retype Password"),
         );
     }
 
-    /**
-     * Verify Old Password
-     */
-    public function verifyOldPassword($attribute, $params) {
-        if (User::notsafe()->findOne(Yii::$app->user->id)->password != Yii::$app->getModule('user')->encrypting($this->$attribute))
-            $this->addError($attribute, Yii::t('app', "Old Password is incorrect."));
+    public function process($user)
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->password_reset_token = null;
+        return $user->save();
     }
 
 }

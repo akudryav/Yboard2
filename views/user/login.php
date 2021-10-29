@@ -1,7 +1,6 @@
 <?php
 
 use rmrevin\yii\ulogin\ULogin;
-
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 

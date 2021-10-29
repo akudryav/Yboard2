@@ -60,7 +60,7 @@ $config = [
         ],
         'i18n' => [
             'translations' => [
-                'lang*' => [
+                '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     //'basePath' => '@app/messages',
                     //'sourceLanguage' => 'en-US',
