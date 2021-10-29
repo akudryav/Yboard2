@@ -126,7 +126,7 @@ class Adverts extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         $post = Yii::$app->request->post();
-        if ($post['Adpackage']['Page']) {
+        if (isset($post['Adpackage']['Page'])) {
             $this->fields = serialize($_POST['Adpackage']['Page']);
         }
         return parent::beforeSave($insert);
