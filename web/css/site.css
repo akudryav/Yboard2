@@ -3,6 +3,11 @@ body {
     height: 100%;
 }
 
+.navbar-fixed-top {
+    background-color: #0077ff;
+    color: white;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
