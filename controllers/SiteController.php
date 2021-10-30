@@ -42,8 +42,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $roots = Category::find()->roots()->all();
+        // корневые категории (уровня 1)
+        $roots = Category::roots();
         $query = Adverts::find()->where('id <> 1'); // добавить проверку moderated
+        // оставляем только категории с картинками для карусели
+        $roots = array_filter($roots, function ($r) {
+            return isset($r->icon);
+        });
         $indexAdv = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

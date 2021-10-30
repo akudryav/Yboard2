@@ -9,8 +9,8 @@ $this->context->pageTitle = Yii::$app->name;
 
 ?>
 
-<?php if (is_array(Yii::$app->params['categories'])):
-    $batch = array_chunk(Yii::$app->params['categories'], 3);
+<?php if (is_array($roots)):
+    $batch = array_chunk($roots, 3);
     $start = 0;
     ?>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -26,13 +26,13 @@ $this->context->pageTitle = Yii::$app->name;
                 <div class="item <?php if (0 == $start) echo 'active'; ?>">
                     <div class="row">
                         <?php foreach ($b as $cat):
-                            $url = Url::to(['adverts/category', 'id' => $cat['id']]);
+                            $url = Url::to(['adverts/category', 'id' => $cat->id]);
                             ?>
                             <div class="col-xs-3">
                                 <a href="<?= $url ?>">
-                                    <img src="/images/category/<?= $cat['icon'] ?>" alt="<?= $cat['name'] ?>"
+                                    <img src="/images/category/<?= $cat->icon ?>" alt="<?= $cat->name ?>"
                                          class="img-responsive">
-                                    <div class="carousel-caption"><h3><?= $cat['name'] ?></h3></div>
+                                    <div class="carousel-caption"><h3><?= $cat->name ?></h3></div>
                                 </a>
                             </div>
                         <?php endforeach; ?>

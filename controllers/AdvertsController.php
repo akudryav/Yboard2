@@ -184,7 +184,6 @@ class AdvertsController extends Controller
         $model = $this->loadAdverts($id);
         $model->views++;
         $model->save();
-        $model->fields = unserialize($model->fields);
 
         $this->meta = Yii::$app->params['adv_meta'][Yii::$app->language];
         $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$model->category_id]['name'];

@@ -119,7 +119,7 @@ class Category extends \yii\db\ActiveRecord
 
     static function getCategories() {
         // поставить кэширование запроса и обработку fields 
-        $categories = Yii::$app->db->createCommand('SELECT * FROM category where icon is not null')
+        $categories = Yii::$app->db->createCommand('SELECT * FROM category')
             ->queryAll();
 
 
