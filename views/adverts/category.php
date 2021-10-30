@@ -15,8 +15,8 @@ $this->context->pageTitle = Yii::$app->name;
 <?php
 
     echo ListView::widget( array(
-    'dataProvider' => $dataProvider,
-    'itemView' => '_view',
-) );
+        'dataProvider' => $dataProvider,
+        'itemView' => '_item',
+    ) );
 ?>
 

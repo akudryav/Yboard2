@@ -40,7 +40,7 @@ $this->context->pageTitle = $model->name;
     <p><?php
         echo $this->render('/messages/_form', array(
                 'model' => $mes_model,
-                'receiver' => $model->user->id)
+                'receiver' => $model->user_id)
         );
         ?></p>
     <div class="info">
