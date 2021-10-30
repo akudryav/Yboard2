@@ -6,6 +6,7 @@ use Yii;
 
 use yii\data\ActiveDataProvider;
 use app\models\Messages;
+use app\models\User;
 use yii\data\ArrayDataProvider;
 
 class MessagesController extends Controller

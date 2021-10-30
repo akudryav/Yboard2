@@ -40,10 +40,10 @@ $attributes = array(
     }
     ?>
     <?php if (Yii::$app->user->id == Yii::$app->request->getParam("id")) { ?>
-        <a href='<?php echo Url::to('@web/user/update', array('id' => $model->id)) ?>'> Редактировать </a>
+        <a href='<?php echo Url::to('user/update', array('id' => $model->id)) ?>'> Редактировать </a>
     <?php } ?>
     <?php if (Yii::$app->user->isAdmin() and Yii::$app->user->id != $model->id) { ?>
-        <a href='<?php echo Url::to('@web/user/ban', array('id' => $model->id)) ?>'> Заблокировать </a>
+        <a href='<?php echo Url::to('user/ban', array('id' => $model->id)) ?>'> Заблокировать </a>
     <?php } ?>
     <div>
         <a href='<?php echo Url::to("adverts/user", array('id' => $model->id)) ?>'> <?= Yii::t('app', 'Adverts') ?> </a>

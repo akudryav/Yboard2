@@ -69,22 +69,15 @@ class SiteController extends Controller
     public function actionContact($id = null)
     {
         $user = $id ? $this->loadUser($id) : null;
-        $model = new ContactForm;
-        if (isset($_POST['ContactForm'])) {
-            $model->attributes = $_POST['ContactForm'];
-            if ($model->validate()) {
-                Yii::$app->mailer->compose()
-                    ->setFrom($user->email)
-                    ->setTo(Yii::$app->params['adminEmail'])
-                    ->setSubject($model->subject)
-                    ->setTextBody($model->body)
-                    ->send();
-
-                Yii::$app->session->setFlash('contact', 'Thank you for contacting us. We will respond to you as soon as possible.');
-                $this->refresh();
+        $form = new ContactForm;
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->process($user)) {
+                Yii::$app->session->setFlash('success', Yii::t('app',
+                    'Thank you for contacting us. We will respond to you as soon as possible.'));
+                return $this->refresh();
             }
         }
-        return $this->render('contact', array('model' => $model, 'user' => $user));
+        return $this->render('contact', array('model' => $form, 'user' => $user));
     }
 
 

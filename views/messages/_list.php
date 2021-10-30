@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <?php echo Yii::$app->formatter->asDatetime($data['last_date']); ?>
     </i>
 
-    <a href='<?php echo Url::to('@web/messages/dialog', array('user' => $data['interlocutor'])); ?>'>
+    <a href='<?php echo Url::to('messages/dialog', array('user' => $data['interlocutor'])); ?>'>
         <b><?php echo Html::encode($data['username']); ?></b> </a>
     <br/>
     Сообщений (<?php echo Html::encode($data['count_mes']); ?>)

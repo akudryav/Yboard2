@@ -1,6 +1,7 @@
 <?php
 /* @var $this MessagesController */
 /* @var $data Messages */
+use yii\helpers\Html;
 ?>
 
 <div class="view mes_dialog">

@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     $form = ActiveForm::begin(array(
         'id' => 'messages-form',
         'enableAjaxValidation' => false,
-        'action' => Url::toRoute(['messages/create', 'id' => $receiver])
+        'action' => Url::to(['messages/create', 'id' => $receiver])
     ));
     ?>
 

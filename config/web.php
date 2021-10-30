@@ -87,7 +87,7 @@ $config = [
                 'login' => 'user/login',
                 'cat_fields/<id:\d+>' => 'adverts/getfields',
                 'view/moderate/<adv_id:\d+>' => 'view/adverts/moderate/id/<adv_id>',
-                'category/<action:\w+>/' => 'view/category/<action>',
+                'page/<view:\w+>/' => 'site/page',
                 //'<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],

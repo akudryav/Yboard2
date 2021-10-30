@@ -1,6 +1,7 @@
 <?php
 namespace app\models\forms;
 
+use Yii;
 /**
  * ContactForm class.
  * ContactForm is the data structure for keeping
@@ -34,7 +35,8 @@ class ContactForm extends \yii\base\Model
      * If not declared here, an attribute would have a label that is
      * the same as its name with the first letter in upper case.
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'name' => 'Имя',
             'email' => 'Ваш E-mail',
@@ -42,6 +44,20 @@ class ContactForm extends \yii\base\Model
             'body' => 'Сообщение',
             'verifyCode' => 'Проверочный код',
         );
+    }
+
+    public function process($user)
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+        $email = isset($user->email) ? $user->email : Yii::$app->params['adminEmail'];
+        return Yii::$app->mailer->compose()
+            ->setFrom($email)
+            ->setTo(Yii::$app->params['adminEmail'])
+            ->setSubject($this->subject)
+            ->setTextBody($this->body)
+            ->send();
     }
 
 }

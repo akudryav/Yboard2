@@ -96,6 +96,8 @@ return array(
     'This email address already exists.' => 'Этот email уже используется',
     'This username already exists.' => 'Это имя пользователя уже используется',
     'Incorrect symbols (A-z0-9).' => 'Недопустимые символы (A-z0-9).',
+    'Thank you for contacting us. We will respond to you as soon as possible.' =>
+        'Спасибо за обратную связь, мы ответим вам как можно скорее.',
     // Страницы
     'Lft' => 'левый',
     'Rgt' => 'правый',

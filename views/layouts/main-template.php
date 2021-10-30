@@ -52,35 +52,36 @@ $this->beginPage();
                 echo Menu::widget(array(
                     'encodeLabels' => false,
                     'items' => array(
-                        array('url' => Url::to("@web/login"),
+                        array('url' => Url::to('user/login'),
                             'label' => "<i class='fa fa-sign-in'></i>" . Yii::t('app', "Login"),
                             'visible' => Yii::$app->user->isGuest
                         ),
-                        array('url' => Url::to("@web/registration"),
+                        array('url' => Url::to('user/registration'),
                             'label' => "<i class='fa fa-user-plus'></i>" . Yii::t('app', "Register"),
                             'visible' => Yii::$app->user->isGuest
                         ),
-                        array('url' => Url::to('@web/user/' . Yii::$app->user->id),
+                        array('url' => Url::to('user/profile' . Yii::$app->user->id),
                             'label' => "<i class='fa fa-user'></i>" . Yii::t('app', "Profile"),
                             'visible' => !Yii::$app->user->isGuest
                         ),
-                        array('url' => Url::to('@web/adverts/user', array('id' => Yii::$app->user->id)),
+                        array('url' => Url::to('adverts/user', array('id' => Yii::$app->user->id)),
                             'label' => "<i class='fa fa-bullhorn'></i>" . Yii::t('app', "My adverts"),
                             'visible' => !Yii::$app->user->isGuest
                         ),
-                        array('url' => Url::to('@web/adverts/favorites'),
+                        array('url' => Url::to('adverts/favorites'),
                             'label' => "<i class='fa fa-bookmark-o'></i>" . Yii::t('app', "Favorites advert"),
                             'visible' => !Yii::$app->user->isGuest
                         ),
-                        array('url' => Url::to("@web/messages"),
+                        array('url' => Url::to("messages/index"),
                             'label' => "<i class='fa fa-comment-o'></i>" . Yii::t('app', "Messages"),
                             'visible' => !Yii::$app->user->isGuest
                         ),
-                        array('url' => Url::to('@web/logout'),
-                            'label' => "<i class='fa fa-sign-out'></i>" . Yii::t('app', "Logout") . ' (' . Yii::$app->user->identity->username . ')',
+                        array('url' => Url::to('user/logout'),
+                            'label' => "<i class='fa fa-sign-out'></i>" . Yii::t('app', "Logout") .
+                                ' (' . Yii::$app->user->identity->username . ')',
                             'visible' => !Yii::$app->user->isGuest
                         ),
-                        ),
+                    ),
                     ));
                     ?>
 

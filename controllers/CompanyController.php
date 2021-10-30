@@ -77,7 +77,7 @@ class CompanyController extends Controller
                 $model->save();
                 $profile->save();
                 Yii::$app->user->updateSession();
-                Yii::$app->session->setFlash('profileMessage', Yii::t('app', "Changes is saved."));
+                Yii::$app->session->setFlash('info', Yii::t('app', "Changes is saved."));
                 $this->redirect(array('/user/profile'));
             } else
                 $profile->validate();

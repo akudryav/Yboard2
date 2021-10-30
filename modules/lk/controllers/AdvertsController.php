@@ -105,6 +105,39 @@ class AdvertsController extends Controller
 
     }
 
+    public function actionFavorites()
+    {
+        $query = Post::find()->where(['status' => 1]);
+
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC,
+                    'title' => SORT_ASC,
+                ]
+            ],
+        ]);
+
+
+        $query = Adverts::find()->where(['user_id' => Yii::$app->user->id])
+            ->join('inner join', 'users', ' users.id=favorites.user_id ')
+            ->join('inner join', 'favorites', 't.id=favorites.obj_id ')
+            ->where(['user_id' => Yii::$app->user->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+
+
+        return $this->render('index', array(
+            'data' => $dataProvider,
+        ));
+    }
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.

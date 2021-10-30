@@ -1,9 +1,12 @@
 <?php
 /* @var $this MessagesController */
+
 /* @var $model Messages */
 
 
 use yii\widgets\Menu;
+use yii\helpers\Url;
+use app\models\User;
 
 $this->params['breadcrumbs'] = array(
     ['label' => 'Messages', 'url' => array('index')],
@@ -21,7 +24,7 @@ echo Menu::widget([
 ?>
 
     <div><?= Yii::t('app', 'Write messages to') ?>
-        <a href='<?= Url::to('@web/user/view', array('id' => $receiver)) ?>'>
+        <a href='<?= Url::to('user/view', array('id' => $receiver)) ?>'>
             <?= User::findOne($receiver)->username ?>
         </a>
     </div>

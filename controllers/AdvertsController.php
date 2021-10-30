@@ -44,42 +44,6 @@ class AdvertsController extends Controller
         }
     }
 
-    public function actionFavorites() {
-
-
-
-        $query = Post::find()->where(['status' => 1]);
-
-        $provider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'created_at' => SORT_DESC,
-                    'title' => SORT_ASC,
-                ]
-            ],
-        ]);
-
-
-        $query = Adverts::find()->where(['user_id' => Yii::$app->user->id])
-            ->join('inner join', 'users',  ' users.id=favorites.user_id ')
-            ->join('inner join', 'favorites', 't.id=favorites.obj_id ')
-            ->where(['user_id' => Yii::$app->user->id ]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
-
-
-        return $this->render('index', array(
-            'data' => $dataProvider,
-        ));
-    }
-
-
     public function actionGetfields($id)
     {
 
@@ -289,24 +253,6 @@ class AdvertsController extends Controller
         return $this->render('category', array(
             'model' => $this->loadCategory($id),
             'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
-     * Show category.
-     * @param int $id User's id
-     */
-    public function actionUser($id = 0 ) {
-
-
-        $query = Adverts::find()->where(['user_id' => $id])->orderBy('sort', 'desc');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        return $this->render('index', array(
-            'data' => $dataProvider,
         ));
     }
 

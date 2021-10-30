@@ -46,7 +46,9 @@ AppAsset::register($this);
             [
                 'label' => 'Личный кабинет',
                 'items' => [
+                    //['label' => 'Профиль', 'url' => ['user/profile']],
                     ['label' => 'Объявления', 'url' => ['lk/adverts']],
+                    //['label' => 'Сообщения', 'url' => ['lk/messages']],
                 ],
                 'visible' => !Yii::$app->user->isGuest
             ],
