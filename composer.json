@@ -24,14 +24,14 @@
     "yiisoft/yii2": "~2.0.14",
     "yiisoft/yii2-bootstrap4": "@dev",
     "yiisoft/yii2-swiftmailer": "~2.0.0",
-    "zxbodya/yii2-gallery-manager": "*@dev",
     "mihaildev/yii2-ckeditor": "*",
     "newerton/yii2-fancybox-3": "*",
     "creocoder/yii2-nested-sets": "^0.9.0",
     "rmrevin/yii2-ulogin": "~1.4",
     "jisoft/yii2-sypexgeo": "dev-master",
     "kartik-v/yii2-widget-select2": "@dev",
-    "mirocow/yii2-yandex-maps": "*"
+    "mirocow/yii2-yandex-maps": "*",
+    "costa-rico/yii2-images": "^1.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

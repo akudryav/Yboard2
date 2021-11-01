@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use app\models\Category;
-use zxbodya\yii2\galleryManager\GalleryManager;
 
 
 ?>

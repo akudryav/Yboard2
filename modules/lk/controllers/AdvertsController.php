@@ -2,11 +2,12 @@
 
 namespace app\modules\lk\controllers;
 
-use app\models\Category;
 use Yii;
+use app\models\Category;
 use app\models\Adverts;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 
 class AdvertsController extends Controller
@@ -36,8 +37,13 @@ class AdvertsController extends Controller
         $model->location = 0;
         $model->fields = '';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->save() && $model->upload()) {
+                // file is uploaded successfully
+                return $this->redirect(['index']);
+            }
+
         }
 
         $categories = Category::find()
@@ -59,8 +65,12 @@ class AdvertsController extends Controller
     {
         $model = $this->loadModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->save() && $model->upload()) {
+                // file is uploaded successfully
+                return $this->redirect(['index']);
+            }
         }
 
         $categories = Category::find()

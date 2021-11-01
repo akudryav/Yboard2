@@ -7,11 +7,12 @@ use yii\helpers\StringHelper;
 /* @var $this AdvertsController */
 /* @var $model Adverts */
 
+$image = $model->getImage();
 ?>
 
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-        <img src="/gallery/noimage.gif" alt="<?php echo Html::encode($model['name']) ?>">
+        <img src="<?= $image->getPath(); ?>" alt="<?php echo Html::encode($model['name']) ?>">
         <div class="caption">
             <h3><?php echo Html::encode($model['name']); ?></h3>
             <p><?php echo StringHelper::truncate($model['text'], 150); ?></p>

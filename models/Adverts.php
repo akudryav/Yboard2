@@ -1,11 +1,8 @@
 <?php
 namespace app\models;
 
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
-use zxbodya\yii2\galleryManager\GalleryBehavior;
 use yii\db\Query;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -24,7 +21,7 @@ use yii\data\ActiveDataProvider;
  */
 class Adverts extends \yii\db\ActiveRecord
 {
-
+    public $imageFiles;
     const TYPE_DEMAND = 0;
     const TYPE_OFFER = 1;
     const STATUS_MODERATED = 0;
@@ -53,6 +50,7 @@ class Adverts extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
             [['price', 'type'], 'double'],
             [['type'], 'safe'],
+            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, gif', 'maxFiles' => 5],
             [['id', 'name', 'user_id', 'category_id', 'type', 'views', 'text', 'price', 'moderated'], 'safe', 'on' => 'search'],
         );
     }
@@ -155,6 +153,24 @@ class Adverts extends \yii\db\ActiveRecord
     }
 
     /**
+     * Загрузка файлов
+     * @return bool
+     */
+    public function upload()
+    {
+        if ($this->validate()) {
+            foreach ($this->imageFiles as $file) {
+                $filename = 'images/store/' . uniqid() . '.' . $file->extension;
+                $file->saveAs($filename);
+                $this->attachImage($filename);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
@@ -234,49 +250,10 @@ class Adverts extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated_at',
                 'value' => new Expression('NOW()'),
             ],
-            'galleryBehavior' => [
-                'class' => GalleryBehavior::class,
-                'type' => 'product',
-                'tableName' => 'gallery_images',
-                'extension' => 'jpg',
-                'directory' => Yii::getAlias('@webroot') . '/images/product/gallery',
-                'url' => Yii::getAlias('@web') . '/images/product/gallery',
-                'versions' => [
-                    'small' => function ($img) {
-                        /** @var ImageInterface $img */
-                        return $img
-                            ->copy()
-                            ->thumbnail(new Box(200, 200));
-                    },
-                    'medium' => function ($img) {
-                        /** @var ImageInterface $img */
-                        $dstSize = $img->getSize();
-                        $maxWidth = 800;
-                        if ($dstSize->getWidth() > $maxWidth) {
-                            $dstSize = $dstSize->widen($maxWidth);
-                        }
-                        return $img
-                            ->copy()
-                            ->resize($dstSize);
-                    },
-                ]
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
             ]
         ];
-    }
-
-    /**
-     * return first GalleryPhoto
-     * @return GalleryPhoto
-     */
-    public function getPhoto()
-    {
-
-        $images = $this->getBehavior('galleryBehavior')->getImages();
-
-        if (!empty($images)) {
-
-            return $images[0];
-        }
     }
 
     /*

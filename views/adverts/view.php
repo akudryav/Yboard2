@@ -14,7 +14,7 @@ $this->context->pageTitle = $model->name;
     <h1><?= $model->name ?></h1>
     <div class="image">
         <?php
-        echo $model->getPhoto();
+        echo $model->getImage();
         ?>
     </div>
     <p><?php echo nl2br($model->text); ?></p>

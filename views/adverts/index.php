@@ -12,7 +12,7 @@ if (!$data) {
 
 echo ListView::widget( array(
     'dataProvider' => $data,
-    'itemView' => '_view',
+    'itemView' => '_view_short',
 ));
 
 

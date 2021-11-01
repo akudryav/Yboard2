@@ -36,3 +36,4 @@ tests/_support/_generated
 # All local files
 *_local.php
 composer.lock
+/web/images/cache/

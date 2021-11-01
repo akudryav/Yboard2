@@ -60,10 +60,11 @@ JS
 <div class="form well">
 
     <?php
-    $form = ActiveForm::begin(array(
+    $form = ActiveForm::begin([
         'id' => 'bulletin-form',
+        'options' => ['enctype' => 'multipart/form-data'],
         'enableAjaxValidation' => false,
-    ));
+    ]);
     ?>
 
     <?php echo $form->errorSummary($model); ?>
@@ -76,6 +77,7 @@ JS
         ],
     ]); ?>
     <?= $form->field($model, 'text')->textarea(['rows' => '6']) ?>
+    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
     <?php echo $form->field($model, 'price'); ?>
     <?= \mirocow\yandexmaps\Canvas::widget([
         'htmlOptions' => [

@@ -9,24 +9,10 @@ use app\models\Adverts;
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
-use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 
 class AdvertsController extends Controller
 {
-
-    public function actions()
-    {
-        return array(
-            'galleryApi' => [
-                'class' => GalleryManagerAction::class,
-                // mappings between type names and model classes (should be the same as in behaviour)
-                'types' => [
-                    'product' => Adverts::class
-                ]
-            ],
-        );
-    }
 
     public function actionSetFavorites($id) {
         $model = Favorites::find(" user_id='" . Yii::$app->user->id

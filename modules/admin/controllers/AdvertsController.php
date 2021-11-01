@@ -34,8 +34,9 @@ class AdvertsController extends Controller
 
         if (isset($_POST['Adverts'])) {
             $model->attributes = $_POST['Adverts'];
-            if ($model->save())
+            if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         return $this->render('create', array(
