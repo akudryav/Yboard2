@@ -1,7 +1,7 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html;
 
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('user', 'Change password');
 

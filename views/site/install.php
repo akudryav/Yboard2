@@ -1,16 +1,16 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html;
 
 ?>
 
 
 <?php
-$form = ActiveForm::begin( array(
+$form = ActiveForm::begin(array(
     'id' => 'installForm',
     'options' => array('class' => 'well'),
-        ));
+));
 ?>
 
 <h1> Установка Ybord </h1>

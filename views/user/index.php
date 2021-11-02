@@ -3,7 +3,7 @@
 
 use yii\grid\GridView;
 use yii\widgets\Menu;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 $this->params['breadcrumbs'] = array(
     Yii::t('app', "Users"),

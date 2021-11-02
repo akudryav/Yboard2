@@ -5,7 +5,7 @@
 
 use yii\grid\GridView;
 use yii\widgets\Menu;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\grid\SerialColumn;
 
 

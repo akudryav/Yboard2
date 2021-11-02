@@ -2,7 +2,7 @@
 /* @var $this SiteController */
 /* @var $model Bulletin */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 
 $this->context->pageTitle = Yii::$app->name;

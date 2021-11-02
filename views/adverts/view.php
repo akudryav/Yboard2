@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\ListView;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 /* @var $this SiteController */
 /* @var $model Bulletin */

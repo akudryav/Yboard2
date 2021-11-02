@@ -4,8 +4,6 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Category;
-use yii\widgets\ActiveForm;
-
 
 class CategoryController extends Controller
 {

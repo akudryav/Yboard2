@@ -68,4 +68,5 @@
              0 => '4',
          ),
      'adminEmail' => 'antonsk@mail.ru',//Емайл администрации
+     'bsVersion' => '4.x',
  );

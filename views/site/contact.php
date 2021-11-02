@@ -5,9 +5,9 @@
 
 /* @var $user User */
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\captcha\Captcha;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 $this->context->pageTitle = Yii::$app->name . ' - Обратная связь';
 $this->params['breadcrumbs'] = array(

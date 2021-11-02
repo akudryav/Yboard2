@@ -2,9 +2,9 @@
 
 /* @var $categories array */
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use kartik\select2\Select2;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 $map = new \mirocow\yandexmaps\Map('yandex_map', [
     'center' => [55.7372, 37.6066],

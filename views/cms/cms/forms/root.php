@@ -1,11 +1,13 @@
-<?php use yii\widgets\ActiveForm;
+<?php
+
+use yii\bootstrap4\ActiveForm;
 
 ?>
 
 <div class="form">
 
     <?php
-    $form = ActiveForm::begin( array(
+    $form = ActiveForm::begin(array(
         'id' => 'cms-form',
         'enableAjaxValidation' => true,
     ));

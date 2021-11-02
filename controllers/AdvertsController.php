@@ -6,7 +6,7 @@ use app\components\TextValidator;
 use app\models\Category;
 use app\models\Messages;
 use app\models\Adverts;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
 

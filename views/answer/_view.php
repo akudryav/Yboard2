@@ -1,9 +1,10 @@
 <?php
 /* @var $this AnswerController */
+
 /* @var $data Answer */
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\Html;
+use yii\bootstrap4\ActiveForm;
 
 ?>
 
@@ -11,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <b><?php echo Html::encode($data->getAttributeLabel('user_id')); ?>:</b>
     <?php echo $data->user ? Html::a(Html::encode($data->user->username), array('user/user/view', 'id' => $data->user->id)) : ''; ?>
-    <br />
+    <br/>
 
     <b><?php echo Html::encode($data->getAttributeLabel('text')); ?>:</b>
     <?php echo Html::encode($data->text); ?>

@@ -1,9 +1,9 @@
 <?php
 
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\captcha\Captcha;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 $this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Registration");
 $this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];

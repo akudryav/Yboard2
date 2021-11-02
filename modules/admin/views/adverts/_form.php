@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 /* @var $categories array */
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 ?>
 

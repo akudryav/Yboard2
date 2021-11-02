@@ -5,7 +5,7 @@ use Yii;
 use yii\base\Widget;
 use app\models\Category;
 use app\models\Location;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 /**
  * Выводит панель продвинутого поиска для определенной категории

@@ -1,12 +1,13 @@
 <?php
 /* @var $this AnswerController */
 /* @var $model Answer */
+
 /** @var BootActiveForm $form */
 
 use yii\widgets\ListView;
 
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Button;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Button;
 
 $this->params['breadcrumbs'] = array(
     Yii::t('main', 'Answers'),

@@ -3,7 +3,7 @@
 /* @var $model Messages */
 /* @var $form CActiveForm */
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 ?>
 

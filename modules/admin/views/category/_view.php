@@ -2,7 +2,7 @@
 /* @var $this CategoryController */
 /* @var $data Category */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 
 ?>

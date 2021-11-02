@@ -3,9 +3,9 @@
 /* @var $model Bulletin */
 /* @var $form CActiveForm */
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
-use yii\bootstrap\Button;
+use yii\bootstrap4\Button;
 
 
 ?>

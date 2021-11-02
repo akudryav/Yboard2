@@ -3,9 +3,9 @@
 /* @var $model Messages */
 /* @var $form CActiveForm */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 ?>
 

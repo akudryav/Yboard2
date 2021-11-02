@@ -2,7 +2,7 @@
 /* @var $this BulletinController */
 /* @var $data Bulletin */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 ?>
 

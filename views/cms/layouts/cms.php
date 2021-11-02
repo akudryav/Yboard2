@@ -1,6 +1,6 @@
 <?php
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 $this->beginContent('//layouts/main_cms'); ?>
 <div class="container">
