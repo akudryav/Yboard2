@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\helpers\Html;
 
 /* @var $this SiteController */
 /* @var $model Bulletin */
@@ -14,7 +15,10 @@ $this->context->pageTitle = $model->name;
     <h1><?= $model->name ?></h1>
     <div class="image">
         <?php
-        echo $model->getImage();
+        echo newerton\fancybox3\FancyBox::widget();
+        foreach ($model->getImages() as $img) {
+            echo Html::a(Html::img($img->getUrl('350x')), $img->getUrl(), ['data-fancybox' => 'group1']);
+        }
         ?>
     </div>
     <p><?php echo nl2br($model->text); ?></p>
@@ -61,10 +65,10 @@ $this->context->pageTitle = $model->name;
 </div>
 <div class="row">
     <h3><?= Yii::t('app', "Related adverts") ?>:</h3>
-    <?php echo ListView::widget(array(
+    <?php echo ListView::widget([
         'dataProvider' => $dataRel,
         'itemView' => '_item',
         'summary' => false,
-    ));
+    ]);
     ?>
 </div>

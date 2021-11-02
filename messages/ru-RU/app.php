@@ -13,7 +13,7 @@ return array(
     'Create advert' => 'Создать объявление',
     'View advert' => 'Просмотреть объявление',
     'Manage adverts' => 'Управление объявлениями ',
-    'Update advert' => 'Обновить объявление',
+    'Update advert: {nameAttribute}' => 'Обновить объявление: {nameAttribute}',
     'Delete advert' => 'Удалить объявление',
     'List Category' => 'Список категорий',
     'Create Category' => 'Создать категорию',

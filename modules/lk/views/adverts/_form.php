@@ -78,6 +78,11 @@ JS
     ]); ?>
     <?= $form->field($model, 'text')->textarea(['rows' => '6']) ?>
     <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    <?php
+    foreach ($model->getImages() as $img) {
+        echo Html::img($img->getUrl('x100'));
+    }
+    ?>
     <?php echo $form->field($model, 'price'); ?>
     <?= \mirocow\yandexmaps\Canvas::widget([
         'htmlOptions' => [
