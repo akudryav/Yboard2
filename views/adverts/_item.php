@@ -11,7 +11,7 @@ $image = $model->getImage();
 ?>
 
 <div class="card border-secondary mb-3">
-    <?php echo Html::img($image->getPath('350x'), ['class' => 'card-img-top', 'alt' => $model->name]); ?>
+    <?php echo Html::img($image->getUrl('350x'), ['class' => 'card-img-top', 'alt' => $model->name]); ?>
     <div class="card-body">
         <h5 class="card-title"><?php echo Html::encode($model->name); ?></h5>
         <p class="card-text"><?php echo StringHelper::truncate($model->text, 150); ?></p>

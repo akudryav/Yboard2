@@ -165,7 +165,8 @@ class AdvertsController extends Controller
     {
 
         $query = Adverts::find()->innerJoinWith('category')
-            ->where(['OR',
+            ->where(['moderated' => 1])
+            ->andWhere(['OR',
                 ['category_id' => (int)$id],
                 ['AND',
                     ['>', 'category.lft', Yii::$app->params['categories'][$id]['lft']],
