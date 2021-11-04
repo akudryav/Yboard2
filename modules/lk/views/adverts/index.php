@@ -6,9 +6,9 @@ use yii\bootstrap4\Html;
 ?>
 
 
-    <h1><?php echo Yii::t('app', 'Manage adverts'); ?></h1>
+    <h1><?php echo Yii::t('adv', 'Manage adverts'); ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create advert'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('adv', 'Create advert'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 <?php

@@ -14,16 +14,16 @@ $this->params['breadcrumbs'] = array(
 
 echo Menu::widget([
     'items' => array(
-        array('label' => Yii::t('app', 'List Answer'), 'icon' => 'icon-list', 'url' => array('index')),
-        array('label' => Yii::t('app', 'Create Answer'), 'icon' => 'icon-plus', 'url' => array('create')),
-        array('label' => Yii::t('app', 'Update Answer'), 'icon' => 'icon-refresh', 'url' => array('update', 'id' => $model->id)),
-        array('label' => Yii::t('app', 'Delete Answer'), 'icon' => 'icon-minus', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
-        array('label' => Yii::t('app', 'Manage Answer'), 'icon' => 'icon-folder-open', 'url' => array('view')),
+        array('label' => Yii::t('adv', 'List Answer'), 'icon' => 'icon-list', 'url' => array('index')),
+        array('label' => Yii::t('adv', 'Create Answer'), 'icon' => 'icon-plus', 'url' => array('create')),
+        array('label' => Yii::t('adv', 'Update Answer'), 'icon' => 'icon-refresh', 'url' => array('update', 'id' => $model->id)),
+        array('label' => Yii::t('adv', 'Delete Answer'), 'icon' => 'icon-minus', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+        array('label' => Yii::t('adv', 'Manage Answer'), 'icon' => 'icon-folder-open', 'url' => array('view')),
     )
 ]);
 ?>
 
-<h1><?php echo Yii::t('app', 'View Answer'); ?> #<?php echo $model->id; ?></h1>
+<h1><?php echo Yii::t('adv', 'View Answer'); ?> #<?php echo $model->id; ?></h1>
 
 <?php
 echo DetailView::widget(

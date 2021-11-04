@@ -63,10 +63,13 @@ $this->context->pageTitle = $model->name;
     </div>
 
 </div>
-<div class="row">
-    <h3><?= Yii::t('app', "Related adverts") ?>:</h3>
+<h3><?= Yii::t('adv', 'Related adverts') ?></h3>
+<div class="card-columns">
     <?php echo ListView::widget([
         'dataProvider' => $dataRel,
+        'itemOptions' => [
+            'tag' => false,
+        ],
         'itemView' => '_item',
         'summary' => false,
     ]);

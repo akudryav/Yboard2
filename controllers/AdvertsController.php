@@ -139,18 +139,16 @@ class AdvertsController extends Controller
         $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
 
-        $query = Adverts::find()->where('category_id = ' . $model->category_id)
-            ->where(' id != ' . $model->id)->limit(5);
+        $query = Adverts::find()->where(['<>', 'id', $model->id])
+            ->andWhere(['category_id' => $model->category_id])
+            ->orderBy('RAND()')->limit(5);
 
         // Похожие объявления   
         $dataRel = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false,
         ]);
-        
-       
 
-        
         return $this->render('view', array(
             'model' => $model,
             'mes_model' => $mes_model,
@@ -166,73 +164,19 @@ class AdvertsController extends Controller
     public function actionCategory($id)
     {
 
-        /*
-        $query = \app\models\Adverts::findAllBySql("select adverts.* from adverts ".
-            "where category_id ='".$id."' inner join category on category.id=t.category_id ");
+        $query = Adverts::find()->innerJoinWith('category')
+            ->where(['OR',
+                ['category_id' => (int)$id],
+                ['AND',
+                    ['>', 'category.lft', Yii::$app->params['categories'][$id]['lft']],
+                    ['<', 'category.rgt', Yii::$app->params['categories'][$id]['rgt']],
+                    ['category.root' => Yii::$app->params['categories'][$id]['root']]
+                ]
+            ]);
 
-        $dataProvider = new ActiveDataProvider( array(
+        $dataProvider = new ActiveDataProvider([
             'query' => $query
-        ));
-        /**/
-
-        /*
-        $count = Yii::$app->db->createCommand(' select count(t.* ) from adverts t '.
-            ' inner join category on category.id=t.category_id where '.
-            ' t.category_id = :id or (category.lft > :cat_lft ' .
-            ' and category.rgt< :cat_rgt and category.root = :cat_root)', array(
-            ':id' => (int) $id,
-            ':cat_lft' => Yii::$app->params['categories'][$id]['lft'],
-            ':cat_rgt' => Yii::$app->params['categories'][$id]['rgt'],
-            ':cat_root' => Yii::$app->params['categories'][$id]['root'],
-            ':cat_root' => Yii::$app->params['categories'][$id]['root'],
-        ))->queryScalar();
-        /**/
-
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'select t.*, IFNULL(updated_at, created_at) as sort from adverts t '.
-                ' inner join category on category.id=t.category_id where '.
-                ' t.category_id = :id or (category.lft > :cat_lft ' .
-                ' and category.rgt< :cat_rgt and category.root = :cat_root)',
-            'params' => array(
-                ':id' => (int)$id,
-                ':cat_lft' => Yii::$app->params['categories'][$id]['lft'],
-                ':cat_rgt' => Yii::$app->params['categories'][$id]['rgt'],
-                ':cat_root' => Yii::$app->params['categories'][$id]['root'],
-            ),
-            /*
-            'totalCount' => $count,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'attributes' => [
-                    'title',
-                    'view_count',
-                    'created_at',
-                ],
-            ],
-            /**/
         ]);
-
-        /*
-        $dataProvider = new ActiveDataProvider('Adverts', array(
-            'criteria' => array(
-                'select' => 't.*, IFNULL(updated_at, created_at) as sort',
-                'condition' => 't.category_id = :id or (category.lft > :cat_lft '
-                . 'and category.rgt< :cat_rgt and category.root = :cat_root)',
-                'order' => 'sort DESC',
-                'params' => array(
-                    ':id' => (int) $id,
-                    ':cat_lft' => Yii::$app->params['categories'][$id]['lft'],
-                    ':cat_rgt' => Yii::$app->params['categories'][$id]['rgt'],
-                    ':cat_root' => Yii::$app->params['categories'][$id]['root'],
-                    ':cat_root' => Yii::$app->params['categories'][$id]['root'],
-                ),
-                'limit' => Yii::$app->params['adv_on_page'],
-                'join' => 'inner join category on category.id=t.category_id ',
-            ),
-        ));
-        */
 
         $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$id]['name'];
 

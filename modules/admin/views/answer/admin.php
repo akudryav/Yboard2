@@ -13,8 +13,8 @@ $this->params['breadcrumbs'] = array(
 
 echo Menu::widget([
     'items' => array(
-        array('label' => Yii::t('app', 'List Answer'), 'icon' => 'icon-list', 'url' => array('index')),
-        array('label' => Yii::t('app', 'Create Answer'), 'icon' => 'icon-plus', 'url' => array('create')),
+        array('label' => Yii::t('adv', 'List Answer'), 'icon' => 'icon-list', 'url' => array('index')),
+        array('label' => Yii::t('adv', 'Create Answer'), 'icon' => 'icon-plus', 'url' => array('create')),
     )
 ]);
 
@@ -32,7 +32,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1><?php Yii::t('app', 'Manage Answers'); ?></h1>
+<h1><?php Yii::t('adv', 'Manage Answers'); ?></h1>
 
 <p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>,

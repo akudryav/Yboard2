@@ -10,14 +10,15 @@ use yii\helpers\StringHelper;
 $image = $model->getImage();
 ?>
 
-<div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <?= Html::img($image->getPath('350x'), ['alt' => $model['name']]) ?>
-        <div class="caption">
-            <h3><?php echo Html::encode($model['name']); ?></h3>
-            <p><?php echo StringHelper::truncate($model['text'], 150); ?></p>
-            <p><a href="<?= Url::to(['adverts/view', 'id' => $model['id']]) ?>" class="btn btn-primary" role="button">Подробнее</a>
-                <a href="#" class="btn btn-default" role="button">Написать</a></p>
-        </div>
+<div class="card border-secondary mb-3">
+    <?php echo Html::img($image->getPath('350x'), ['class' => 'card-img-top', 'alt' => $model->name]); ?>
+    <div class="card-body">
+        <h5 class="card-title"><?php echo Html::encode($model->name); ?></h5>
+        <p class="card-text"><?php echo StringHelper::truncate($model->text, 150); ?></p>
+        <?php echo Html::a(Yii::t('adv', 'Details'),
+            ['adverts/view', 'id' => $model->id], ['class' => 'btn btn-primary']); ?>
+        <?php echo Html::a(Yii::t('adv', 'Message'),
+            '#', ['class' => 'card-link']); ?>
     </div>
 </div>
+

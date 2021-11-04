@@ -44,7 +44,7 @@ class SiteController extends Controller
     {
         // корневые категории (уровня 1)
         $roots = Category::roots();
-        $query = Adverts::find()->where('id <> 1'); // добавить проверку moderated
+        $query = Adverts::find()->where(['moderated' => 1])->orderBy('id DESC');
         // оставляем только категории с картинками для карусели
         $roots = array_filter($roots, function ($r) {
             return isset($r->icon);

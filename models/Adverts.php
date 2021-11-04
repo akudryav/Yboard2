@@ -94,7 +94,7 @@ class Adverts extends \yii\db\ActiveRecord
 
     public function getCategory()
     {
-        return $this->hasOne(Category::class, ['category_id' => 'id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
     /**
@@ -114,8 +114,8 @@ class Adverts extends \yii\db\ActiveRecord
             'youtube_id' => Yii::t('app', 'Youtube'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
-            'fields' => Yii::t('app', 'Fields'),
-            'price' => Yii::t('app', 'Price'),
+            'fields' => Yii::t('adv', 'Fields'),
+            'price' => Yii::t('adv', 'Price'),
             'location' => Yii::t('app', 'Location'),
             'moderated' => Yii::t('app', 'Мoderated'),
         );

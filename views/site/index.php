@@ -14,51 +14,44 @@ $this->context->pageTitle = Yii::$app->name;
     $start = 0;
     ?>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Показатели -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <!-- Обертка для слайдов -->
-        <div class="carousel-inner" role="listbox">
+        <div class="carousel-inner">
             <?php foreach ($batch as $b): ?>
-                <div class="item <?php if (0 == $start) echo 'active'; ?>">
-                    <div class="row">
-                        <?php foreach ($b as $cat):
-                            $url = Url::to(['adverts/category', 'id' => $cat->id]);
-                            ?>
-                            <div class="col-xs-3">
-                                <a href="<?= $url ?>">
-                                    <img src="/images/category/<?= $cat->icon ?>" alt="<?= $cat->name ?>"
-                                         class="img-responsive">
-                                    <div class="carousel-caption"><h3><?= $cat->name ?></h3></div>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                <div class="carousel-item <?php if (0 == $start) echo 'active'; ?>">
+                    <?php foreach ($b as $cat):
+                        $url = Url::to(['adverts/category', 'id' => $cat->id]);
+                        ?>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <a href="<?= $url ?>">
+                                <img src="/images/category/<?= $cat->icon ?>" alt="<?= $cat->name ?>"
+                                     class="img-responsive">
+                                <div class="carousel-caption d-none d-md-block"><h5><?= $cat->name ?></h5></div>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
                 <?php $start++; ?>
             <?php endforeach; ?>
         </div>
-        <!-- Элементы управления -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
     </div>
+
 <?php endif; ?>
 
 <h3> Последние объявления </h3>
 
-<div class="container">
-    <?php
-    echo ListView::widget([
+<div class="card-columns">
+    <?php echo ListView::widget([
         'dataProvider' => $indexAdv,
+        'itemOptions' => [
+            'tag' => false,
+        ],
         'itemView' => '/adverts/_item',
     ]);
     ?>

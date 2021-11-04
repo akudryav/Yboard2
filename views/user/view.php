@@ -46,7 +46,7 @@ $attributes = array(
         <a href='<?php echo Url::to('user/ban', array('id' => $model->id)) ?>'> Заблокировать </a>
     <?php } ?>
     <div>
-        <a href='<?php echo Url::to("adverts/user", array('id' => $model->id)) ?>'> <?= Yii::t('app', 'Adverts') ?> </a>
+        <a href='<?php echo Url::to("adverts/user", array('id' => $model->id)) ?>'> <?= Yii::t('adv', 'Adverts') ?> </a>
         |
         <a href='<?php echo Url::to("user/view", array('id' => $model->id)) ?>'> <?= Yii::t('app', 'Personal dates') ?> </a>
     </div>
