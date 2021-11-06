@@ -94,7 +94,8 @@ class MessagesController extends Controller
     {
 
         $query = Messages::find()->where(['or',
-            ['sender_id' => Yii::$app->user->id, 'receiver_id' => Yii::$app->user->id],
+            ['sender_id' => Yii::$app->user->id],
+            ['receiver_id' => Yii::$app->user->id],
         ])->with('advert');
 
         $dataProvider = new ActiveDataProvider([
