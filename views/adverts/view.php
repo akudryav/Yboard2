@@ -3,11 +3,12 @@
 use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\bootstrap4\Html;
+use app\widgets\Message;
 
 /* @var $this SiteController */
 /* @var $model Bulletin */
 
-$this->context->pageTitle = $model->name;
+$this->context->title = $model->name;
 
 ?>
 <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
@@ -33,35 +34,29 @@ $this->context->pageTitle = $model->name;
             }
         ?>
     </div>
-    <div class='price'><?= Yii::t('app', 'Price') ?> -
+    <p class='price'><?= Yii::t('adv', 'Price') ?> -
         <?php if ($model->price) { ?>
             <?= $model->price ?> ( ₽ )
         <?php } else {
-            echo "<i>" . Yii::t('app', 'Not set') . "</i>";
+            echo "<i>" . Yii::t('adv', 'Not set') . "</i>";
         }
         ?>
-    </div>
-    <p><?php
-        echo $this->render('/messages/_form', array(
-                'model' => $mes_model,
-                'receiver' => $model->user_id)
-        );
-        ?></p>
-    <div class="info">
-        <a href='<?php echo Url::to(['user/view', 'id' => $model->user_id]) ?>'>
-            <i class='fa fa-user'></i><?= $model->username ?>
-        </a>
-        <i class='fa fa-clock-o'></i>
-        <?= Yii::$app->formatter->asDateTime($model->created_at) ?>
-        <i class='fa fa-eye'></i><?= $model->views ?>
-        <div style='float:right; margin-top:-6px; '>
-            <a href='javascript:void(0)' onclick='setFavoriteAdv("<?= $model->id ?>", this)'>
-                <i class='fa fa-bookmark-o'></i></a>
-            <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="link"
+    </p>
+    <?php echo Message::widget(['advert' => $model]) ?>
+    <div class="row info">
+        <div class="col">
+            <i class="fa fa-clock-o"></i>
+            <?= Yii::$app->formatter->asDateTime($model->created_at) ?>
+            <i class="fa fa-eye"></i><?= $model->views ?>
+            <a href="javascript:void(0)" title="В избранное"
+               onclick="setFavoriteAdv(<?= $model->id ?>, this)">
+                <i class="fa fa-bookmark-o"></i></a>
+        </div>
+        <div class="col">
+            <div class="float-right yashare-auto-init" data-yashareL10n="ru" data-yashareType="link"
                  data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir"></div>
         </div>
     </div>
-
 </div>
 <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
 <div class="card-columns">

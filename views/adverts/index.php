@@ -4,7 +4,7 @@
 
 use yii\widgets\ListView;
 
-$this->context->pageTitle = Yii::$app->name;
+$this->context->title = Yii::$app->name;
 
 if (!$data) {
     echo "<div class='results'>" . Yii::t('app', "No results for full search. Show simplified search results:") . "</div>";

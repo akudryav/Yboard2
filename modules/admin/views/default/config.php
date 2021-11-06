@@ -6,7 +6,7 @@
 
 use app\components\configer\Configer;
 
-$this->context->pageTitle = Yii::$app->name . ' - Настройки';
+$this->context->title = Yii::$app->name . ' - Настройки';
 
 ?>
 

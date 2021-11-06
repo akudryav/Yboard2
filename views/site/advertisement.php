@@ -5,7 +5,7 @@
 use yii\bootstrap4\Html;
 
 
-$this->context->pageTitle = Yii::$app->name;
+$this->context->title = Yii::$app->name;
 $this->breadcrumbs[] = Html::encode($model->name);
 ?>
 

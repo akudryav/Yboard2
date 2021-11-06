@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 ?>
 
-    <h4><?= Yii::t('app', 'Dialog') ?> с
+    <h4><?= Yii::t('message', 'Dialog') ?> с
         <a href='<?php echo Url::to('user/view', array('id' => $userData->id)) ?>'>
             <?= $userData->username ?></a>
     </h4>
@@ -22,6 +22,6 @@ use yii\helpers\Url;
             'itemView' => '_view',
         ));
         ?>
-</div>
+    </div>
 
 <?php echo $this->render('_form', array('model' => $model, 'receiver' => $userData->id)); ?>

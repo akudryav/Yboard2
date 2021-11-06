@@ -23,7 +23,7 @@ echo Menu::widget([
 //var_dump(User::findOne($receiver)->id);
 ?>
 
-    <div><?= Yii::t('app', 'Write messages to') ?>
+    <div><?= Yii::t('message', 'Write messages to') ?>
         <a href='<?= Url::to('user/view', array('id' => $receiver)) ?>'>
             <?= User::findOne($receiver)->username ?>
         </a>

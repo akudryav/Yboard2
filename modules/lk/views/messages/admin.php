@@ -1,5 +1,6 @@
 <?php
 /* @var $this MessagesController */
+
 /* @var $model Messages */
 
 
@@ -35,7 +36,8 @@ $('.search-form form').submit(function(){
 <h1>Manage Messages</h1>
 
 <p>
-    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>,
+    <b>&lt;&gt;</b>
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
@@ -49,7 +51,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-echo GridView::widget( array(
+echo GridView::widget(array(
     'id' => 'messages-grid',
     'dataProvider' => $model->search(),
     'filterModel' => $model,

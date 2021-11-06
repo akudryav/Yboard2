@@ -3,7 +3,6 @@
 return array(
     'Adverts' => 'Объявления',
     'My adverts' => 'Мои обьявления',
-    'Yours adverts' => 'Ваши объявления',
     'Create advert' => 'Создать объявление',
     'View advert' => 'Просмотреть объявление',
     'Manage adverts' => 'Управление объявлениями ',
@@ -25,4 +24,7 @@ return array(
     'Edit advert' => 'Редактировать объявление',
     'Details' => 'Подробнее',
     'Message' => 'Сообщение',
+    'Not set' => 'Не укзана',
+    'Мoderated' => 'Статус',
+    'Favorites' => 'Избранные объявления',
 );

@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\captcha\Captcha;
 use yii\bootstrap4\Html;
 
-$this->context->pageTitle = Yii::$app->name . ' - Обратная связь';
+$this->context->title = Yii::$app->name . ' - Обратная связь';
 $this->params['breadcrumbs'] = array(
     'Обратная связь',
 );

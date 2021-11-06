@@ -6,24 +6,24 @@ use yii\widgets\Menu;
 
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- Head -->
-    <head>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-            <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-            <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-            <script src="<?php echo Url::base(); ?>/js/admin.js"></script>
-            <meta charset="utf-8" >
+<head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="<?php echo Url::base(); ?>/js/admin.js"></script>
+    <meta charset="utf-8">
 
-                <title><?= $this->context->pageTitle ?></title>
+    <title><?= $this->title ?></title>
 
-                <meta name="description" content="Dashboard" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-                <link rel="shortcut icon" href="<?php echo Url::base(); ?>/img/favicon.png" type="image/x-icon" />
+    <meta name="description" content="Dashboard"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="<?php echo Url::base(); ?>/img/favicon.png" type="image/x-icon"/>
 
-                <!-- blueprint CSS framework -->
-                <link rel="stylesheet" type="text/css" href="<?php echo Url::base(); ?>/css/style.css" media="screen, projection" />
-                <!--Basic Styles-->
-                <link href="<?php echo Url::base(); ?>/css/bootstrap.css" rel="stylesheet" />
+    <!-- blueprint CSS framework -->
+    <link rel="stylesheet" type="text/css" href="<?php echo Url::base(); ?>/css/style.css" media="screen, projection"/>
+    <!--Basic Styles-->
+    <link href="<?php echo Url::base(); ?>/css/bootstrap.css" rel="stylesheet"/>
                 <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
                 <link href="<?php echo Url::base(); ?>/css/font-awesome.css" rel="stylesheet" />
                 <link href="<?php echo Url::base(); ?>/css/weather-icons.css" rel="stylesheet" />

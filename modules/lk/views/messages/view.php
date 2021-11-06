@@ -1,5 +1,6 @@
 <?php
 /* @var $this MessagesController */
+
 /* @var $model Messages */
 
 use yii\widgets\DetailView;
@@ -21,7 +22,7 @@ echo Menu::widget([
 ]);
 ?>
 
-<div> <?= Yii::t('app', 'View Messages') ?><?php echo $model->id; ?></div>
+<div> <?= Yii::t('message', 'View Messages') ?><?php echo $model->id; ?></div>
 
 <div style='border:1px solid #ccc; border-radius: 5px; padding:5px; '>
     <div> <?= $model->sender->username ?>:</div>
@@ -32,16 +33,16 @@ echo Menu::widget([
 <?php
 
 echo DetailView::widget(array(
-  'model'=>$model,
-  'attributes'=>array(
-  'id',
-  'sender_id',
-  'receiver_id',
-  'message',
-  'send_date',
-  'read_date',
-  ),
-  ));
+    'model' => $model,
+    'attributes' => array(
+        'id',
+        'sender_id',
+        'receiver_id',
+        'message',
+        'send_date',
+        'read_date',
+    ),
+));
 
- /**/
+/**/
 ?>

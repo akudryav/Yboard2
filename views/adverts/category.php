@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 /* @var $this SiteController */
 /* @var $model Category */
 
-$this->context->pageTitle = Yii::$app->name;
+$this->context->title = Yii::$app->name;
 
 ?>
 

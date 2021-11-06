@@ -1,7 +1,10 @@
 <?php
 /* @var $this MessagesController */
+
 /* @var $data Messages */
+
 use yii\bootstrap4\Html;
+
 ?>
 
 <div class="view mes_dialog">

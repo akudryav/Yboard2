@@ -23,31 +23,25 @@ class Favorites extends \yii\db\ActiveRecord
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules() {
+    public function rules()
+    {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array(['user_id', 'obj_id', 'obj_type'], 'integer'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array(['id', ' user_id', ' obj_id', ' obj_type'], 'safe'),
-        );
+        return [
+            [['user_id', 'obj_id', 'obj_type'], 'integer'],
+        ];
     }
 
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-        );
+    public function getAdvert()
+    {
+        return $this->hasOne(Adverts::class, ['id' => 'obj_id']);
     }
 
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'id' => 'ID',
             'user_id' => 'User',
@@ -56,40 +50,6 @@ class Favorites extends \yii\db\ActiveRecord
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get ActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return ActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
-     */
-    public function search( $params ) {
-        // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $query = Post::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        // загружаем данные формы поиска и производим валидацию
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-
-        // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['id', $this->id]);
-        $query->andFilterWhere(['user_id', $this->user_id]);
-        $query->andFilterWhere(['obj_id', $this->obj_id]);
-        $query->andFilterWhere(['obj_type', $this->obj_type]);
-
-        return $dataProvider;
-
-    }
 
 }

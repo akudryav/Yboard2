@@ -1,7 +1,7 @@
 <?php
 /* @var $this SiteController */
 
-$this->context->pageTitle = Yii::$app->name . ' - Правила работы';
+$this->context->title = Yii::$app->name . ' - Правила работы';
 $this->params['breadcrumbs'] = array('Правила работы');
 
 use yii\helpers\Url;

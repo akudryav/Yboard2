@@ -23,10 +23,7 @@ use app\models\Category;
     ));
     ?>
 
-
     <?php echo $form->errorSummary($model); ?>
-
-
 
     <div>
         <?php if (isset($_POST['Adverts']['name']) or $model->name) { ?>

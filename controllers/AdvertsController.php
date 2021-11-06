@@ -4,29 +4,33 @@ namespace app\controllers;
 use Yii;
 use app\components\TextValidator;
 use app\models\Category;
-use app\models\Messages;
+use app\models\Favorites;
 use app\models\Adverts;
 use yii\bootstrap4\Html;
 use yii\data\ActiveDataProvider;
-use yii\data\SqlDataProvider;
 
 
 class AdvertsController extends Controller
 {
+    public function actionFavorites($id)
+    {
+        $this->layout = false;
+        $model = Favorites::find()->where([
+            'user_id' => Yii::$app->user->id,
+            'obj_id' => $id,
+            'obj_type' => 0,
+        ])->one();
 
-    public function actionSetFavorites($id) {
-        $model = Favorites::find(" user_id='" . Yii::$app->user->id
-                . "' and obj_id='" . $id . "' and obj_type='0'");
         if ($model) {
             $model->delete();
-            echo 'false';
+            return $this->renderContent('false');
         } else {
-            $model = New Favorites();
+            $model = new Favorites();
             $model->user_id = Yii::$app->user->id;
             $model->obj_id = $id;
             $model->obj_type = 0;
             $model->save();
-            echo 'true';
+            return $this->renderContent('true');
         }
     }
 
@@ -129,8 +133,6 @@ class AdvertsController extends Controller
      */
     public function actionView($id) {
 
-        // Модель для моментального сообщения со страницы просмотра объявления
-        $mes_model = new Messages();
         $model = $this->loadAdverts($id);
         $model->views++;
         $model->save();

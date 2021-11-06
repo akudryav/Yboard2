@@ -9,7 +9,7 @@ $this->title = Yii::t('adv', 'Update advert: {nameAttribute}', [
     'nameAttribute' => $model->name,
 ]);
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('adv', 'Yours adverts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('adv', 'My adverts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>

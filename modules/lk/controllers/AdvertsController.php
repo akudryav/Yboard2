@@ -5,6 +5,7 @@ namespace app\modules\lk\controllers;
 use Yii;
 use app\models\Category;
 use app\models\Adverts;
+use app\models\Favorites;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
@@ -21,7 +22,7 @@ class AdvertsController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', array(
+        return $this->render('//adverts/view', array(
             'model' => $this->loadModel($id),
         ));
     }
@@ -104,6 +105,7 @@ class AdvertsController extends Controller
      */
     public function actionIndex()
     {
+        $this->view->title = Yii::t('adv', 'Manage adverts');
         $dataProvider = new ActiveDataProvider([
             'query' => Adverts::find()->where(['user_id' => $this->currentUser->id]),
         ]);
@@ -117,34 +119,22 @@ class AdvertsController extends Controller
 
     public function actionFavorites()
     {
-        $query = Post::find()->where(['status' => 1]);
-
-        $provider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'created_at' => SORT_DESC,
-                    'title' => SORT_ASC,
-                ]
-            ],
-        ]);
-
-
-        $query = Adverts::find()->where(['user_id' => Yii::$app->user->id])
-            ->join('inner join', 'users', ' users.id=favorites.user_id ')
-            ->join('inner join', 'favorites', 't.id=favorites.obj_id ')
-            ->where(['user_id' => Yii::$app->user->id]);
+        $this->view->title = Yii::t('adv', 'Favorites');
+        $query = Adverts::find()
+            ->select('adverts.*')
+            ->innerJoin('favorites', 'favorites.obj_id = adverts.id')
+            ->where([
+                'moderated' => 1,
+                'favorites.user_id' => Yii::$app->user->id,
+                'obj_type' => 0,
+            ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
 
-
         return $this->render('index', array(
-            'data' => $dataProvider,
+            'dataProvider' => $dataProvider,
         ));
     }
 

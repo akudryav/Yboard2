@@ -117,7 +117,7 @@ class Adverts extends \yii\db\ActiveRecord
             'fields' => Yii::t('adv', 'Fields'),
             'price' => Yii::t('adv', 'Price'),
             'location' => Yii::t('app', 'Location'),
-            'moderated' => Yii::t('app', 'Мoderated'),
+            'moderated' => Yii::t('adv', 'Мoderated'),
         );
     }
 
@@ -244,12 +244,6 @@ class Adverts extends \yii\db\ActiveRecord
     public function behaviors() {
         return [
             TimestampBehavior::class,
-            [
-                'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
-            ],
             'image' => [
                 'class' => 'rico\yii2images\behaviors\ImageBehave',
             ]

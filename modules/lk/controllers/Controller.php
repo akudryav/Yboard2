@@ -6,6 +6,7 @@ use Yii;
 class Controller extends \yii\web\Controller
 {
     public $currentUser = false;
+    public $layout = '/lk';
 
     public function init()
     {

@@ -4,7 +4,7 @@ use rmrevin\yii\ulogin\ULogin;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
-$this->context->pageTitle = Yii::$app->name . ' - ' . Yii::t('app', "Login");
+$this->context->title = Yii::$app->name . ' - ' . Yii::t('app', "Login");
 $this->params['breadcrumbs'] = [
     Yii::t('app', "Login"),
 ];

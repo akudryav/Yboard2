@@ -4,7 +4,7 @@
 use yii\widgets\ListView;
 use yii\helpers\Url;
 
-$this->context->pageTitle = Yii::$app->name;
+$this->context->title = Yii::$app->name;
 //array('adverts/category', 'cat_id' => $cat['id']))
 
 ?>

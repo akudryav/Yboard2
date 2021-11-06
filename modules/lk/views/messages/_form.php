@@ -1,6 +1,7 @@
 <?php
 /* @var $this MessagesController */
 /* @var $model Messages */
+
 /* @var $form CActiveForm */
 
 use yii\bootstrap4\Html;
@@ -19,14 +20,10 @@ use yii\bootstrap4\ActiveForm;
     ));
     ?>
 
-    <?php echo $form->errorSummary($model); ?>
+    <?= $form->field($model, 'message')->textarea(['rows' => '3']) ?>
 
-
-    <?php echo $form->field($model, 'message')->textarea(); ?>
-
-
-    <div class="row buttons">
-        <?php echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Send') : Yii::t('app', 'Save'), array('class' => 'btn btn-light')); ?>
+    <div class="form-group">
+        <?php echo Html::submitButton(Yii::t('message', 'Send'), ['class' => 'btn btn-primary']); ?>
     </div>
 
     <?php ActiveForm::end(); ?>

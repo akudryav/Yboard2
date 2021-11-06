@@ -10,9 +10,6 @@ use app\models\Adverts;
 class Controller extends \yii\web\Controller
 {
 
-    //public $layout = 'main-template';
-    public $pageTitle = '';
-
     /**
      * Lists all models.
      */
