@@ -153,7 +153,6 @@ class AdvertsController extends Controller
 
         return $this->render('view', array(
             'model' => $model,
-            'mes_model' => $mes_model,
             'dataRel' => $dataRel,
         ));
 
