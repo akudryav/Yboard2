@@ -46,8 +46,8 @@ class Adverts extends \yii\db\ActiveRecord
         // will receive user inputs.
         return array(
             [['name', 'user_id', 'category_id', 'text'], 'required'],
-            [['user_id', 'category_id', 'gallery_id', 'views', 'location'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['user_id', 'category_id', 'views'], 'integer'],
+            [['name', 'location'], 'string', 'max' => 128],
             [['price', 'type'], 'double'],
             [['type'], 'safe'],
             [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, gif', 'maxFiles' => 5],
@@ -66,20 +66,6 @@ class Adverts extends \yii\db\ActiveRecord
     public function statusName()
     {
         return isset(self::statusList()[$this->moderated]) ? self::statusList()[$this->moderated] : 'unknown';
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
-            'gallery' => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
-        );
     }
 
     public function getUser()
@@ -110,7 +96,6 @@ class Adverts extends \yii\db\ActiveRecord
             'type' => Yii::t('app', 'Type'),
             'views' => Yii::t('app', 'Views'),
             'text' => Yii::t('app', 'Text'),
-            'gallery_id' => Yii::t('app', 'Gallery'),
             'youtube_id' => Yii::t('app', 'Youtube'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),

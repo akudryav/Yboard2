@@ -1,37 +1,56 @@
 <?php
 
-/* @var $this CategoryController */
-/* @var $dataProvider ActiveDataProvider */
+use yii\bootstrap4\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
 
-use yii\widgets\ListView;
+use app\models\Category;
 
-use yii\widgets\Menu;
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\CategorySearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->params['breadcrumbs'] = array(
-    Yii::t('app', 'Categories'),
-);
-
-echo Menu::widget([
-    'items' => array(
-        array('label' => "<i class='fa fa-folder-open-o'></i>" . Yii::t('app', 'Create Category'), 'url' => array('create'), "itemOptions" => array('class' => 'btn')),
-        array('label' => "<i class='fa fa-cogs'></i>" . Yii::t('app', 'Manage Category'), 'url' => array('view'), "itemOptions" => array('class' => 'btn')),
-        array('label' => "<i class='fa fa-spinner'></i>Обновить древо", 'url' => "javascript:void(0)", "itemOptions" => array('class' => 'btn', 'id' => 'reload')),
-    )
-]);
+$this->title = Yii::t('app', 'Categories');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="category-index">
 
-<?php
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-$this->widget('application.widgets.JsTreeWidget', array('modelClassName' => 'Category',
-    'jstree_container_ID' => 'Category-wrapper', //jstree will be rendered in this div.id of your choice.
-    'themes' => array('theme' => 'apple', 'dots' => true, 'icons' => false),
-    'plugins' => array('themes', 'html_data', 'contextmenu', 'crrm', 'dnd', 'cookies', 'ui')
-));
+    <p>
+        <?= Html::a(Yii::t('app', 'Create Category'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?php Pjax::begin(); ?>    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            [
+                'attribute' => 'id',
+                'options' => ['width' => '70px']
+            ],
+            'name',
+            [
+                'attribute' => 'tree',
+                'label' => 'Root',
+                'filter' => Category::find()->roots()->select('name, id')->indexBy('id')->column(),
+                'value' => function ($model)
+                {
+                    if ( ! $model->isRoot())
+                        return $model->parents()->one()->name;
 
-echo ListView::widget( array(
-  'dataProvider' => $dataProvider,
-  'itemView' => '_view',
-  ));
-?>
+                    return 'No Parent';
+                }
+            ],
+            'parent.name',
+            // 'lft',
+            // 'rgt',
+            // 'depth',
+            'position',
+            // 'created_at',
+            // 'updated_at',
 
-
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+    <?php Pjax::end(); ?></div>

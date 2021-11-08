@@ -1,23 +1,21 @@
 <?php
-/* @var $this CategoryController */
-/* @var $model Category */
+
+use yii\bootstrap4\Html;
 
 
-use yii\widgets\Menu;
+/* @var $this yii\web\View */
+/* @var $model common\models\Category */
 
-$this->params['breadcrumbs'] = array(
-    ['label' => Yii::t('app', 'Categories'), 'url' => array('index')],
-    Yii::t('app', 'Create'),
-);
-
-echo Menu::widget([
-    'items' => array(
-        array('label' => Yii::t('app', 'List Category'), 'icon' => 'icon-list', 'url' => array('index')),
-        array('label' => Yii::t('app', 'Manage Category'), 'icon' => 'icon-folder-open', 'url' => array('view')),
-    )
-]);
+$this->title = Yii::t('app', 'Create Category');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="category-create">
 
-    <h1><?php echo Yii::t('app', 'Create Category'); ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
-<?php echo $this->render('_form', array('model' => $model)); ?>
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+</div>

@@ -12,7 +12,7 @@ class m211019_090104_create_profile_table extends Migration
      */
     public function safeUp()
     {
-        $this->dropTable('{{%profiles}}');
+        $this->execute('DROP TABLE IF EXISTS {{%profiles}}');
         $this->createTable('{{%profiles}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),

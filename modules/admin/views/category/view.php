@@ -1,66 +1,41 @@
-<!--
-/**
- * Details view  for JsTreeBehavior model.
- *
- * Date: 1/29/13
- * Time: 12:00 PM
- *
- * @author: Spiros Kabasakalis <kabasakalis@gmail.com>
- * @link http://iws.kabasakalis.gr/
- * @link http://www.reverbnation.com/spiroskabasakalis
- * @copyright Copyright &copy; Spiros Kabasakalis 2013
- * @license http://opensource.org/licenses/MIT  The MIT License (MIT)
- */
--->
 <?php
 
-
-use yii\grid\GridView;
+use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
-use yii\widgets\Menu;
 
-$this->params['breadcrumbs'] = array(
-    Yii::t('app', 'Categories') => array('index'),
-    $model->name => array('view', 'id' => $model->id),
-    Yii::t('app', 'View Category'),
-);
+/* @var $this yii\web\View */
+/* @var $model app\models\Category */
 
-echo Menu::widget([
-    'items' => array(
-        array('label' => Yii::t('app', 'List Category'), 'icon' => 'icon-list', 'url' => array('index')),
-        array('label' => Yii::t('app', 'Manage Category'), 'icon' => 'icon-folder-open', 'url' => array('view')),
-        array('label' => Yii::t('app', 'Redact Category'), 'icon' => 'icon-folder-open', 'url' => array('update', 'id' => $model->id)),
-    )
-]);
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="category-view">
 
+    <h1><?= Html::encode($this->title) ?></h1>
 
-<div class="page-header">
-    <h2> <?php echo Yii::t('app', 'Category') . '  "' . $model->name . '"'; ?>    </h2>
+    <p>
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
 
-
-    <?php
-    echo DetailView::widget(array(
+    <?= DetailView::widget([
         'model' => $model,
-        'options' => array('class' => 'table table-striped table-bordered table-condensed'),
-        //modify attributes according to your model
-        'attributes' => array(
+        'attributes' => [
             'id',
-            /*
-              'root',
-              'lft',
-              'rgt',
-             * 
-             */
-            'level',
             'name',
-            'icon',
-            'meta_title',
-            'meta_descr',
-            'meta_key',
-            'description',
-        ),
-    ));
-    ?>
-</div>
+            'tree',
+            'lft',
+            'rgt',
+            'depth',
+            'position',
+        ],
+    ]) ?>
 
+</div>

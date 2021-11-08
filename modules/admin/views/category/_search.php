@@ -1,42 +1,39 @@
 <?php
-/* @var $this CategoryController */
-/* @var $model Category */
-/* @var $form CActiveForm */
 
+use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 
+/* @var $this yii\web\View */
+/* @var $model app\models\CategorySearch */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="wide form">
+<div class="category-search">
 
-    <?php
-    $form = ActiveForm::begin( array(
-        'action' => Url::to($this->route),
+    <?php $form = ActiveForm::begin([
+        'action' => ['index'],
         'method' => 'get',
-        'options' => array('class' => 'well'),
-    ));
-    ?>
+    ]); ?>
 
-    <div class="row">
-        <?php echo $form->field($model, 'id')->textInput(); ?>
-    </div>
+    <?= $form->field($model, 'id') ?>
 
-    <div class="row">
-        <?php echo $form->field($model, 'name', array('size' => 60, 'maxlength' => 255))->textInput(); ?>
-    </div>
+    <?= $form->field($model, 'name') ?>
 
-    <div class="row">
-        <?php echo $form->field($model, 'icon', array('size' => 60, 'maxlength' => 255))->textInput(); ?>
-    </div>
+    <?= $form->field($model, 'tree') ?>
 
-    <div class="row">
-        <?php echo $form->field($model, 'level', array('size' => 60, 'maxlength' => 255))->textInput(); ?>
-    </div>
+    <?= $form->field($model, 'lft') ?>
 
-    <div class="row buttons">
-        <?php echo Button::widget( array('buttonType' => 'submit', 'label' => 'Отправить')); ?>
+    <?= $form->field($model, 'rgt') ?>
+
+    <?php // echo $form->field($model, 'depth') ?>
+
+    <?php // echo $form->field($model, 'position') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
-</div><!-- search-form -->
+</div>

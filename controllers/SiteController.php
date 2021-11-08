@@ -36,6 +36,16 @@ class SiteController extends Controller
         );
     }
 
+    public function actionTest()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //$roots = Category::find()->roots()->all();
+        $cat = Category::findOne(1);
+        $leaves = $cat->children(1)->all();
+        //$leaves = Category::find()->leaves()->all();
+        return $leaves;
+    }
+
     /**
      * Вывод главной
      * отличается наличием виджета категорий вверху
@@ -43,7 +53,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         // корневые категории (уровня 1)
-        $roots = Category::roots();
+        $roots = Category::find()->roots()->all();
         $query = Adverts::find()->where(['moderated' => 1])->orderBy('id DESC');
         // оставляем только категории с картинками для карусели
         $roots = array_filter($roots, function ($r) {

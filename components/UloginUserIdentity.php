@@ -35,6 +35,8 @@ class UloginUserIdentity
             }
 
         }
+        $user->updateAttributes(['lastvisit_at' => time()]);
+
         return $user;
     }
 

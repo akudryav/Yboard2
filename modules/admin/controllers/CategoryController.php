@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Category;
+use app\models\CategorySearch;
 
 class CategoryController extends Controller
 {
@@ -11,266 +12,139 @@ class CategoryController extends Controller
     public $title = 'Категории';
 
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
+     * Lists all Category models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new CategorySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Category model.
+     * @param integer $id
+     * @return mixed
      */
     public function actionView($id)
     {
-        return $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
-     * Creates a new model.
+     * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
-    public function actionCreate() {
-        $model = new Category;
-        $model->detachBehavior("NestedSetBehavior");
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-        // Создаем корневую директорию 
-        $last_root = Yii::$app->db->createCommand("select root from category order by root desc limit 1")->queryScalar();
+    public function actionCreate()
+    {
+        $model = new Category();
 
+        if ( ! empty(Yii::$app->request->post('Category')))
+        {
+            $post            = Yii::$app->request->post('Category');
+            $model->name     = $post['name'];
+            $model->position = $post['position'];
+            $parent_id       = $post['parentId'];
 
-        if (isset($_POST['Category'])) {
+            if (empty($parent_id))
+                $model->makeRoot();
+            else
+            {
+                $parent = Category::findOne($parent_id);
+                $model->appendTo($parent);
+            }
 
-            $model->attributes = $_POST['Category'];
-            $model->lft = 1;
-            $model->rgt = 2;
-            $model->level = 1;
-            $model->root = $last_root + 1;
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            return $this->redirect(['index']);
         }
 
-        return $this->render('create', array(
+        return $this->render('create', [
             'model' => $model,
-        ));
+        ]);
     }
 
     /**
-     * Updates a particular model.
+     * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
+     * @param integer $id
+     * @return mixed
      */
-    public function actionUpdate($id) {
-        $model = $this->loadModel($id);
-        $model->detachBehavior("NestedSetBehavior");
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        if ( ! empty(Yii::$app->request->post('Category')))
+        {
+            $post            = Yii::$app->request->post('Category');
 
-        if (isset($_POST['Category'])) {
-            $model->attributes = $_POST['Category'];
-
-            $model->fieldsSave();
+            $model->name     = $post['name'];
+            $model->position = $post['position'];
+            $parent_id       = $post['parentId'];
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
-
-        $model->fields = json_decode($model->fields);
-
-        return $this->render('update', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * Импортируеть категории из файла. Вложеность категории определяется табами
-     * Категории импортируются из файла cats_list.txt
-     * Скрытая функция без входных параметров
-     * Необходимо отключение транзакционных функции и пустой список категории
-     */
-    public function actionImport() {
-
-        $cats_file_path = "cats_list.txt";
-
-        die("Отключен");
-
-        if (!is_file($cats_file_path)) {
-            echo "file it's empty";
-            return false;
-        }
-
-        $levels_tab = array();
-        $last_parent_id = 1;
-        $last_root = 1;
-        $last_level = 1;
-
-
-        error_reporting(E_ALL ^ E_NOTICE);
-        ini_set("display_errors", 1);
-
-        $cat_list = file($cats_file_path);
-
-        echo sizeof($cat_list);
-
-        foreach ($cat_list as $cat) {
-
-            if (trim($cat) !== "") {
-                preg_match("#(\t*)(?=[^\s])#i", $cat, $m);
-
-
-                $cat_name = trim($cat);
-                $cat_level = strlen($m[0]) + 1;
-
-
-                if ($cat_level > 1) {
-
-                    if ($cat_level > $last_level) {
-                        $levels_tab[] = array($last_parent_id, $last_parent_root);
-                        $last_parent_id = $last_id;
-                        $last_parent_root = $last_root;
-                        $last_level = $cat_level;
+            {
+                if (empty($parent_id))
+                {
+                    if ( ! $model->isRoot())
+                        $model->makeRoot();
+                }
+                else // move node to other root
+                {
+                    if ($model->id != $parent_id)
+                    {
+                        $parent = Category::findOne($parent_id);
+                        $model->appendTo($parent);
                     }
-
-                    if ($cat_level < $last_level) {
-                        if (sizeof($levels_tab) > 0) {
-                            list($last_parent_id, $last_parent_root) = array_pop($levels_tab);
-                        } else {
-                            $last_parent_id = 1;
-                            $last_parent_root = 1;
-                        }
-                        $last_level = $cat_level;
-                    }
-
-                    /*
-                      $_POST['moved_node'] = $model->id ;
-                      $_POST['new_parent'] = $last_parent_id;
-                      $_POST['new_parent_root'] = $last_parent_root;
-                      $_POST['previous_node'] = 'false';
-                      $_POST['copy'] = 'false';
-
-                      var_dump($_POST);
-                     * 
-                     */
-
-                    //$this->actionMoveCopy();
-
-                    echo " парент $last_parent_id ";
-
-                    $model = new Category;
-                    $model->name = $cat_name;
-
-                    $model_parent = ActiveRecord::model("Category")->findOne($last_parent_id);
-
-
-                    $model->appendTo($model_parent);
-                } else {
-
-                    echo " создание корневой ";
-
-                    $model = new Category;
-                    $model->detachBehavior("NestedSetBehavior");
-                    // Uncomment the following line if AJAX validation is needed
-                    // $this->performAjaxValidation($model);
-                    // Создаем корневую директорию 
-                    $last_root = Yii::$app->db->createCommand("select root from category order by root desc limit 1")->queryScalar();
-
-                    $model->name = $cat_name;
-                    $model->lft = 1;
-                    $model->rgt = 2;
-                    $model->level = 1;
-                    $model->root = $last_root + 1;
-                    $model->save();
-
-                    $last_parent_id = $model->id;
-
-                    $levels_tab = array();
-                    $last_level = 1;
                 }
 
-
-                echo $model->id . "  ";
-                echo $cat_name . "  ";
-                echo $cat_level . "<br/>";
-
-                $last_id = $model->id;
-                $last_root = $model->root;
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
-    }
 
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id) {
-        $cat_model = $this->loadModel($id);
-        //$cat_model->detachBehavior("NestedSetBehavior");
-        $cat_model->deleteNode();
-
-        // if AJAX request (triggered by deletion via view grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('view'));
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex() {
-
-        $query = Category::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
-        return $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin() {
-        $model = new Category(['scenario' => 'search']);
-        if (isset($_GET['Category']))
-            $model->attributes = $_GET['Category'];
-
-        return $this->render('view', array(
+        return $this->render('update', [
             'model' => $model,
-        ));
+        ]);
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer $id the ID of the model to be loaded
+     * Deletes an existing Category model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->isRoot())
+            $model->deleteWithChildren();
+        else
+            $model->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Category model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
      * @return Category the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function loadModel($id) {
-        $model = Category::findOne($id);
-        if ($model === null)
+    protected function findModel($id)
+    {
+        if (($model = Category::findOne($id)) !== null) {
+            return $model;
+        } else {
             throw new \yii\web\NotFoundHttpException();
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param Category $model the model to be validated
-     */
-    protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'category-form') {
-            echo CActiveForm::validate($model);
-            Yii::$app->end();
         }
-    }
-
-    public function behaviors() {
-        return array(
-            'jsTreeBehavior' => array('class' => 'application.behaviors.JsTreeBehavior',
-                'modelClassName' => 'Category',
-                'form_alias_path' => '_form',
-                'view_alias_path' => 'view',
-                'label_property' => 'name',
-                'rel_property' => 'name'
-            )
-        );
     }
 
 }
