@@ -2,7 +2,7 @@
 
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
-
+use kartik\select2\Select2;
 use app\models\Category;
 
 /* @var $this yii\web\View */
@@ -15,24 +15,13 @@ use app\models\Category;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?php /*echo $form->field($model, 'Category[parentId]')->widget(Select2::class, [
-        'data' => Category::getTree($model->id),
+    <?php echo $form->field($model, 'parentId')->widget(Select2::class, [
+        'data' => Category::makeOptionsList($model->id),
         'options' => ['placeholder' => Yii::t('app', 'No Parent (saved as root)')],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]);*/ ?>
-
-    <div class='form-group field-attribute-parentId'>
-        <?= Html::label('Parent', 'parent', ['class' => 'control-label']);?>
-        <?= Html::dropdownList(
-            'Category[parentId]',
-            $model->parentId,
-            Category::getTree($model->id),
-            ['prompt' => 'No Parent (saved as root)', 'class' => 'form-control']
-        );?>
-
-    </div>
+    ]); ?>
 
     <?= $form->field($model, 'position')->textInput(['type' => 'number']) ?>
 

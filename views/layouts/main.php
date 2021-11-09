@@ -3,9 +3,11 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\models\Category;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use kartik\bs4dropdown\Dropdown;
 use app\assets\AppAsset;
 use app\widgets\Alert;
 
@@ -52,6 +54,18 @@ AppAsset::register($this);
                 'linkOptions' => ['data-method' => 'post']
             ];
         }
+
+        // Выпадающий список категорий
+        echo Nav::widget([
+            'items' => [
+                [
+                    'label' => 'Категории',
+                    'items' => Category::makeDropList(),
+                ],
+            ],
+            'dropdownClass' => Dropdown::class, // use the custom dropdown
+            'options' => ['class' => 'navbar-nav'],
+        ]);
         echo '<input class="form-control form-control-dark w-50" type="text" name="keyword" placeholder="Поиск" aria-label="Search">';
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav justify-content-end px-3'],

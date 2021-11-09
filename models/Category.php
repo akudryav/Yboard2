@@ -75,6 +75,18 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * Получаем индексированный список всех категорий
+     */
+    public static function getIndexed()
+    {
+        $result = self::getDb()->cache(function ($db) {
+            return self::find()->indexBy('id')->all();
+        });
+        return $result;
+    }
+
+
+    /**
      * Get parent's ID
      * @return \yii\db\ActiveQuery
      */
@@ -109,16 +121,77 @@ class Category extends \yii\db\ActiveRecord
                 [$node_id]
             );
 
-        $rows = self::find()->select('id, name, depth')->
-        where(['NOT IN', 'id', $children])->
-        orderBy('tree, lft, position')->
-        all();
+        $result = self::getDb()->cache(function ($db) use ($children){
+            return self::find()->select('id, tree, lft, name, depth')->
+            where(['NOT IN', 'id', $children])->
+            orderBy('tree, lft, position')->
+            all();
+        });
 
-        $return = [];
-        foreach ($rows as $row)
-            $return[$row->id] = str_repeat('-', $row->depth) . ' ' . $row->name;
-
-        return $return;
+        return $result;
     }
 
+    /**
+     * @param   int  $node_id
+     * Формирование иерархического списка категорий для Select2
+     * @return array
+     */
+    public static function makeOptionsList($node_id = 0)
+    {
+        $options = [];
+        foreach (self::getTree($node_id) as $row)
+            $options[$row->id] = str_repeat('-', $row->depth) . $row->name;
+
+        return $options;
+    }
+
+    /**
+     * @param   int  $node_id
+     * Формирование иерархического массива категорий для Dropdown меню
+     * @return array
+     */
+    public static function makeDropList($node_id = 0)
+    {
+        $items = [];
+        $current_depth = 0;
+        $current_path = [0];
+        // танцы с бубном для формирования вложенного массива категорий за один проход
+        foreach (self::getTree($node_id) as $row) {
+            if($row->depth > $current_depth) {
+                $current_path[] = 'items';
+                $current_path[] = 0;
+            } elseif ($row->depth == $current_depth) {
+                $index = count($current_path) - 1;
+                $current_path[$index]++;
+            } else {
+                $d = $row->depth - $current_depth;
+                array_splice($current_path, 2*$d);
+                $index = count($current_path) - 1;
+                $current_path[$index]++;
+            }
+            $current_depth = $row->depth;
+
+            $value = [
+                'label' => $row->name,
+                'url'   => ['adverts/category', 'id' => $row->id]
+            ];
+
+            self::set_recursive($items, $current_path, $value);
+        }
+
+        return $items;
+    }
+
+    private static function set_recursive(&$array, $path, $value)
+    {
+        $key = array_shift($path);
+        if (empty($path)) {
+            $array[$key] = $value;
+        } else {
+            if (!isset($array[$key]) || !is_array($array[$key])) {
+                $array[$key] = array();
+            }
+            self::set_recursive($array[$key], $path, $value);
+        }
+    }
 }

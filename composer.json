@@ -31,7 +31,8 @@
     "jisoft/yii2-sypexgeo": "dev-master",
     "kartik-v/yii2-widget-select2": "@dev",
     "mirocow/yii2-yandex-maps": "*",
-    "costa-rico/yii2-images": "^1.0"
+    "costa-rico/yii2-images": "^1.0",
+    "kartik-v/yii2-bootstrap4-dropdown": "^1.0"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

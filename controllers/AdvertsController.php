@@ -75,11 +75,7 @@ class AdvertsController extends Controller
                 . 'id="Adverts_category_id" name="Adverts[category_id]">';
         } else {
             // Вывод дочерних категории
-            $subcat = Yii::$app->db->createCommand('select id,name  from category  '
-                            . 'where root=' . $model->root . ' and lft>' . $model->lft . ' '
-                            . 'and rgt<' . $model->rgt . ' and level=' . ($model->level + 1) . ' ')->query();
-
-
+            $subcat = $model->children()->all();
 
             $drop_cats = array();
 
@@ -172,7 +168,7 @@ class AdvertsController extends Controller
                 ['AND',
                     ['>', 'category.lft', Yii::$app->params['categories'][$id]['lft']],
                     ['<', 'category.rgt', Yii::$app->params['categories'][$id]['rgt']],
-                    ['category.root' => Yii::$app->params['categories'][$id]['root']]
+                    ['category.tree' => Yii::$app->params['categories'][$id]['tree']]
                 ]
             ]);
 

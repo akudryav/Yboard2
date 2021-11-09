@@ -161,41 +161,30 @@ class Adverts extends \yii\db\ActiveRecord
      */
     public function search($strict = true)
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria = (new Query);
-
-        $criteria->from('adverts');
-        $criteria->select('adverts.*');
-
-
+        $criteria = Adverts::find()->innerJoinWith('category');
         $criteria->where(['id' => $this->id]);
         $criteria->where(['user_id' => $this->user_id]);
+        $criteria->where(['type' => $this->type]);
+        $criteria->where(['location' => $this->location]);
+        $criteria->where(['views' => $this->views]);
+        $criteria->where(['moderated' => $this->moderated]);
 
         //$criteria->compare('category_id', $this->category_id);
         if (is_numeric($this->category_id)) {
-            $criteria->where('adverts.category_id = "' . $this->category_id . '" '
-                . ' or (category.lft > "' . Yii::$app->params['categories'][$this->category_id]['lft'] . '"'
-                . ' and category.rgt< "' . Yii::$app->params['categories'][$this->category_id]['rgt'] . '"'
-                . ' and category.root = "' . Yii::$app->params['categories'][$this->category_id]['root'] . '")');
-        }
-
-        if ($this->fields) {
-            $criteria->where(" adverts.fields regexp '" . $this->fields . "' ");
+            $criteria->andWhere(['OR',
+                ['category_id' => $this->category_id],
+                ['AND',
+                    ['>', 'category.lft', Yii::$app->params['categories'][$this->category_id]['lft']],
+                    ['<', 'category.rgt', Yii::$app->params['categories'][$this->category_id]['rgt']],
+                    ['category.tree' => Yii::$app->params['categories'][$this->category_id]['tree']]
+                ]
+            ]);
         }
 
         if (is_numeric($this->price_min) and $this->price_max > 0) {
             $criteria->where("price >= " . $this->price_min . " and price <= " . $this->price_max);
         }
 
-
-        $criteria->join('inner join', 'category', 'category.id=adverts.category_id');
-
-        $criteria->where(['type' => $this->type]);
-        $criteria->where(['location' => $this->location]);
-        $criteria->where(['views' => $this->views]);
-        $criteria->where(['moderated' => $this->moderated]);
         $criteria->orderBy('adverts.id');
         $criteria->limit(Yii::$app->params['adv_on_page']);
 
