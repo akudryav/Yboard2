@@ -47,10 +47,12 @@ class Adverts extends \yii\db\ActiveRecord
         return array(
             [['name', 'user_id', 'category_id', 'text'], 'required'],
             [['user_id', 'category_id', 'views'], 'integer'],
-            [['name', 'location'], 'string', 'max' => 128],
+            [['name'], 'string', 'max' => 128],
             [['price', 'type'], 'double'],
             [['type'], 'safe'],
-            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, gif', 'maxFiles' => 5],
+            ['location', 'string', 'min'=>10,  'tooShort' => 'Выберите адрес на карте'],
+            [['moderated'], 'default', 'value'=>self::STATUS_PUBLISHED],
+            [['imageFiles'], 'file', 'extensions' => 'png, jpg, gif', 'maxFiles' => 5],
             [['id', 'name', 'user_id', 'category_id', 'type', 'views', 'text', 'price', 'moderated'], 'safe', 'on' => 'search'],
         );
     }

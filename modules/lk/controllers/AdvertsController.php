@@ -47,13 +47,9 @@ class AdvertsController extends Controller
 
         }
 
-        $categories = Category::find()
-            ->orderBy('name')
-            ->all();
-
         return $this->render('create', [
             'model' => $model,
-            'categories' => ArrayHelper::map($categories, 'id', 'name'),
+            'categories' => Category::makeOptionsList(),
         ]);
     }
 
@@ -74,13 +70,9 @@ class AdvertsController extends Controller
             }
         }
 
-        $categories = Category::find()
-            ->orderBy('name')
-            ->all();
-
         return $this->render('update', [
             'model' => $model,
-            'categories' => ArrayHelper::map($categories, 'id', 'name'),
+            'categories' => Category::makeOptionsList(),
         ]);
     }
 

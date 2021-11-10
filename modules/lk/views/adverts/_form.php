@@ -44,9 +44,7 @@ search.events.add("resultselect", function (result){
     var searchControl = \$Maps['yandex_map'].controls.get(1);
     searchControl.getResult(index).then(function(res) {
         var coordinates = res.geometry.getCoordinates();
-        $('#coordinates').html('');
-        $('#coordinates').append('<input type="hidden" name="User[coordinates][]" value="'+coordinates[0]+'">');
-        $('#coordinates').append('<input type="hidden" name="User[coordinates][]" value="'+coordinates[1]+'">');
+        $('#adverts-location').val(coordinates[0]+':'+coordinates[1]);
     });
     
 });
@@ -83,7 +81,8 @@ JS
         echo Html::img($img->getUrl('x100'));
     }
     ?>
-    <?php echo $form->field($model, 'price'); ?>
+    <?= $form->field($model, 'price'); ?>
+    <?= $form->field($model, 'location')->hiddenInput()->label(false) ?>
     <?= \mirocow\yandexmaps\Canvas::widget([
         'htmlOptions' => [
             'style' => 'height: 400px;',
@@ -92,8 +91,6 @@ JS
     ]);
 
     ?>
-
-    <div id="coordinates"></div>
 
     <div class="form-group">
         <?php echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-primary']); ?>
