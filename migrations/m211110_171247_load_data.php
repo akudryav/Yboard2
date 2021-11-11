@@ -12,7 +12,7 @@ class m211110_171247_load_data extends Migration
      */
     public function safeUp()
     {
-        $this->execute(file_get_contents(__DIR__ . '/data_dump.sql'));
+        $this->execute(file_get_contents(__DIR__ . '/category.sql'));
     }
 
     /**
