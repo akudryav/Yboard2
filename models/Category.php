@@ -68,8 +68,10 @@ class Category extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => Yii::t('app', 'Category name'),
             'tree' => Yii::t('app', 'Tree'),
+            'parentId' => Yii::t('app', 'Parent'),
             'icon' => Yii::t('app', 'Icon'),
             'fields' => Yii::t('app', 'Aditionl fields'),
+            'position' => Yii::t('app', 'Position'),
             'description' => Yii::t('app', 'Description'),
         );
     }

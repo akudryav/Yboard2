@@ -32,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'attribute' => 'tree',
-                'label' => 'Root',
                 'filter' => Category::find()->roots()->select('name, id')->indexBy('id')->column(),
                 'value' => function ($model)
                 {
@@ -47,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'rgt',
             // 'depth',
             'position',
-            // 'created_at',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => ['white-space' => 'nowrap']],
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?></div>

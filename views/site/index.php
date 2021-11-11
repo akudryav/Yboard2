@@ -9,7 +9,7 @@ $this->context->title = Yii::$app->name;
 ?>
 
 <?php if (is_array($roots)):
-    $batch = array_chunk($roots, 3);
+    $batch = array_chunk($roots, 4);
     $start = 0;
     ?>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
