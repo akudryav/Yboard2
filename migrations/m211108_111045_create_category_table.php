@@ -25,6 +25,12 @@ class m211108_111045_create_category_table extends Migration
             'description' => $this->text(),
             'fields'     => $this->text(),
         ]);
+        $this->createIndex(
+            'idx-tree-lft-pos',
+            '{{%category}}',
+            ['tree', 'lft', 'position']
+        );
+
 
     }
 

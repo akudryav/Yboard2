@@ -15,7 +15,7 @@ use creocoder\nestedsets\NestedSetsBehavior;
  */
 class Category extends \yii\db\ActiveRecord
 {
-
+    private static $_tree_pool = [];
     /**
      * @return string the associated database table name
      */
@@ -77,18 +77,6 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Получаем индексированный список всех категорий
-     */
-    public static function getIndexed()
-    {
-        $result = self::getDb()->cache(function ($db) {
-            return self::find()->indexBy('id')->all();
-        });
-        return $result;
-    }
-
-
-    /**
      * Get parent's ID
      * @return \yii\db\ActiveQuery
      */
@@ -114,23 +102,33 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function getTree($node_id = 0)
     {
-        // don't include children and the node
-        $children = [];
+        if(!isset(self::$_tree_pool[$node_id]))
+        {
+            // don't include children and the node
+            $children = [];
 
-        if ( ! empty($node_id))
-            $children = array_merge(
-                self::findOne($node_id)->children()->column(),
-                [$node_id]
+            if ( ! empty($node_id))
+            {
+                $children = array_merge(
+                    self::findOne($node_id)->children()->column(),
+                    [$node_id]
+                );
+            }
+
+            self::$_tree_pool[$node_id] = self::getDb()->cache(
+                function ($db) use ($children) {
+                    return self::find()->select(
+                        'id, tree, lft, rgt, name, depth'
+                    )
+                        ->where(['NOT IN', 'id', $children])
+                        ->orderBy('tree, lft, position')
+                        ->indexBy('id')
+                        ->all();
+                }
             );
+        }
 
-        $result = self::getDb()->cache(function ($db) use ($children){
-            return self::find()->select('id, tree, lft, name, depth')->
-            where(['NOT IN', 'id', $children])->
-            orderBy('tree, lft, position')->
-            all();
-        });
-
-        return $result;
+        return self::$_tree_pool[$node_id];
     }
 
     /**

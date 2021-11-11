@@ -37,7 +37,7 @@ class Controller extends \yii\web\Controller
 
         $this->settings = require Yii::getAlias('@config/params') . '.php';
         $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
-        Yii::$app->params['categories'] = Category::getIndexed();
+        Yii::$app->params['categories'] = Category::getTree();
 
         $this->meta = Yii::$app->params['meta'];
         $this->meta['vars']['site_name'] = Yii::$app->name;
