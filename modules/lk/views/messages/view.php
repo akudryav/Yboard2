@@ -7,8 +7,7 @@ use yii\widgets\DetailView;
 use yii\widgets\Menu;
 
 $this->params['breadcrumbs'] = array(
-    'Messages' => array('index'),
-    $model->id,
+    Yii::t('message', 'Messages'),
 );
 
 echo Menu::widget([
@@ -25,9 +24,9 @@ echo Menu::widget([
 <div> <?= Yii::t('message', 'View Messages') ?><?php echo $model->id; ?></div>
 
 <div style='border:1px solid #ccc; border-radius: 5px; padding:5px; '>
-    <div> <?= $model->sender->username ?>:</div>
+    <div> <?= $model->author->username ?>:</div>
     <div style='padding:20px;'> <?= $model->message ?>  </div>
-    <div style='text-align:right; font-size:10px; font-style:italic; '> <?= $model->send_date ?> </div>
+    <div style='text-align:right; font-size:10px; font-style:italic; '> <?= $model->created_at ?> </div>
 </div>
 
 <?php
@@ -39,7 +38,7 @@ echo DetailView::widget(array(
         'sender_id',
         'receiver_id',
         'message',
-        'send_date',
+        'created_at',
         'read_date',
     ),
 ));

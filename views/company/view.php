@@ -32,7 +32,7 @@ echo DetailView::widget( array(
         'sender_id',
         'receiver_id',
         'message',
-        'send_date',
+        'created_at',
         'read_date',
     ),
 ));

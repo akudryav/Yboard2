@@ -21,8 +21,8 @@
     <?php echo Html::encode($data->message); ?>
     <br />
 
-    <b><?php echo Html::encode($data->getAttributeLabel('send_date')); ?>:</b>
-    <?php echo Html::encode($data->send_date); ?>
+    <b><?php echo Html::encode($data->getAttributeLabel('created_at')); ?>:</b>
+    <?php echo Html::encode($data->created_at); ?>
     <br />
 
     <b><?php echo Html::encode($data->getAttributeLabel('read_date')); ?>:</b>

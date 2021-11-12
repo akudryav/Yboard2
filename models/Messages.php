@@ -13,7 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $sender_id
  * @property integer $receiver_id
  * @property string $message
- * @property string $send_date
+ * @property string $created_at
  * @property boolean $read
  */
 class Messages extends \yii\db\ActiveRecord

@@ -37,8 +37,8 @@ class DefaultController extends Controller
                         . "from users group by DATE_FORMAT(create_at, '%Y %m %d') limit 7 ")->queryAll();
         $adverts = Yii::$app->db->createCommand("select count(*) as num, DATE_FORMAT(created_at, '%d %b') as data "
                         . "from adverts group by day(created_at) limit 7")->queryAll();
-        $messages = Yii::$app->db->createCommand("select count(*) as num, DATE_FORMAT(send_date, '%d %b') as data "
-                        . "from messages group by day(send_date) limit 7")->queryAll();
+        $messages = Yii::$app->db->createCommand("select count(*) as num, DATE_FORMAT(created_at, '%d %b') as data "
+                        . "from messages group by day(created_at) limit 7")->queryAll();
 
         //var_dump($messages->getData());
 

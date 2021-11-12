@@ -35,7 +35,7 @@ use yii\bootstrap4\ActiveForm;
 
     <div class="row">
 
-<?php echo $form->field($model, 'send_date')->textInput(); ?>
+<?php echo $form->field($model, 'created_at')->textInput(); ?>
     </div>
 
     <div class="row">
