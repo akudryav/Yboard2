@@ -1,5 +1,5 @@
 <?php
-namespace app\models;
+namespace app\models\forms;
 
 use Yii;
 use app\components\UloginUserIdentity;

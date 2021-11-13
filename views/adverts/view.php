@@ -58,15 +58,15 @@ $this->context->title = $model->name;
         </div>
     </div>
 </div>
-<h3><?= Yii::t('adv', 'Related adverts') ?></h3>
-<div class="card-columns">
-    <?php echo ListView::widget([
-        'dataProvider' => $dataRel,
-        'itemOptions' => [
-            'tag' => false,
-        ],
-        'itemView' => '_item',
-        'summary' => false,
-    ]);
-    ?>
-</div>
+    <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
+<?php echo ListView::widget([
+    'dataProvider' => $dataRel,
+    'options' => ['class' => 'card-deck'],
+    'summary' => '',
+    'itemOptions' => [
+        'tag' => false,
+    ],
+    'itemView' => '_item',
+    'summary' => false,
+]);
+?>

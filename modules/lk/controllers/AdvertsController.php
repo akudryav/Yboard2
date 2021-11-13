@@ -5,9 +5,7 @@ namespace app\modules\lk\controllers;
 use Yii;
 use app\models\Category;
 use app\models\Adverts;
-use app\models\Favorites;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
 

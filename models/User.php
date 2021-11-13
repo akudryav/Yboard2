@@ -177,12 +177,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return array(
             'id' => Yii::t('app', "Id"),
-            'username' => Yii::t('app', "username"),
-            'password' => Yii::t('app', "password"),
-            'email' => Yii::t('app', "E-mail"),
-            'created_at' => Yii::t('app', "Registration date"),
-            'lastvisit_at' => Yii::t('app', "Last visit"),
-            'status' => Yii::t('app', "Status"),
+            'username' => Yii::t('user', "username"),
+            'password' => Yii::t('user', "password"),
+            'email' => Yii::t('user', "E-mail"),
+            'created_at' => Yii::t('user', "Registration date"),
+            'lastvisit_at' => Yii::t('user', "Last visit"),
+            'status' => Yii::t('user', "Status"),
         );
     }
 
@@ -206,13 +206,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function itemAlias($type, $code = NULL) {
         $_items = array(
             'UserStatus' => array(
-                self::STATUS_NOACTIVE => Yii::t('app', 'Not active'),
-                self::STATUS_ACTIVE => Yii::t('app', 'Active'),
-                self::STATUS_BANNED => Yii::t('app', 'Banned'),
+                self::STATUS_NOACTIVE => Yii::t('user', 'Not active'),
+                self::STATUS_ACTIVE => Yii::t('user', 'Active'),
+                self::STATUS_BANNED => Yii::t('user', 'Banned'),
             ),
             'AdminStatus' => array(
-                '0' => Yii::t('app', 'No'),
-                '1' => Yii::t('app', 'Yes'),
+                '0' => Yii::t('user', 'No'),
+                '1' => Yii::t('user', 'Yes'),
             ),
         );
         if (isset($code))
@@ -252,13 +252,19 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $dataProvider;
     }
 
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::class, ['user_id' => 'id']);
+    }
+
     public static function getAdmins()
     {
         return self::find()->select('username')
             ->where(['status' => self::STATUS_ADMIN])->asArray()->all();
     }
 
-    public function getLastvisit() {
+    public function getLastvisit()
+    {
         return strtotime($this->lastvisit_at);
     }
 
@@ -267,7 +273,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     public function getAdverts(){
-        return $this->hasMany(Adverts::class, ['customer_id' => 'id']);
+        return $this->hasMany(Adverts::class, ['user_id' => 'id']);
     }
 
 }

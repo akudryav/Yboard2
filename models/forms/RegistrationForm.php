@@ -2,6 +2,7 @@
 
 namespace app\models\forms;
 
+use app\models\Profile;
 use Yii;
 use app\models\User;
 /**
@@ -23,18 +24,18 @@ class RegistrationForm extends \yii\base\Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app', "This username already exists.")],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('user', "This username already exists.")],
             ['username', 'string', 'min' => 3, 'max' => 20],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('app', "This email address already exists.")],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => Yii::t('user', "This email address already exists.")],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
             ['verifyPassword', 'required'],
-            ['verifyPassword', 'compare', 'compareAttribute'=>'password', 'message'=>Yii::t('app', "Passwords don't match") ],
-            ['username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z0-9).")],
+            ['verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => Yii::t('user', "Passwords don't match")],
+            ['username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => Yii::t('user', "Incorrect symbols (A-z0-9).")],
             ['verifyCode', 'captcha'],
         ];
     }
@@ -58,7 +59,6 @@ class RegistrationForm extends \yii\base\Model
      */
     public function signup()
     {
-
         if (!$this->validate()) {
             return false;
         }
@@ -68,7 +68,12 @@ class RegistrationForm extends \yii\base\Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        return $user->save() ? $user : null;
+        if ($user->save()) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->save(false);
+            return $user;
+        }
     }
 
 

@@ -27,11 +27,18 @@ $sideItems = [
     ],
     [
         'label' => '<i class="fas fa-cog"></i> Настройки',
-        'url' => ['/lk/settings'],
+        'url' => ['/lk/profile'],
         'encode' => false
     ],
 ];
 ?>
+<?php echo \cebe\gravatar\Gravatar::widget([
+    'email' => Yii::$app->user->identity->email,
+    'options' => [
+        'alt' => Yii::$app->user->identity->username,
+    ],
+    'size' => 64
+]) ?>
     <div class="row">
         <?php echo Nav::widget([
             'options' => ['class' => 'col-md-2 d-none d-md-block bg-light sidebar'],

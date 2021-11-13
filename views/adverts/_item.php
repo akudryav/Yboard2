@@ -10,7 +10,7 @@ use yii\helpers\StringHelper;
 $image = $model->getImage();
 ?>
 
-<div class="card border-secondary mb-3" style="width: 15rem;">
+<div class="card border-secondary mb-3">
     <a href="<?= Url::to(['adverts/view', 'id' => $model->id]) ?>" class="text-decoration-none">
         <?php echo Html::img($image->getUrl('x220'), ['class' => 'card-img-top', 'alt' => $model->name]); ?>
         <div class="card-body">

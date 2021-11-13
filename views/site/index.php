@@ -8,6 +8,7 @@ $this->context->title = Yii::$app->name;
 
 ?>
 
+<h3>Выберите категорию</h3>
 <?php if (is_array($roots)):
     $batch = array_chunk($roots, 4);
     $start = 0;
@@ -43,17 +44,17 @@ $this->context->title = Yii::$app->name;
 
 <?php endif; ?>
 
-<h3> Последние объявления </h3>
+<h3>Все объявления</h3>
 
-<div class="card-columns">
-    <?php echo ListView::widget([
-        'dataProvider' => $indexAdv,
-        'itemOptions' => [
-            'tag' => false,
-        ],
-        'itemView' => '/adverts/_item',
-    ]);
-    ?>
-</div>
+<?php echo ListView::widget([
+    'dataProvider' => $indexAdv,
+    'options' => ['class' => 'card-deck'],
+    'summary' => '',
+    'itemOptions' => [
+        'tag' => false,
+    ],
+    'itemView' => '/adverts/_item',
+]);
+?>
 
 

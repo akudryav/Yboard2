@@ -40,8 +40,16 @@ AppAsset::register($this);
             ],
         ]);
         $menuItems = [
-            ['label' => 'О нас', 'url' => ['/page/about']],
-            ['label' => 'Контакты', 'url' => ['/site/contact']],
+            [
+                'label' => '<i class="far fa-envelope"></i> Сообщения',
+                'url' => ['/lk/messages'],
+                'encode' => false
+            ],
+            [
+                'label' => '<i class="far fa-heart"></i> Избранное',
+                'url' => ['/lk/adverts/favorites'],
+                'encode' => false
+            ],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Вход', 'url' => ['/user/login']];
@@ -84,10 +92,12 @@ AppAsset::register($this);
     <footer class="footer">
         <div class="container">
             <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+            <?php /*['label' => 'О нас', 'url' => ['/page/about']],
+            ['label' => 'Контакты', 'url' => ['/site/contact']],*/ ?>
         </div>
     </footer>
 
     <?php $this->endBody() ?>
     </body>
-    </html>
+</html>
 <?php $this->endPage() ?>

@@ -11,14 +11,14 @@ $this->context->title = Yii::$app->name;
 ?>
 
 <h3>Категория "<?= Html::encode($model->name) ?>"</h3>
-<div class="card-columns">
-    <?php echo ListView::widget(array(
-        'dataProvider' => $dataProvider,
-        'itemOptions' => [
-            'tag' => false,
-        ],
-        'itemView' => '_item',
-    ));
-    ?>
-</div>
+<?php echo ListView::widget(array(
+    'dataProvider' => $dataProvider,
+    'options' => ['class' => 'card-deck'],
+    'summary' => '',
+    'itemOptions' => [
+        'tag' => false,
+    ],
+    'itemView' => '_item',
+));
+?>
 

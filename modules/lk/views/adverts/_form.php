@@ -83,15 +83,20 @@ JS
     ?>
     <?= $form->field($model, 'price'); ?>
     <?= $form->field($model, 'location')->hiddenInput()->label(false) ?>
-    <?= \mirocow\yandexmaps\Canvas::widget([
-        'htmlOptions' => [
-            'style' => 'height: 400px;',
-        ],
-        'map' => $map,
-    ]);
+    <div class="form-group">
+        <label class="form-label">
+            <?php echo Yii::t('adv', 'Location') .
+                '(' . Yii::t('adv', 'Find address on the map') . ')'; ?>
+        </label>
+        <?= \mirocow\yandexmaps\Canvas::widget([
+            'htmlOptions' => [
+                'style' => 'height: 400px;',
+            ],
+            'map' => $map,
+        ]);
 
-    ?>
-
+        ?>
+    </div>
     <div class="form-group">
         <?php echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-primary']); ?>
     </div>

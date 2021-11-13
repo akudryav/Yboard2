@@ -11,6 +11,7 @@ use yii\bootstrap4\ActiveForm;
         <?php
         $form = ActiveForm::begin(array(
             'id' => 'messages-form',
+            'layout' => ActiveForm::LAYOUT_HORIZONTAL,
             'action' => Url::to(['/lk/messages/save']),
             'enableAjaxValidation' => true,
             'validationUrl' => Url::to(['/lk/messages/validate']),
@@ -20,26 +21,18 @@ use yii\bootstrap4\ActiveForm;
         <?= $form->field($model, 'message')->textarea(['rows' => '3']) ?>
         <?= $form->field($model, 'receiver_id')->hiddenInput()->label(false) ?>
         <?= $form->field($model, 'advert_id')->hiddenInput()->label(false) ?>
-        <div class="row">
-            <div class="col-sm">
-                <?php echo Html::submitButton(Yii::t('message', 'Send'), ['class' => 'btn btn-primary btn-sm']); ?>
-            </div>
-            <div class="col-sm">
-                <div id="error_alert" class="alert alert-danger alert-dismissible fade" role="alert">
-                    Ошибка при отправке сообщения
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div id="success_alert" class="alert alert-success alert-dismissible fade" role="alert">
-                    Сообщение успешно отправлено
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
+        <?php echo Html::submitButton(Yii::t('message', 'Send'), ['class' => 'btn btn-primary mb-2']); ?>
+        <div id="error_alert" class="alert alert-danger alert-dismissible fade" role="alert">
+            Ошибка при отправке сообщения
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="success_alert" class="alert alert-success alert-dismissible fade" role="alert">
+            Сообщение успешно отправлено
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
 
         <?php ActiveForm::end(); ?>

@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "reviews".
  *
@@ -30,18 +32,9 @@ class Profile extends \yii\db\ActiveRecord
     public function rules() {
         return [
             [['last_name', 'first_name'], 'required'],
-            [['country', 'phone', 'uid', 'birthdate', 'network'], 'string'],
+            [['country', 'phone', 'uid', 'network', 'company'], 'string'],
+            [['birthdate'], 'datetime', 'format' => 'php:d.m.Y', 'timestampAttribute' => 'birthdate'],
         ];
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-        );
     }
 
     /**
@@ -50,15 +43,22 @@ class Profile extends \yii\db\ActiveRecord
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'first_name' => 'Имя',
-            'last_name' => 'Фамилия',
-            'country' => 'Страна',
-            'phone' => 'Телефон',
-            'network' => 'Сервис',
-            'uid' => 'Идентификатор сервиса',
-            'birthdate' => 'Дата рождения',
+            'first_name' => Yii::t('user', 'First name'),
+            'last_name' => Yii::t('user', 'Last name'),
+            'country' => Yii::t('user', 'Country'),
+            'phone' => Yii::t('user', 'Phone'),
+            'network' => Yii::t('user', 'Network'),
+            'uid' => Yii::t('user', 'uid'),
+            'company' => Yii::t('user', 'Company'),
+            'birthdate' => Yii::t('user', 'Birth Date'),
         );
     }
-
-
+    /*
+        public function beforeSave($insert)
+        {
+            if (isset($post['Adpackage']['Page'])) {
+                $this->fields = serialize($_POST['Adpackage']['Page']);
+            }
+            return parent::beforeSave($insert);
+        }*/
 }

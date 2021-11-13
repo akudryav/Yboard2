@@ -8,7 +8,7 @@ use app\models\forms\RegistrationForm;
 use app\models\forms\UserChangePassword;
 use app\models\forms\UserRecoveryForm;
 use app\models\forms\LoginForm;
-use app\models\UloginModel;
+use app\models\forms\UloginModel;
 use rmrevin\yii\ulogin\AuthAction;
 
 

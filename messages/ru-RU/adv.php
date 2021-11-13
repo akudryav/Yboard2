@@ -3,7 +3,7 @@
 return array(
     'Adverts' => 'Объявления',
     'My adverts' => 'Мои обьявления',
-    'Create advert' => 'Создать объявление',
+    'Create advert' => 'Разместить объявление',
     'View advert' => 'Просмотреть объявление',
     'Manage adverts' => 'Управление объявлениями ',
     'Update advert: {nameAttribute}' => 'Обновить объявление: {nameAttribute}',
@@ -27,4 +27,6 @@ return array(
     'Not set' => 'Не укзана',
     'Мoderated' => 'Статус',
     'Favorites' => 'Избранные объявления',
+    'Find address on the map' => 'Выберите адрес на карте',
+    'Location' => 'Местоположение',
 );
