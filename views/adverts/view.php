@@ -42,7 +42,10 @@ $this->context->title = $model->name;
         }
         ?>
     </p>
-    <?php echo Message::widget(['advert' => $model]) ?>
+    <?php if ($model->user_id != Yii::$app->user->id) {
+        echo Message::widget(['advert' => $model]);
+    }
+    ?>
     <div class="row info">
         <div class="col">
             <i class="fa fa-clock-o"></i>

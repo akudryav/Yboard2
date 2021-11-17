@@ -36,14 +36,17 @@ class Messages extends \yii\db\ActiveRecord
             [['advert_id', 'sender_id', 'receiver_id'], 'integer'],
             ['read', 'default', 'value' => 0],
             ['sender_id', 'default', 'value' => Yii::$app->user->id],
-            [['advert', 'author'], 'safe'],
+            [['advert', 'author', 'chat_id'], 'safe'],
         ];
     }
 
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            [
+                'class' => TimestampBehavior::class,
+                'updatedAtAttribute' => false,
+            ],
         ];
     }
 
@@ -61,6 +64,7 @@ class Messages extends \yii\db\ActiveRecord
             'message' => Yii::t('message', 'Message'),
             'created_at' => Yii::t('message', 'Send Date'),
             'read' => Yii::t('message', 'Read'),
+            'chat_id' => Yii::t('message', 'ChatID'),
         );
     }
 
