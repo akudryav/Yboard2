@@ -73,6 +73,11 @@ class Messages extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'sender_id']);
     }
 
+    public function getRecipient()
+    {
+        return $this->hasOne(User::class, ['id' => 'receiver_id']);
+    }
+
     public function getAdvert()
     {
         return $this->hasOne(Adverts::class, ['id' => 'advert_id']);

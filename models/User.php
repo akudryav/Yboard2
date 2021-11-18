@@ -276,4 +276,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->hasMany(Adverts::class, ['user_id' => 'id']);
     }
 
+    public function getAvatar($size = 64)
+    {
+        return \cebe\gravatar\Gravatar::widget([
+            'email' => $this->email,
+            'defaultImage' => 'identicon',
+            'options' => [
+                'alt' => $this->username,
+            ],
+            'size' => $size
+        ]);
+    }
+
 }

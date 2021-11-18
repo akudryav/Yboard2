@@ -16,6 +16,12 @@ $form = ActiveForm::begin(array(
     'enableAjaxValidation' => true,
     'validationUrl' => Url::to(['/lk/messages/validate']),
 ));
+echo $form->field($model, 'message', ['template'=>"{label}\n<div class=\"input-group\">{input}\n<span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\"><span class=\"glyphicon glyphicon-refresh\" aria-hidden=\"true\"></span></button></span></div>\n{hint}\n{error}"]);
+echo $form->field($model, 'message')->textInput([
+    'tag' => false,
+    'class' => 'foo',
+    'id' => 'bar',
+])->label(false);
 echo $form->field($model, 'message')->textarea(['rows' => '3']);
 echo $form->field($model, 'receiver_id')->hiddenInput()->label(false);
 echo $form->field($model, 'advert_id')->hiddenInput()->label(false);

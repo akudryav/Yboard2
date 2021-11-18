@@ -1,27 +1,15 @@
-<?php
-/* @var $this MessagesController */
-/* @var $dataProvider ActiveDataProvider */
-/* @var $userData ActiveRecord User */
-
-/* @var $model ActiveRecord Messages */
-
-use yii\widgets\ListView;
-use yii\helpers\Url;
-
-?>
-
-    <h4><?= Yii::t('message', 'Dialog') ?> с
-        <a href='<?php echo Url::to('user/view', array('id' => $userData->id)) ?>'>
-            <?= $userData->username ?></a>
-    </h4>
-
-    <div class='dialog'>
-        <?php
-        echo ListView::widget(array(
-            'dataProvider' => $dataProvider,
-            'itemView' => '_view',
-        ));
-        ?>
+    <div class="chat-history">
+        <ul class="m-b-0">
+            <?php foreach($messages as $mes):?>
+            <li class="clearfix">
+                <div class="message-data <?php if($mes->author->id != $userData->id) echo 'text-right';?>">
+                    <span class="message-data-time"><?= Yii::$app->formatter->asDateTime($mes->created_at) ?></span>
+                    <?php echo $mes->author->getAvatar(); ?>
+                </div>
+                <div class="message other-message float-right"><?= $mes->message?></div>
+            </li>
+            <?php endforeach;?>
+        </ul>
     </div>
 
-<?php echo $this->render('_form', array('model' => $model, 'receiver' => $userData->id)); ?>
+<?php echo $this->render('_form', ['model' => $model]); ?>

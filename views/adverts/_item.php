@@ -2,7 +2,6 @@
 
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
-use yii\helpers\StringHelper;
 
 /* @var $this AdvertsController */
 /* @var $model Adverts */

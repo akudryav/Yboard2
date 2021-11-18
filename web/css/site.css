@@ -153,3 +153,7 @@ body .carousel-control-next-icon {
 .carousel-caption {
     color: inherit;
 }
+.dropdown-submenu {
+    overflow-y: auto;
+    max-height: 100vh;
+}

@@ -32,13 +32,7 @@ $sideItems = [
     ],
 ];
 ?>
-<?php echo \cebe\gravatar\Gravatar::widget([
-    'email' => Yii::$app->user->identity->email,
-    'options' => [
-        'alt' => Yii::$app->user->identity->username,
-    ],
-    'size' => 64
-]) ?>
+<?php echo Yii::$app->user->getAvatar(); ?>
     <div class="row">
         <?php echo Nav::widget([
             'options' => ['class' => 'col-md-2 d-none d-md-block bg-light sidebar'],

@@ -51,4 +51,16 @@ class WebUser extends User
             return $this->identity->status === \app\models\User::STATUS_ADMIN;
         }
     }
+
+    public function getAvatar($size = 64)
+    {
+        return \cebe\gravatar\Gravatar::widget([
+            'email' => $this->identity->email,
+            'defaultImage' => 'identicon',
+            'options' => [
+                'alt' => $this->identity->username,
+            ],
+            'size' => $size
+        ]);
+    }
 }
