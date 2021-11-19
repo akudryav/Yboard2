@@ -19,18 +19,15 @@ class Message extends Widget
             return false;
         }
         // Модель для моментального сообщения со страницы просмотра объявления
-        $model = new Messages();
-        $model->advert_id = $this->advert->id;
-        $model->receiver_id = $this->advert->user_id;
         $chat = Messages::find()
             ->where(['advert_id' => $this->advert->id, 'sender_id' => Yii::$app->user->id])
             ->orderBy('id DESC')->limit(1)->one();
         if ($chat) {
-            $model->chat_id = $chat->chat_id;
+            $chat_id = $chat->chat_id;
         } else {
-            $model->chat_id = $this->advert->id . '_' . Yii::$app->user->id;
+            $chat_id = $this->advert->id . '_' . Yii::$app->user->id;
         }
 
-        return $this->render('message', ['model' => $model]);
+        return $this->render('message', ['chat_id' => $chat_id]);
     }
 }

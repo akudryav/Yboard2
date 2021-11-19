@@ -5,6 +5,9 @@ use yii\bootstrap4\ActiveForm;
 
 $form = ActiveForm::begin(array(
     'id' => 'messages-form',
+    'options' => [
+       'class' => 'chat-message clearfix'
+    ],
     'fieldConfig' => [
         'options' => [
             'tag' => false,
@@ -15,7 +18,6 @@ $form = ActiveForm::begin(array(
     'validationUrl' => Url::to(['/lk/messages/validate']),
 ));
 ?>
-    <div class="chat-message clearfix">
         <div class="input-group mb-0">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-send"></i></span>
@@ -24,7 +26,7 @@ $form = ActiveForm::begin(array(
                 'tag' => false,
             ])->label(false);?>
         </div>
-    </div>
+
 <?php
 echo $form->field($model, 'receiver_id')->hiddenInput()->label(false);
 echo $form->field($model, 'advert_id')->hiddenInput()->label(false);

@@ -13,8 +13,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $sender_id
  * @property integer $receiver_id
  * @property string $message
- * @property string $created_at
- * @property boolean $read
+ * @property integer $created_at
+ * @property integer $read_at
  */
 class Messages extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,7 @@ class Messages extends \yii\db\ActiveRecord
         return [
             [['advert_id', 'receiver_id', 'message'], 'required'],
             [['advert_id', 'sender_id', 'receiver_id'], 'integer'],
-            ['read', 'default', 'value' => 0],
+            ['read_at', 'default', 'value' => 0],
             ['sender_id', 'default', 'value' => Yii::$app->user->id],
             [['advert', 'author', 'chat_id'], 'safe'],
         ];
@@ -63,7 +63,7 @@ class Messages extends \yii\db\ActiveRecord
             'receiver_id' => Yii::t('message', 'Receiver'),
             'message' => Yii::t('message', 'Message'),
             'created_at' => Yii::t('message', 'Send Date'),
-            'read' => Yii::t('message', 'Read'),
+            'read_at' => Yii::t('message', 'Read'),
             'chat_id' => Yii::t('message', 'ChatID'),
         );
     }

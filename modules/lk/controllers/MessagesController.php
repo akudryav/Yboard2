@@ -54,6 +54,12 @@ class MessagesController extends Controller
             ['receiver_id' => Yii::$app->user->id],
         ])->andWhere(['chat_id' => $chat_id])
             ->with(['author', 'recipient'])->all();
+        // проставляем время прочтения
+        foreach($messages as $mes) {
+            if($mes->read_at == 0 && $mes->receiver_id == Yii::$app->user->id) {
+                $mes->updateAttributes(['read_at' => time()]);
+            }
+        }
         // модель для ответного сообщения
         $model = new Messages();
         $model->chat_id = $chat_id;
