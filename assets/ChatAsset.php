@@ -20,6 +20,7 @@ class ChatAsset extends AssetBundle
         'css/chat.css',
     ];
     public $js = [
+        'js/chat.js',
     ];
     public $depends = [
         'app\assets\AppAsset',

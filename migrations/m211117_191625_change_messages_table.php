@@ -14,6 +14,8 @@ class m211117_191625_change_messages_table extends Migration
     {
         $this->dropColumn('{{%messages}}', 'updated_at');
         $this->addColumn('{{%messages}}', 'chat_id', 'string');
+        $this->alterColumn('{{%messages}}', 'read', $this->integer()->defaultValue(0));
+        $this->renameColumn('{{%messages}}','read','read_at');
         $this->createIndex('author1_idx', '{{%messages}}', 'sender_id');
         $this->createIndex('author2_idx', '{{%messages}}', 'receiver_id');
         $this->createIndex('chat_idx', '{{%messages}}', 'chat_id');
@@ -26,6 +28,8 @@ class m211117_191625_change_messages_table extends Migration
     {
         $this->addColumn('{{%messages}}', 'updated_at', 'integer');
         $this->dropColumn('{{%messages}}', 'chat_id');
+        $this->renameColumn('{{%messages}}','read_at','read');
+        $this->alterColumn('{{%messages}}', 'read', $this->boolean());
     }
 
 }

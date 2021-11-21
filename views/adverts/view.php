@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Url;
+use app\assets\ChatAsset;
 use yii\widgets\ListView;
 use yii\bootstrap4\Html;
 use app\widgets\Message;
@@ -9,7 +9,7 @@ use app\widgets\Message;
 /* @var $model Bulletin */
 
 $this->context->title = $model->name;
-
+ChatAsset::register($this);
 ?>
 <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
 <div class="jumbotron">

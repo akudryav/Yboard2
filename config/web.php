@@ -97,6 +97,7 @@ $config = [
                 'login' => 'user/login',
                 'cat_fields/<id:\d+>' => 'adverts/getfields',
                 'page/<view:\w+>/' => 'site/page',
+                '<module:lk>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],
         ],

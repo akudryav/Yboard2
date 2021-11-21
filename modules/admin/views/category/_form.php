@@ -24,7 +24,7 @@ CategoryAsset::register($this);
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]); ?>
+    ]);
 
     <?= $form->field($model, 'position')->textInput(['type' => 'number']) ?>
     <?= $form->field($model, 'params_flag')->checkbox() ?>

@@ -2,6 +2,7 @@
 
 namespace app\modules\lk\controllers;
 
+use app\models\Adverts;
 use Yii;
 
 use yii\data\ActiveDataProvider;
@@ -23,24 +24,59 @@ class MessagesController extends Controller
         ));
     }
 
-    public function actionDialog($id)
+    /**
+     * Вывод пользователей с которыми ведется переписка
+     * для текущего пользователя
+     */
+    public function actionIndex()
     {
-        $model = new Messages;
 
-        $query = Messages::find()->where(['or',
-            ['and', ['sender_id' => $id, 'receiver_id' => Yii::$app->user->id]],
-            ['and', ['sender_id' => Yii::$app->user->id, 'receiver_id' => $id]]
-        ]);
+        $chats = Messages::find()
+            ->select(['chat_id', 'MAX(advert_id) AS advert_id'])
+            ->where(['or',
+            ['sender_id' => Yii::$app->user->id],
+            ['receiver_id' => Yii::$app->user->id],
+        ])->with('advert')
+            ->groupBy(['chat_id'])->all();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
+        return $this->render('index', array(
+            'chats' => $chats,
+        ));
+    }
 
-        $userData = User::findOne($id);
+
+    public function actionDialog($chat_id)
+    {
+        $this->layout = false;
+        // готовим сообщения чата
+        $messages = Messages::find()->where(['or',
+            ['sender_id' => Yii::$app->user->id],
+            ['receiver_id' => Yii::$app->user->id],
+        ])->andWhere(['chat_id' => $chat_id])
+            ->with(['author', 'recipient'])->all();
+        // проставляем время прочтения
+        foreach($messages as $mes) {
+            if($mes->read_at == 0 && $mes->receiver_id == Yii::$app->user->id) {
+                $mes->updateAttributes(['read_at' => time()]);
+            }
+        }
+        // модель для ответного сообщения
+        $model = new Messages();
+        $model->chat_id = $chat_id;
+        if(isset($messages[0])){
+            $model->advert_id = $messages[0]->advert_id;
+            $model->receiver_id = ($messages[0]->sender_id == Yii::$app->user->id) ?
+                $messages[0]->receiver_id : $messages[0]->sender_id;
+        } else {
+            $advert_id = strtok($chat_id, '_');
+            $advert = Adverts::findOne($advert_id);
+            $model->advert_id = $advert->id;
+            $model->receiver_id = $advert->user_id;
+        }
 
         return $this->render('dialog', array(
-            'dataProvider' => $dataProvider,
-            'userData' => $userData,
+            'messages' => $messages,
+            'userData' => $this->currentUser,
             'model' => $model,
         ));
     }
@@ -84,31 +120,6 @@ class MessagesController extends Controller
         // if AJAX request (triggered by deletion via view grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('view'));
-    }
-
-    /**
-     * Вывод пользователей с которыми ведется переписка
-     * для текущего пользователя
-     */
-    public function actionIndex()
-    {
-
-        $query = Messages::find()->where(['or',
-            ['sender_id' => Yii::$app->user->id],
-            ['receiver_id' => Yii::$app->user->id],
-        ])->with('advert');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => array(
-                'pageSize' => 10,
-            ),
-
-        ]);
-
-        return $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
     }
 
     /**
