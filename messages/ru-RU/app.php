@@ -1,27 +1,12 @@
 <?php
 
 return array(
-    'Categories' => 'Категории',
     'Users' => 'Пользователи',
     'Home' => 'Admin',
     'Create' => 'Создать',
     'Update' => 'Обновить',
     'Manage' => 'Редактирование',
     'View' => 'Просмотр',
-    'Category name' => 'Название категории',
-    'Tree' => 'Корневая',
-    'Parent' => 'Родительская',
-    'Icon' => 'Иконка',
-    'Aditional fields' => 'Доп поля',
-    'Position' => 'Сортировка',
-    'List Category' => 'Список категорий',
-    'Create Category' => 'Создать категорию',
-    'View Category' => 'Просмотреть категорию',
-    'Manage Category' => 'Управление категориями',
-    'Update Category' => 'Обновить категорию',
-    'Redact Category' => 'Редактировать категорию',
-    'Delete Category' => 'Удалить категорию',
-    'Manage Categories' => 'Управление категориями',
     '<span style="color:red;">Warning: Direct changes!</span>' =>
         '<span style="color:red;">Осторожно: изменения вносятся сразу!</span>',
     'Advertisements' => 'Реклама',

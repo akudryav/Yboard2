@@ -15,6 +15,7 @@ use creocoder\nestedsets\NestedSetsBehavior;
  */
 class Category extends \yii\db\ActiveRecord
 {
+    public $params_flag = false;
     private static $_tree_pool = [];
     /**
      * @return string the associated database table name
@@ -57,6 +58,8 @@ class Category extends \yii\db\ActiveRecord
             [['position'], 'default', 'value' => 0],
             [['tree', 'lft', 'rgt', 'depth', 'position'], 'integer'],
             [['name', 'icon'], 'string', 'max' => 255],
+            [['description', 'fields'], 'string'],
+            ['params_flag', 'boolean'],
         ];
     }
 
@@ -66,13 +69,14 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'name' => Yii::t('app', 'Category name'),
-            'tree' => Yii::t('app', 'Tree'),
-            'parentId' => Yii::t('app', 'Parent'),
-            'icon' => Yii::t('app', 'Icon'),
-            'fields' => Yii::t('app', 'Aditionl fields'),
-            'position' => Yii::t('app', 'Position'),
-            'description' => Yii::t('app', 'Description'),
+            'name' => Yii::t('cat', 'Category name'),
+            'tree' => Yii::t('cat', 'Tree'),
+            'parentId' => Yii::t('cat', 'Parent'),
+            'icon' => Yii::t('cat', 'Icon'),
+            'fields' => Yii::t('cat', 'Additional fields'),
+            'params_flag' => Yii::t('cat', 'Fields flag'),
+            'position' => Yii::t('cat', 'Position'),
+            'description' => Yii::t('cat', 'Description'),
         );
     }
 

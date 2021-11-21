@@ -25,6 +25,7 @@ class m211019_090104_create_profile_table extends Migration
             'company' => $this->string(),
             'birthdate' => $this->integer(),
         ]);
+        $this->createIndex('usr_prof_idx', '{{%profiles}}', 'user_id');
     }
 
     /**

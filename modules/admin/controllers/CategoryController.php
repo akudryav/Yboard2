@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\forms\ParamForm;
 use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
@@ -46,18 +47,18 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
+        $params = [];
+        $post = Yii::$app->request->post('Category');
+        $par_post = Yii::$app->request->post('ParamForm');
 
-        if ( ! empty(Yii::$app->request->post('Category')))
-        {
-            $post            = Yii::$app->request->post('Category');
-            $model->name     = $post['name'];
+        if (!empty($post)) {
+            $model->name = $post['name'];
             $model->position = $post['position'];
-            $parent_id       = $post['parentId'];
+            $parent_id = $post['parentId'];
 
             if (empty($parent_id))
                 $model->makeRoot();
-            else
-            {
+            else {
                 $parent = Category::findOne($parent_id);
                 $model->appendTo($parent);
             }
@@ -67,6 +68,7 @@ class CategoryController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'params' => $params,
         ]);
     }
 
@@ -79,26 +81,30 @@ class CategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $params = [];
+        if ($model->fields) {
+            foreach (unserialize($model->fields) as $item) {
+                $p = new ParamForm();
+                $p->setAttributes($item);
+                $params[] = $p;
+            }
+        }
 
-        if ( ! empty(Yii::$app->request->post('Category')))
-        {
-            $post            = Yii::$app->request->post('Category');
+        $post = Yii::$app->request->post('Category');
+        $par_post = Yii::$app->request->post('ParamForm');
 
-            $model->name     = $post['name'];
+        if (!empty($post)) {
+            $model->name = $post['name'];
             $model->position = $post['position'];
-            $parent_id       = $post['parentId'];
+            $parent_id = $post['parentId'];
 
-            if ($model->save())
-            {
-                if (empty($parent_id))
-                {
-                    if ( ! $model->isRoot())
+            if ($model->save()) {
+                if (empty($parent_id)) {
+                    if (!$model->isRoot())
                         $model->makeRoot();
-                }
-                else // move node to other root
+                } else // move node to other root
                 {
-                    if ($model->id != $parent_id)
-                    {
+                    if ($model->id != $parent_id) {
                         $parent = Category::findOne($parent_id);
                         $model->appendTo($parent);
                     }
@@ -110,6 +116,7 @@ class CategoryController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'params' => $params,
         ]);
     }
 
