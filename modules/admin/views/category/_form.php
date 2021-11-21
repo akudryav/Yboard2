@@ -15,10 +15,10 @@ CategoryAsset::register($this);
 
 <div class="category-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?php echo $form->field($model, 'parentId')->widget(Select2::class, [
+    echo $form->field($model, 'name')->textInput(['maxlength' => true]);
+    echo $form->field($model, 'parentId')->widget(Select2::class, [
         'data' => Category::makeOptionsList($model->id),
         'options' => ['placeholder' => Yii::t('app', 'No Parent (saved as root)')],
         'pluginOptions' => [
@@ -26,8 +26,9 @@ CategoryAsset::register($this);
         ],
     ]);
 
-    <?= $form->field($model, 'position')->textInput(['type' => 'number']) ?>
-    <?= $form->field($model, 'params_flag')->checkbox() ?>
+    echo $form->field($model, 'position')->textInput(['type' => 'number']);
+    echo $form->field($model, 'params_flag')->checkbox();
+    ?>
     <div id="ref_book_items" class="dd">
         <ol class="dd-list">
             <?php
