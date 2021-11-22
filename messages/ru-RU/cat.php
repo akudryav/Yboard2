@@ -6,7 +6,7 @@ return array(
     'Parent' => 'Родительская',
     'Icon' => 'Иконка',
     'Additional fields' => 'Дополнительные поля',
-    'Fields flag' => 'Добавить доп поля',
+    'Fields flag' => 'Добавить параметры',
     'Position' => 'Сортировка',
     'Create Category' => 'Создать категорию',
 );

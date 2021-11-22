@@ -4,13 +4,13 @@ use yii\helpers\Url;
 use yii\bootstrap4\Modal;
 
 Modal::begin([
-    'id' => 'myModal',
+    'id' => 'mesModal',
     'title' => 'Чат с продавцом',
     'toggleButton' => [
-        'id' => 'js_modal',
+        'id' => 'js_message',
         'label' => 'Написать',
         'class' => 'btn btn-primary',
-        'data-url' => Url::to(['/lk/messages/dialog', 'chat_id' =>$chat_id]),
+        'data-url' => Url::to(['/lk/messages/dialog', 'chat_id' => $chat_id]),
     ],
 ]);
 ?>
@@ -24,9 +24,9 @@ Modal::begin([
 Modal::end();
 
 $script = <<< JS
-$('#js_modal').on('click', function(e){
+$('#js_message').on('click', function(e){
   e.preventDefault();
-  $('#myModal').find('#chat').load($(this).data('url'));
+  $('#mesModal').find('#chat').load($(this).data('url'));
 });
 JS;
 $this->registerJs($script, \yii\web\View::POS_READY);
