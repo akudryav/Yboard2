@@ -1,24 +1,41 @@
 $(document).ready(function () {
-    $('#category-params_flag').on('change', function () {
-        if ($(this).is(':checked')) {
-            alert('show');
+
+    $("#category-params_flag").on('change', function () {
+        if ($(this).is(":checked")) {
+            $("#ref_book_items").show();
         } else {
-            alert('hide');
+            $("#ref_book_items").hide();
         }
     });
 
-    $('#add-new-item').click(function (e) {
-        var new_line = $('#ref_book_items li.dd-item.template').clone(true);
-        new_line.removeClass('template');
-        $('#ref_book_items ol.dd-list li.dd-item.template').before(new_line);
-        $('#ref_book_items').change();
+    $("#add-new-item").click(function (e) {
+        /*var row = $("#template").clone(false).removeAttr('id');
+        row.find('span').remove();
+        row.find('is_select2').select2({
+            tags: true
+        });
+        row.appendTo("#ref_book_items");*/
+        $.ajax({
+            url: "/admin/category/param",
+            data: {'index': 0},
+            success: function(data) {
+                $('#ref_book_items').append(data);
+            }
+        });
+        /*$.ajax({
+            url: "/admin/category/param",
+            dataType : 'html',
+            cache: false,
+            success : function(html){
+                var li = $(html).find('li').html();
+                $('#ref_book_items').append(li);
+            }
+        });*/
+
     });
 
-    $('body').on('click', '.delete-item', function (e) {
-        $(this).closest('li').remove();
-        $('#ref_book_items').change();
+    $("#ref_book_items").on("click", ".delete-item", function (e) {
+        $(this).closest("li").remove();
+        $("#ref_book_items").change();
     });
 });
-
-
-

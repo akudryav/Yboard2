@@ -4,9 +4,20 @@ namespace app\components;
 
 use Yii;
 use yii\web\User;
+use yii\helpers\Url;
 
 class WebUser extends User
 {
+    public function init()
+    {
+        parent::init();
+        // устанавливаем homeUrl
+        $this->on(static::EVENT_AFTER_LOGIN, function ($event) {
+            $hr = $this->isAdmin() ? Url::to(['admin/category']) : Url::to(['lk/adverts']);
+            Yii::$app->setHomeUrl($hr);
+        });
+    }
+
     public function can($permissionName, $params = [], $allowCaching = true)
     {
         /** @var \app\models\User $user */

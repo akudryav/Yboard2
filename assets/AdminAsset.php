@@ -12,11 +12,12 @@ use yii\web\AssetBundle;
 /**
  * Для админки категорий
  */
-class CategoryAsset extends AssetBundle
+class AdminAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/admin.css'
     ];
     public $js = [
         'js/admin/category.js',

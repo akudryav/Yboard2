@@ -51,7 +51,7 @@ class UserController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->login()) {
-                return $this->goBack();
+                return $this->goHome();
             }
         }
 
@@ -66,7 +66,7 @@ class UserController extends Controller
             $ulogin = new UloginModel();
             $ulogin->load($attributes, '');
             if ($ulogin->validate() && $ulogin->login()) {
-                $this->redirect(Yii::$app->user->returnUrl);
+                return $this->goHome();
             } else {
                 return $this->render('/site/error', array('message' => implode("\n",$ulogin->errors)));
             }

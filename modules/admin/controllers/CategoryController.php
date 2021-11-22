@@ -39,6 +39,16 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function actionParam($index)
+    {
+        $this->layout = false;
+
+        return $this->render('_param', [
+            'index' => $index,
+            'model' => new ParamForm(),
+        ]);
+    }
+
     /**
      * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
