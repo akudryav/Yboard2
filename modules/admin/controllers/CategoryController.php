@@ -35,17 +35,7 @@ class CategoryController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    public function actionParam($index)
-    {
-        $this->layout = false;
-
-        return $this->render('_param', [
-            'index' => $index,
-            'model' => new ParamForm(),
+            'model' => $this->loadModel($id),
         ]);
     }
 
@@ -90,7 +80,7 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->loadModel($id);
         $params = [];
         if ($model->fields) {
             foreach (unserialize($model->fields) as $item) {
@@ -138,7 +128,7 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->loadModel($id);
 
         if ($model->isRoot())
             $model->deleteWithChildren();
@@ -155,13 +145,18 @@ class CategoryController extends Controller
      * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function loadModel($id)
     {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
         } else {
             throw new \yii\web\NotFoundHttpException();
         }
+    }
+
+    protected static function prepareValues($string)
+    {
+
     }
 
 }

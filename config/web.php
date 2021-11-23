@@ -14,6 +14,11 @@ $config = [
         '@npm' => '@vendor/npm-asset',
         '@config' => '@app/config',
     ],
+    'container' => [
+        'definitions' => [
+            \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
+        ],
+    ],
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\AdminModule',

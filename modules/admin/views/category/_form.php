@@ -46,7 +46,7 @@ use yii\bootstrap4\Modal;
                     </div>
                     <div class="col-md-auto">
                         <?php echo Html::a('Ввести значения', '#',
-                            ['data-toggle' => 'modal', 'data-target' => '#catModal', 'data-index' => $index]
+                            ['data-toggle' => 'modal', 'data-target' => '#catModal', 'data-name' => "ParamForm[$index][values]"]
                         );
                         echo Html::a('Удалить', '#',
                             ['class' => 'text-danger delete-item']
@@ -66,7 +66,7 @@ use yii\bootstrap4\Modal;
                         </div>
                         <div class="col-md-auto">
                             <?php echo Html::a('Ввести значения', '#',
-                                ['data-toggle' => 'modal', 'data-target' => '#catModal', 'data-index' => 0]
+                                ['data-toggle' => 'modal', 'data-target' => '#catModal', 'data-name' => "ParamForm[0][values]"]
                             );
                             echo Html::a('Удалить', '#',
                                 ['class' => 'text-danger delete-item']

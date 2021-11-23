@@ -2,7 +2,6 @@
 
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 
 use app\models\Category;
 
@@ -10,7 +9,7 @@ use app\models\Category;
 /* @var $searchModel app\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Categories');
+$this->title = Yii::t('cat', 'Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
@@ -21,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('cat', 'Create Category'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -52,4 +51,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?></div>
+    </div>
