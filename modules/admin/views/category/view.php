@@ -30,11 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'tree',
-            'lft',
-            'rgt',
-            'depth',
-            'position',
+            [
+                'attribute' => 'parentId',
+                'value' => $model->parent->name,
+            ],
+            [
+                'attribute' => 'tree',
+                'value' => $model->isRoot() ? null : $model->parents()->one()->name,
+            ],
+            [
+                'attribute' => 'fields',
+                'value' => $model->fieldNames(),
+            ],
         ],
     ]) ?>
 

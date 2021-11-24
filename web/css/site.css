@@ -157,3 +157,10 @@ body .carousel-control-next-icon {
     overflow-y: auto;
     max-height: 100vh;
 }
+.well {
+    background-color: #f8f9fa;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 1.25rem;
+}

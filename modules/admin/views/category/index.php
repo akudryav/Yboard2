@@ -37,10 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ( ! $model->isRoot())
                         return $model->parents()->one()->name;
 
-                    return 'No Parent';
+                    return null;
                 }
             ],
-            'parent.name',
+            [
+                'attribute' => 'parentId',
+                'value' => 'parent.name',
+            ],
             // 'lft',
             // 'rgt',
             // 'depth',

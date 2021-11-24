@@ -5,6 +5,7 @@ namespace app\modules\lk\controllers;
 use Yii;
 use app\models\Category;
 use app\models\Adverts;
+use app\models\Params;
 use yii\data\ActiveDataProvider;
 use yii\web\UploadedFile;
 
@@ -38,7 +39,8 @@ class AdvertsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
-            if ($model->save() && $model->upload()) {
+            if ($model->save() && $model->upload() &&
+                $model->addParams(Yii::$app->request->post('Params'))) {
                 // file is uploaded successfully
                 return $this->redirect(['index']);
             }
@@ -62,7 +64,8 @@ class AdvertsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
-            if ($model->save() && $model->upload()) {
+            if ($model->save() && $model->upload() &&
+                $model->addParams(Yii::$app->request->post('Params'))) {
                 // file is uploaded successfully
                 return $this->redirect(['index']);
             }
@@ -123,9 +126,22 @@ class AdvertsController extends Controller
             'query' => $query
         ]);
 
-        return $this->render('index', array(
+        return $this->render('index', [
             'dataProvider' => $dataProvider,
-        ));
+        ]);
+    }
+
+    public function actionParamsForm($categ_id)
+    {
+        $this->layout = false;
+        $model = new Adverts();
+        $model->category_id = $categ_id;
+        $form = new \yii\bootstrap4\ActiveForm();
+
+        return $this->render('_params', [
+            'model' => $model,
+            'form' => $form,
+        ]);
     }
 
     /**
@@ -136,7 +152,9 @@ class AdvertsController extends Controller
      */
     public function loadModel($id)
     {
-        $model = Adverts::findOne(['id' => $id, 'user_id' => $this->currentUser->id]);
+        $model = Adverts::find()
+            ->where(['id' => $id, 'user_id' => $this->currentUser->id])
+            ->with('params')->one();
         if ($model === null)
             throw new \yii\web\NotFoundHttpException(Yii::t('app', 'Advert not Found'));
         return $model;

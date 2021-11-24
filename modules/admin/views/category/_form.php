@@ -1,11 +1,12 @@
 <?php
 
-use app\models\forms\ParamForm;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Modal;
+use yii\bootstrap4\Button;
 use kartik\select2\Select2;
 use app\models\Category;
-use yii\bootstrap4\Modal;
+use app\models\forms\ParamForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
@@ -28,56 +29,62 @@ use yii\bootstrap4\Modal;
 
     echo $form->field($model, 'position')->textInput(['type' => 'number']);
     echo $form->field($model, 'params_flag')->checkbox();
+    $count = count($params);
     ?>
-    <div id="ref_book_items">
+    <div id="ref_book_items" <?php if ($count == 0) echo 'style="display: none;"';?>>
         <ol class="list-group">
-            <?php
-        $count = count($params);
-        $templateModel = new ParamForm();
-        $templateModel->code = uniqid();
-        ?>
         <?php foreach ($params as $index => $item): ?>
             <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-auto"><?= $form->field($item, "[$index]name")->textInput() ?></div>
-                    <div class="col-md-auto">
-                        <?= $form->field($item, "[$index]code")->hiddenInput()->label(false) ?>
-                        <?= $form->field($item, "[$index]values")->hiddenInput()->label(false) ?>
-                    </div>
-                    <div class="col-md-auto">
-                        <?php echo Html::a('Ввести значения', '#',
-                            ['data-toggle' => 'modal', 'data-target' => '#catModal', 'data-name' => "ParamForm[$index][values]"]
-                        );
-                        echo Html::a('Удалить', '#',
-                            ['class' => 'text-danger delete-item']
-                        );
-                        ?>
-                    </div>
+                <div class="input-group">
+                    <?php
+                    echo $form->field($item, "[$index]name", ['options' => ['tag' => false]]);
+                    echo Html::a('Список значений (если нужно)', '#',
+                        [
+                            'class' => 'btn btn-outline-secondary',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#catModal',
+                            'data-name'   => "ParamForm[$index][values]"
+                        ]
+                    );
+                    echo Html::a('Удалить', '#',
+                        ['class' => 'btn btn-outline-danger delete-item']
+                    );
+                    echo $form->field($item, "[$index]code", ['options' => ['tag' => false]])->hiddenInput()->label(false);
+                    echo $form->field($item, "[$index]values", ['options' => ['tag' => false]])->hiddenInput()->label(false);
+                    ?>
                 </div>
             </li>
         <?php endforeach; ?>
-            <?php if ($count == 0): ?>
+            <?php
+            if ($count == 0):
+                $templateModel = new ParamForm();
+                $templateModel->code = uniqid();
+                ?>
                 <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-auto"><?= $form->field($templateModel, "[0]name")->textInput() ?></div>
-                        <div class="col-md-auto">
-                            <?= $form->field($templateModel, "[0]code")->hiddenInput()->label(false) ?>
-                            <?= $form->field($templateModel, "[0]values")->hiddenInput()->label(false) ?>
-                        </div>
-                        <div class="col-md-auto">
-                            <?php echo Html::a('Ввести значения', '#',
-                                ['data-toggle' => 'modal', 'data-target' => '#catModal', 'data-name' => "ParamForm[0][values]"]
-                            );
-                            echo Html::a('Удалить', '#',
-                                ['class' => 'text-danger delete-item']
-                            );
-                            ?>
-                        </div>
+                    <div class="input-group">
+                <?php
+                    echo $form->field($templateModel, "[0]name", ['options' => ['tag' => false]]);
+                    echo Html::a('Список значений (если нужно)', '#',
+                        [
+                            'class' => 'btn btn-outline-secondary',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#catModal',
+                            'data-name'   => "ParamForm[0][values]"
+                        ]
+                    );
+                    echo Html::a('Удалить', '#',
+                        ['class' => 'btn btn-outline-danger delete-item']
+                    );
+                    echo $form->field($templateModel, "[0]code", ['options' => ['tag' => false]])->hiddenInput()->label(false);
+                    echo $form->field($templateModel, "[0]values", ['options' => ['tag' => false]])->hiddenInput()->label(false);
+                ?>
                     </div>
                 </li>
             <?php endif; ?>
         </ol>
+        <div class="form-group">
         <?= Html::button('<i class="fa fa-plus"></i>', ['id' => 'add-new-item', 'class' => 'btn btn-info']) ?>
+        </div>
     </div>
 
     <div class="form-group">

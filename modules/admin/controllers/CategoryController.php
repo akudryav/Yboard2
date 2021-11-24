@@ -49,12 +49,12 @@ class CategoryController extends Controller
         $model = new Category();
         $params = [];
         $post = Yii::$app->request->post('Category');
-        $par_post = Yii::$app->request->post('ParamForm');
 
         if (!empty($post)) {
             $model->name = $post['name'];
             $model->position = $post['position'];
             $parent_id = $post['parentId'];
+            $model->fields = self::prepareValues(Yii::$app->request->post('ParamForm'));
 
             if (empty($parent_id))
                 $model->makeRoot();
@@ -83,6 +83,7 @@ class CategoryController extends Controller
         $model = $this->loadModel($id);
         $params = [];
         if ($model->fields) {
+            $model->params_flag = true;
             foreach (unserialize($model->fields) as $item) {
                 $p = new ParamForm();
                 $p->setAttributes($item);
@@ -91,12 +92,12 @@ class CategoryController extends Controller
         }
 
         $post = Yii::$app->request->post('Category');
-        $par_post = Yii::$app->request->post('ParamForm');
 
         if (!empty($post)) {
             $model->name = $post['name'];
             $model->position = $post['position'];
             $parent_id = $post['parentId'];
+            $model->fields = self::prepareValues(Yii::$app->request->post('ParamForm'));
 
             if ($model->save()) {
                 if (empty($parent_id)) {
@@ -154,9 +155,22 @@ class CategoryController extends Controller
         }
     }
 
-    protected static function prepareValues($string)
+    protected static function prepareValues($array)
     {
-
+        if(empty($array)) return null;
+        foreach ($array as $k => $v) {
+            $values = trim($v['values']);
+            $array[$k]['values'] = $values;
+            if(empty($v['code'])) {
+                $array[$k]['code'] = uniqid();
+            }
+            if(!empty($values)) {
+                $tmp = explode(',', $values);
+                $trimmed = array_map('trim', $tmp);
+                $array[$k]['values'] = implode(',', $trimmed);
+            }
+        }
+        return serialize($array);
     }
 
 }

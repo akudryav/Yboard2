@@ -9,4 +9,5 @@ return array(
     'Fields flag' => 'Добавить параметры',
     'Position' => 'Сортировка',
     'Create Category' => 'Создать категорию',
+    'Update Category' => 'Изменить категорию',
 );

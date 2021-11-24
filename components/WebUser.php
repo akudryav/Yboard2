@@ -13,6 +13,9 @@ class WebUser extends User
         parent::init();
         // устанавливаем homeUrl
         $this->on(static::EVENT_AFTER_LOGIN, function ($event) {
+            if (Yii::$app->user->isGuest) {
+                return;
+            }
             $hr = $this->isAdmin() ? Url::to(['admin/category']) : Url::to(['lk/adverts']);
             Yii::$app->setHomeUrl($hr);
         });

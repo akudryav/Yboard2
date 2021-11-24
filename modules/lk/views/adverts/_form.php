@@ -55,7 +55,7 @@ JS
 
 ?>
 
-<div class="form well">
+<div class="form">
 
     <?php
     $form = ActiveForm::begin([
@@ -73,7 +73,16 @@ JS
         'pluginOptions' => [
             'allowClear' => true
         ],
+        'pluginEvents' => [
+            "select2:select" => "function(e) {  $('#params').load( '/lk/adverts/params-form?categ_id='+e.params.data.id ); }",
+        ]
     ]); ?>
+    <div id="params" class="well">
+        <?php if(!$model->isNewRecord) echo $this->render('_params', [
+            'model' => $model,
+            'form' => $form,
+        ]) ?>
+    </div>
     <?= $form->field($model, 'text')->textarea(['rows' => '6']) ?>
     <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
     <?php

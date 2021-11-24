@@ -19,6 +19,9 @@ $(document).ready(function () {
             if(name.indexOf('values') !== -1) {
                 row.find("a[data-toggle='modal']").data('name', name);
             }
+            if(name.indexOf('code') !== -1) {
+                $(this).val('');
+            }
         });
 
         row.appendTo("#ref_book_items .list-group");

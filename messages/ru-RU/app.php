@@ -4,7 +4,8 @@ return array(
     'Users' => 'Пользователи',
     'Home' => 'Admin',
     'Create' => 'Создать',
-    'Update' => 'Обновить',
+    'Update' => 'Изменить',
+    'Delete' => 'Удалить',
     'Manage' => 'Редактирование',
     'View' => 'Просмотр',
     '<span style="color:red;">Warning: Direct changes!</span>' =>

@@ -1,10 +1,8 @@
 <?php
 namespace app\models;
 
-use yii\db\Expression;
-use yii\behaviors\TimestampBehavior;
-use yii\db\Query;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -75,14 +73,14 @@ class Adverts extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getUserName()
-    {
-        return ($this->user) ? $this->user->username : 'Автор';
-    }
-
     public function getCategory()
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    public function getParams()
+    {
+        return $this->hasMany(Params::class, ['advert_id' => 'id'])->indexBy('code');
     }
 
     /**
@@ -140,21 +138,34 @@ class Adverts extends \yii\db\ActiveRecord
     }
 
     /**
+     * Сохранение параметров
+     * @return bool
+     */
+    public function addParams($data)
+    {
+        if(empty($data)) return true;
+        Params::deleteAll(['advert_id' => $this->id]);
+        foreach ($data as $k => $v) {
+            $param = new Params();
+            $param->code = $k;
+            $param->value = $v['value'];
+            $this->link('params', $param);
+        }
+    }
+
+    /**
      * Загрузка файлов
      * @return bool
      */
     public function upload()
     {
-        if ($this->validate()) {
-            foreach ($this->imageFiles as $file) {
-                $filename = 'images/store/' . uniqid() . '.' . $file->extension;
-                $file->saveAs($filename);
-                $this->attachImage($filename);
-            }
-            return true;
-        } else {
-            return false;
+        $res = true;
+        foreach ($this->imageFiles as $file) {
+            $filename = 'images/store/' . uniqid() . '.' . $file->extension;
+            $file->saveAs($filename);
+            $res = $res && $this->attachImage($filename);
         }
+        return $res;
     }
 
     /**

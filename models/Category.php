@@ -198,4 +198,20 @@ class Category extends \yii\db\ActiveRecord
             self::set_recursive($array[$key], $path, $value);
         }
     }
+
+    public function fieldData()
+    {
+        if(!$this->fields) return null;
+        return unserialize($this->fields);
+    }
+
+    public function fieldNames()
+    {
+        if(!$this->fields) return null;
+        $result = [];
+        foreach($this->fieldData() as $field) {
+            $result[] = $field['name'];
+        }
+        return implode(', ', $result);
+    }
 }
