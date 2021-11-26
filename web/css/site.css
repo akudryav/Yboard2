@@ -153,11 +153,17 @@ body .carousel-control-next-icon {
 .carousel-caption {
     color: inherit;
 }
-
 .well {
     background-color: #f8f9fa;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
     padding: 1.25rem;
+}
+.bd-toc {
+    position: absolute;
+    top: 4rem;
+    left: 3rem;
+    padding-bottom: 1.5rem;
+    font-size: .875rem;
 }

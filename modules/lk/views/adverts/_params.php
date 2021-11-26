@@ -1,8 +1,7 @@
 <?php
 use yii\helpers\ArrayHelper;
 
-$params = $model->params;
-$cat_params = $model->category->fieldData();
+$cat_params = $category->fieldData();
 
 if($cat_params) {
     foreach($cat_params as $par) {

@@ -16,7 +16,7 @@ class WebUser extends User
             if (Yii::$app->user->isGuest) {
                 return;
             }
-            $hr = $this->isAdmin() ? Url::to(['admin/category']) : Url::to(['lk/adverts']);
+            $hr = $this->isAdmin() ? Url::to(['/admin/category']) : Url::to(['/lk/adverts']);
             Yii::$app->setHomeUrl($hr);
         });
     }

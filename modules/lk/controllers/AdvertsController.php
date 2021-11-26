@@ -134,12 +134,11 @@ class AdvertsController extends Controller
     public function actionParamsForm($categ_id)
     {
         $this->layout = false;
-        $model = new Adverts();
-        $model->category_id = $categ_id;
         $form = new \yii\bootstrap4\ActiveForm();
 
         return $this->render('_params', [
-            'model' => $model,
+            'params' => [],
+            'category' => Category::findOne($categ_id),
             'form' => $form,
         ]);
     }

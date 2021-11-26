@@ -79,7 +79,8 @@ JS
     ]); ?>
     <div id="params" class="well">
         <?php if(!$model->isNewRecord) echo $this->render('_params', [
-            'model' => $model,
+            'params' => $model->params,
+            'category' => $model->category,
             'form' => $form,
         ]) ?>
     </div>
