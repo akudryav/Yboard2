@@ -36,7 +36,6 @@ $(document).ready(function () {
     $('#catModal').on('show.bs.modal', function (e) {
         var name = $(e.relatedTarget).data('name');
         $(this).find('.btn-info').data('name', name);
-        console.log("input[name='"+name+"']");
         var values = $("#ref_book_items").find("input[name='"+name+"']").val();
         values = values.replace(/,/g, "\n");
         $("#optionsList").val(values);

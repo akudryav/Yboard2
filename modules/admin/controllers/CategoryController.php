@@ -161,13 +161,15 @@ class CategoryController extends Controller
         foreach ($array as $k => $v) {
             $values = trim($v['values']);
             $array[$k]['values'] = $values;
-            if(empty($v['code'])) {
+            if (empty($v['code'])) {
                 $array[$k]['code'] = uniqid();
             }
-            if(!empty($values)) {
+            if (!empty($values)) {
                 $tmp = explode(',', $values);
                 $trimmed = array_map('trim', $tmp);
                 $array[$k]['values'] = implode(',', $trimmed);
+            } else {
+                unset($array[$k]['values']);
             }
         }
         return serialize($array);

@@ -134,7 +134,7 @@ class AdvertsController extends Controller
         $model->save();
 
         $this->meta = Yii::$app->params['adv_meta'][Yii::$app->language];
-        $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$model->category_id]['name'];
+        $this->meta['vars']['cat_name'] = Category::getTree()[$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
 
         $query = Adverts::find()->where(['<>', 'id', $model->id])
@@ -166,9 +166,9 @@ class AdvertsController extends Controller
             ->andWhere(['OR',
                 ['category_id' => (int)$id],
                 ['AND',
-                    ['>', 'category.lft', Yii::$app->params['categories'][$id]['lft']],
-                    ['<', 'category.rgt', Yii::$app->params['categories'][$id]['rgt']],
-                    ['category.tree' => Yii::$app->params['categories'][$id]['tree']]
+                    ['>', 'category.lft', Category::getTree()[$id]['lft']],
+                    ['<', 'category.rgt', Category::getTree()[$id]['rgt']],
+                    ['category.tree' => Category::getTree()[$id]['tree']]
                 ]
             ]);
 
@@ -176,7 +176,7 @@ class AdvertsController extends Controller
             'query' => $query
         ]);
 
-        $this->meta['vars']['cat_name'] = Yii::$app->params['categories'][$id]['name'];
+        $this->meta['vars']['cat_name'] = Category::getTree()[$id]['name'];
 
         return $this->render('category', array(
             'model' => $this->loadCategory($id),

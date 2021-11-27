@@ -24,13 +24,10 @@ ChatAsset::register($this);
     </div>
     <p><?php echo nl2br($model->text); ?></p>
     <div class='attributes'>
-        <?php
-        if (is_array($model->fields))
-            foreach ($model->fields as $f_name => $field) {
-                echo "<div>"
-                    . Yii::$app->params['categories'][$model->category_id]
-                    ['fields'][$f_name]['name'] . " - " . $field
-                    . "</div>";
+        <?php $params = $model->paramsArray();
+        if (!empty($params))
+            foreach ($params as $f_name => $f_value) {
+                echo "<div>$f_name - $f_value</div>";
             }
         ?>
     </div>
@@ -64,7 +61,7 @@ ChatAsset::register($this);
     <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
 <?php echo ListView::widget([
     'dataProvider' => $dataRel,
-    'options' => ['class' => 'card-deck'],
+    'options' => ['class' => 'card-columns'],
     'summary' => '',
     'itemOptions' => [
         'tag' => false,

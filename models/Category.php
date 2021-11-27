@@ -122,12 +122,12 @@ class Category extends \yii\db\ActiveRecord
             self::$_tree_pool[$node_id] = self::getDb()->cache(
                 function ($db) use ($children) {
                     return self::find()->select(
-                        'id, tree, lft, rgt, name, depth'
+                        'id, tree, lft, rgt, name, depth, fields'
                     )
                         ->where(['NOT IN', 'id', $children])
                         ->orderBy('tree, lft, position')
                         ->indexBy('id')
-                        ->all();
+                        ->asArray()->all();
                 }
             );
         }
@@ -144,7 +144,7 @@ class Category extends \yii\db\ActiveRecord
     {
         $options = [];
         foreach (self::getTree($node_id) as $row)
-            $options[$row->id] = str_repeat('-', $row->depth) . $row->name;
+            $options[$row['id']] = str_repeat('-', $row['depth']) . $row['name'];
 
         return $options;
     }
@@ -161,23 +161,23 @@ class Category extends \yii\db\ActiveRecord
         $current_path = [0];
         // танцы с бубном для формирования вложенного массива категорий за один проход
         foreach (self::getTree($node_id) as $row) {
-            if($row->depth > $current_depth) {
+            if ($row['depth'] > $current_depth) {
                 $current_path[] = 'items';
                 $current_path[] = 0;
-            } elseif ($row->depth == $current_depth) {
+            } elseif ($row['depth'] == $current_depth) {
                 $index = count($current_path) - 1;
                 $current_path[$index]++;
             } else {
-                $d = $row->depth - $current_depth;
-                array_splice($current_path, 2*$d);
+                $d = $row['depth'] - $current_depth;
+                array_splice($current_path, 2 * $d);
                 $index = count($current_path) - 1;
                 $current_path[$index]++;
             }
-            $current_depth = $row->depth;
+            $current_depth = $row['depth'];
 
             $value = [
-                'label' => $row->name,
-                'url'   => ['adverts/category', 'id' => $row->id]
+                'label' => $row['name'],
+                'url' => ['adverts/category', 'id' => $row['id']]
             ];
 
             self::set_recursive($items, $current_path, $value);
@@ -199,17 +199,17 @@ class Category extends \yii\db\ActiveRecord
         }
     }
 
-    public function fieldData()
+    public static function fieldData($fields)
     {
-        if(!$this->fields) return null;
-        return unserialize($this->fields);
+        if (trim($fields) == '') return null;
+        return unserialize($fields);
     }
 
     public function fieldNames()
     {
         if(!$this->fields) return null;
         $result = [];
-        foreach($this->fieldData() as $field) {
+        foreach (self::fieldData($this->fields) as $field) {
             $result[] = $field['name'];
         }
         return implode(', ', $result);

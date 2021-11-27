@@ -106,23 +106,6 @@ class Adverts extends \yii\db\ActiveRecord
         );
     }
 
-    public function beforeSave($insert)
-    {
-        $post = Yii::$app->request->post();
-        if (isset($post['Adpackage']['Page'])) {
-            $this->fields = serialize($_POST['Adpackage']['Page']);
-        }
-        return parent::beforeSave($insert);
-    }
-
-    public function afterFind()
-    {
-        if ($this->fields) {
-            $this->fields = unserialize($this->fields);
-        }
-        parent::afterFind();
-    }
-
     public static function itemAlias($type, $code = NULL)
     {
         $_items = array(
@@ -187,9 +170,9 @@ class Adverts extends \yii\db\ActiveRecord
             $criteria->andWhere(['OR',
                 ['category_id' => $this->category_id],
                 ['AND',
-                    ['>', 'category.lft', Yii::$app->params['categories'][$this->category_id]['lft']],
-                    ['<', 'category.rgt', Yii::$app->params['categories'][$this->category_id]['rgt']],
-                    ['category.tree' => Yii::$app->params['categories'][$this->category_id]['tree']]
+                    ['>', 'category.lft', Category::getTree()[$this->category_id]['lft']],
+                    ['<', 'category.rgt', Category::getTree()[$this->category_id]['rgt']],
+                    ['category.tree' => Category::getTree()[$this->category_id]['tree']]
                 ]
             ]);
         }
@@ -238,15 +221,21 @@ class Adverts extends \yii\db\ActiveRecord
     }
 
     /*
-     * Конвертер валют для выода цены
+     * Формирование массива параметров для отображения в карточке
      */
-    public function price_converter()
+    public function paramsArray()
     {
-        $vars = [];
-        foreach (Yii::$app->params['currency'] as $cn => $cur) {
-            $vars[] = round($this->price / Yii::$app->params['exchange'][$this->currency]
-                    * Yii::$app->params['exchange'][$cn], 2) . ' ' . $cur;
+        $params = $this->params;
+        if (!$params) return [];
+        $cat = Category::getTree()[$this->category_id];
+        $cat_params = Category::fieldData($cat['fields']);
+        $result = [];
+        foreach ($cat_params as $par) {
+            $code = $par['code'];
+            if (isset($params[$code])) {
+                $result[$par['name']] = $params[$code]['value'];
+            }
         }
-        return implode(' | ', $vars);
+        return $result;
     }
 }

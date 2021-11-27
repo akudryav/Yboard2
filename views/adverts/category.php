@@ -15,7 +15,7 @@ $this->context->title = Yii::$app->name;
 <?php echo Filter::widget(['cat' => $model]);?>
 <?php echo ListView::widget(array(
     'dataProvider' => $dataProvider,
-    'options' => ['class' => 'card-deck'],
+    'options' => ['class' => 'card-columns'],
     'summary' => '',
     'itemOptions' => [
         'tag' => false,

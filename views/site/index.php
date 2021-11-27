@@ -48,7 +48,7 @@ $this->context->title = Yii::$app->name;
 
 <?php echo ListView::widget([
     'dataProvider' => $indexAdv,
-    'options' => ['class' => 'card-deck'],
+    'options' => ['class' => 'card-columns'],
     'summary' => '',
     'itemOptions' => [
         'tag' => false,
