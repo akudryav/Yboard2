@@ -18,7 +18,7 @@ return array(
     'User' => 'Пользователь',
     'Category' => 'Категория',
     'Views' => 'Просмотров',
-    'Text' => 'Текст объявления',
+    'Text' => 'Описание',
     'Created At' => 'Дата создания',
     'Updated At' => 'Обновлен',
     'Fields with <span class="required">*</span> are required.' =>

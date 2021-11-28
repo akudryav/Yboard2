@@ -3,7 +3,6 @@
 /* @var $model Bulletin */
 
 
-use yii\grid\GridView;
 use yii\widgets\DetailView;
 use yii\widgets\Menu;
 
