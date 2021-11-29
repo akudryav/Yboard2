@@ -1,8 +1,9 @@
 $(document).ready(function () {
 
+
+
     $("#plist").on("click", ".clearfix", function () {
-        $("#chat").html('<div class="spinner-border m-5" role="status"><span class="sr-only">Loading...</span></div>');
-        $("#chat").load( "/lk/messages/dialog?chat_id="+$(this).data('chat') );
+        refreshChat($(this).data('chat'));
     });
 
     $("#chat").on("click", "form .input-group-prepend", function () {
@@ -20,6 +21,7 @@ $(document).ready(function () {
                 if(response.success) {
                     $("#success_alert").addClass("show");
                     $("#messages-message").val('');
+                    refreshChat(form.find("#messages-chat_id").val());
                 } else {
                     $("#error_alert").addClass("show");
                 }
