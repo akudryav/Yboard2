@@ -4,6 +4,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\bootstrap4\Html;
 
 /**
  * This is the model class for table "adverts".
@@ -237,5 +238,14 @@ class Adverts extends \yii\db\ActiveRecord
             }
         }
         return $result;
+    }
+
+    /*
+     * Формирование ссылок на категорию
+     */
+    public function getCategoryLink()
+    {
+        $cat = Category::getTree()[$this->category_id];
+        return Html::a($cat['name'], ['adverts/category', 'id' =>$this->category_id]);
     }
 }

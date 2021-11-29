@@ -16,7 +16,7 @@
         <?php foreach ($bulletins as $model): ?>
             <tr>
                 <td><?php echo $model->itemAlias('type', $model->type); ?></td>
-                <td><?php echo Yii::$app->dateFormatter->formatDateTime($model->created_at); ?></td>
+                <td><?php echo Yii::$app->formatter->asDatetime($model->created_at);?></td>
                 <td><?php echo Html::a(Html::encode($model->category->name), array('site/category', 'id' => $model->category->id)); ?></td>
                 <td>
                     <?php if ($model->getPhoto()): ?>
