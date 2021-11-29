@@ -36,7 +36,7 @@ AppAsset::register($this);
             'brandOptions' => ['class' => 'col-sm-3 col-md-2 mr-0'],
             'renderInnerContainer' => false,
             'options' => [
-                'class' => 'navbar navbar-dark fixed-top bg-primary navbar-expand p-0 shadow',
+                'class' => 'navbar navbar-expand-sm navbar-dark bg-primary',
             ],
         ]);
         $menuItems = [
@@ -64,7 +64,6 @@ AppAsset::register($this);
                 'linkOptions' => ['data-method' => 'post']
             ];
         }
-
         // Выпадающий список категорий
         echo Nav::widget([
             'items' => [
@@ -76,12 +75,16 @@ AppAsset::register($this);
             'dropdownClass' => Dropdown::class, // use the custom dropdown
             'options' => ['class' => 'navbar-nav'],
         ]);
-        echo '<input class="form-control form-control-dark w-50" type="text" name="keyword" placeholder="Поиск" aria-label="Search">';
+        ?>
+        <form class="form-inline" action="/adverts/search">
+            <input class="form-control mr-sm-2" type="text" name="searchStr" placeholder="Поиск">
+            <button class="btn btn-secondary" type="submit">Найти</button>
+        </form>
+        <?php
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav justify-content-end px-3'],
             'items' => $menuItems,
         ]);
-
         NavBar::end();
         ?>
 

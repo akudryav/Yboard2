@@ -45,16 +45,7 @@ $this->context->title = Yii::$app->name;
 <?php endif; ?>
 
 <h3>Все объявления</h3>
+<?php echo $this->render('/adverts/_list', ['dataProvider'=>$indexAdv]);?>
 
-<?php echo ListView::widget([
-    'dataProvider' => $indexAdv,
-    'options' => ['class' => 'card-columns'],
-    'summary' => '',
-    'itemOptions' => [
-        'tag' => false,
-    ],
-    'itemView' => '/adverts/_item',
-]);
-?>
 
 

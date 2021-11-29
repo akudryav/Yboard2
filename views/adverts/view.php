@@ -63,14 +63,4 @@ $params = $model->paramsArray();
         ?>
 
     <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
-    <?php echo ListView::widget([
-        'dataProvider' => $dataRel,
-        'options' => ['class' => 'card-columns'],
-        'summary' => '',
-        'itemOptions' => [
-            'tag' => false,
-        ],
-        'itemView' => '_item',
-        'summary' => false,
-    ]);
-    ?>
+    <?php echo $this->render('_list', ['dataProvider'=>$dataRel]);?>

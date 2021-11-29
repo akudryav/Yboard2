@@ -182,8 +182,7 @@ class Adverts extends \yii\db\ActiveRecord
             $criteria->where("price >= " . $this->price_min . " and price <= " . $this->price_max);
         }
 
-        $criteria->orderBy('adverts.id');
-        $criteria->limit(Yii::$app->params['adv_on_page']);
+        $criteria->orderBy('adverts.id DESC');
 
         if ($strict) {
             if ($this->name && $this->text)
@@ -206,7 +205,7 @@ class Adverts extends \yii\db\ActiveRecord
         return new ActiveDataProvider([
             'query' => $criteria,
             'pagination' => [
-                'pageSize' => 2,
+                'pageSize' => Yii::$app->params['adv_on_page'],
             ],
         ]);
 

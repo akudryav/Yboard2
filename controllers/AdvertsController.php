@@ -34,62 +34,6 @@ class AdvertsController extends Controller
         }
     }
 
-    public function actionGetfields($id)
-    {
-
-        // Получение категории
-        $model = Category::findOne($id);
-
-        // Проверка есть ли дочерние 
-        if ($model->lft + 1 == $model->rgt) {
-
-            echo "<div id='fields_list'>";
-
-
-            $fields = json_decode($model->fields);
-
-
-            if( $fields !== null and sizeof($fields) > 0) {
-                foreach ($fields as $f_iden => $fv) {
-                    ?>
-                    <div class="controls">
-                        <label for='Fields[<?= $f_iden ?>]'><?= $fv->name ?></label>
-                        <?php if ($fv->type == 1) { ?>
-                            <input type="checkbox" id="Fields[<?= $f_iden ?>]"
-                                   name="Fields[<?= $f_iden ?>]" <?php ($fv->atr ? "checked='checked'" : "") ?> >
-                            <?php                         } elseif ($fv->type == 2) {
-                            echo Html::dropDownList("Fields[" . $f_iden . "]", array()
-                                , explode(",", $fv->atr));
-                        } else {
-                            ?>
-                            <input type="text" id="Fields[<?= $f_iden ?>]" name="Fields[<?= $f_iden ?>]">
-                        <?php } ?>
-                    </div>
-
-                    <?php                 }
-            }
-
-            echo "</div>";
-
-            echo '<input type="hidden" class="error" value="' . $id . '" '
-                . 'id="Adverts_category_id" name="Adverts[category_id]">';
-        } else {
-            // Вывод дочерних категории
-            $subcat = $model->children()->all();
-
-            $drop_cats = array();
-
-            foreach ($subcat as $cat) {
-
-                $drop_cats[$cat['id']] = $cat['name'];
-            }
-
-            echo Html::dropDownList('subcat_' . $id, 0, $drop_cats, array('empty' => Yii::t('app', 'Choose category'), 'onchange' => 'loadFields(this)'));
-
-            return;
-        }
-    }
-
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
@@ -101,10 +45,6 @@ class AdvertsController extends Controller
         $dataProvider = new ActiveDataProvider([
                 'query' => $query
         ]);
-
-        if (Yii::$app->request->get('Adverts_page')) {
-            Yii::$app->params['meta']['vars']['page_number'] = Yii::$app->request->get('Adverts_page');
-        }
 
         return $this->render('index', array(
             'data' => $dataProvider,
@@ -251,21 +191,18 @@ class AdvertsController extends Controller
 
     public function actionSearch($searchStr = "") {
         $model = new Adverts(['scenario' => 'search']);
-        $results = true;
 
         if ($searchStr) {
             $model->name = $searchStr;
             $model->text = $searchStr;
         }
-
+        $params = Yii::$app->request->get("Adverts");
 
         $model->category_id = Yii::$app->request->get("cat_id");
-        $model->location = Yii::$app->request->get("Adverts");
-        $model->location = $model->location['location'];
-        $model->price_min = Yii::$app->request->get("Adverts");
-        $model->price_min = $model->price_min['price_min'];
-        $model->price_max = Yii::$app->request->get("Adverts");
-        $model->price_max = $model->price_max['price_max'];
+        $model->moderated = Adverts::STATUS_PUBLISHED;
+        $model->location = $params['location'];
+        $model->price_min = $params['price_min'];
+        $model->price_max = $params['price_max'];
 
         // Обработка дополнительных полей для поиска 
         $s_fields = $_GET['fields'];
@@ -291,7 +228,7 @@ class AdvertsController extends Controller
         $dataProvider = $model->search();
 
         return $this->render('index', array(
-            'data' => $dataProvider, 'results' => $results
+            'data' => $dataProvider,
         ));
     }
 
