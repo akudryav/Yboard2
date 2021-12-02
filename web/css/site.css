@@ -160,10 +160,35 @@ body .carousel-control-next-icon {
     border-radius: 0.25rem;
     padding: 1.25rem;
 }
+
 .bd-toc {
     position: absolute;
     top: 4rem;
     left: 3rem;
     padding-bottom: 1.5rem;
     font-size: .875rem;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 5;
+    }
 }

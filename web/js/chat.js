@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
-
+    var refreshChat = function (id) {
+        $("#chat").html('<div class="spinner-border m-5" role="status"><span class="sr-only">Loading...</span></div>');
+        $("#chat").load("/lk/messages/dialog?chat_id=" + id);
+    }
 
     $("#plist").on("click", ".clearfix", function () {
         refreshChat($(this).data('chat'));

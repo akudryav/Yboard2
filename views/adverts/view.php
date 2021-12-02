@@ -41,26 +41,24 @@ $params = $model->paramsArray();
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Категория</label>
-            <div class="col-sm-10"><?php echo $model->getCategoryLink();?></div>
+            <div class="col-sm-10"><?php echo $model->getCategoryLink(); ?></div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Дата добавления</label>
-            <div class="col-sm-10"><?php echo Yii::$app->formatter->asDatetime($model->created_at);?></div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Дата добавления</label>
+        <div class="col-sm-10"><?php echo Yii::$app->formatter->asDatetime($model->created_at); ?></div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Поделиться</label>
+        <div class="col-sm-10">
+            <?php echo \app\widgets\Favorites::widget(['type' => 'button', 'model' => $model]); ?>
+            <div class="ya-share2" data-services="vkontakte,twitter,facebook,odnoklassniki,moimir"></div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Поделиться</label>
-            <div class="col-sm-10">
-                <i class="fa fa-eye"></i><?= $model->views ?>
-                <a href="javascript:void(0)" title="В избранное"
-                   onclick="setFavoriteAdv(<?=$model->id?>, this)"><i class="fa fa-bookmark-o"></i></a>
-                <div class="ya-share2" data-services="vkontakte,twitter,facebook,odnoklassniki,moimir"></div>
-            </div>
-        </div>
+    </div>
 
-        <?php if ($model->user_id != Yii::$app->user->id) {
-            echo Message::widget(['advert' => $model]);
-        }
-        ?>
+<?php if ($model->user_id != Yii::$app->user->id) {
+    echo Message::widget(['advert' => $model]);
+}
+?>
 
     <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
     <?php echo $this->render('_list', ['dataProvider'=>$dataRel]);?>

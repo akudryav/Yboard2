@@ -84,6 +84,12 @@ class Adverts extends \yii\db\ActiveRecord
         return $this->hasMany(Params::class, ['advert_id' => 'id'])->indexBy('code');
     }
 
+    public function getFavorite()
+    {
+        return $this->hasOne(Favorites::class, ['obj_id' => 'id'])
+            ->where(['user_id' => Yii::$app->user->id, 'obj_type' => 0]);
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */

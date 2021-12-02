@@ -18,10 +18,7 @@ $image = $model->getImage();
         </div>
     </a>
     <div class="card-footer text-muted">
-        <i class="fa fa-eye"></i><?= $model->views ?>
-        <a href="javascript:void(0)" title="В избранное"
-           onclick="setFavoriteAdv(<?= $model->id ?>, this)">
-            <i class="fa fa-bookmark-o"></i></a>
+        <?php echo \app\widgets\Favorites::widget(['model' => $model]); ?>
     </div>
 </div>
 
