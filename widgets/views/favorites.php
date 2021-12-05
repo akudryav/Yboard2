@@ -1,4 +1,7 @@
 <?php
+
+use yii\bootstrap4\Html;
+
 if ($is_favor) {
     $title = 'Удалить из избранного';
     $class = 'fa fa-bookmark';
@@ -6,11 +9,21 @@ if ($is_favor) {
     $title = 'Добавить в избранное';
     $class = 'fa fa-bookmark-o';
 }
+$lnk_content = ($type == 'badge') ? '<i class="' . $class . '"></i>' : $title;
+$lnk_params = ['data' => [
+    'id' => $model->id,
+]];
+
+if ($type == 'button') {
+    $lnk_params['class'] = 'btn btn-info js_favor';
+} else {
+    $lnk_params['class'] = 'js_favor';
+}
 ?>
-    <i class="fa fa-eye"></i><?= $model->views ?>
-<?php if (!Yii::$app->user->isGuest): ?>
-    <a href="javascript:void(0)" title="<?= $title ?>" onclick="setFavoriteAdv(<?= $model->id ?>, this)"
-        <?php if ($type == 'button') echo 'class="btn btn-default"'; ?>>
-        <?php if ($type == 'badge'): ?><i class="<?= $class ?>"></i><?php else: echo $title; ?><?php endif ?>
-    </a>
-<?php endif ?>
+<i class="fa fa-eye"></i><?= $model->views ?>
+<?php
+if (!Yii::$app->user->isGuest) {
+    echo Html::a($lnk_content, '#', $lnk_params);
+}
+
+?>

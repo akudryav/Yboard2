@@ -1,3 +1,8 @@
+$(document).ready(function () {
+    $("body").click(function (event) {
+        $("#log").html("clicked: " + event.target.nodeName);
+    });
+});
 
 function setFavoriteAdv(id, t) {
     $.get('/adverts/favorites/' + id, function (data) {

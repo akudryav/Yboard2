@@ -3,7 +3,6 @@
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Modal;
-use yii\bootstrap4\Button;
 use kartik\select2\Select2;
 use app\models\Category;
 use app\models\forms\ParamForm;
