@@ -49,6 +49,7 @@ class Adverts extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 128],
             [['price', 'type'], 'double'],
             [['type'], 'safe'],
+            ['address', 'string', 'min' => 3, 'tooShort' => Yii::t('adv', 'Find address on the map')],
             ['location', 'string', 'min' => 10, 'tooShort' => Yii::t('adv', 'Find address on the map')],
             [['moderated'], 'default', 'value' => self::STATUS_PUBLISHED],
             [['imageFiles'], 'file', 'extensions' => 'png, jpg, gif', 'maxFiles' => 5],
@@ -109,6 +110,7 @@ class Adverts extends \yii\db\ActiveRecord
             'fields' => Yii::t('adv', 'Fields'),
             'price' => Yii::t('adv', 'Price'),
             'location' => Yii::t('adv', 'Location'),
+            'address' => Yii::t('adv', 'Address'),
             'moderated' => Yii::t('adv', 'Мoderated'),
         );
     }

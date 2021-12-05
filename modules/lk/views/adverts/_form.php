@@ -1,13 +1,13 @@
 <?php
 
-/* @var $categories array */
-
 use yii\bootstrap4\ActiveForm;
 use kartik\select2\Select2;
 use yii\bootstrap4\Html;
 
+$coord = $model->location ? explode(':', $model->location) : [55.7372, 37.6066];
+
 $map = new \mirocow\yandexmaps\Map('yandex_map', [
-    'center' => [55.7372, 37.6066],
+    'center' => $coord,
     'zoom' => 10,
     // Enable zoom with mouse scroll
     'behaviors' => ['default', 'scrollZoom'],
@@ -32,22 +32,15 @@ $map = new \mirocow\yandexmaps\Map('yandex_map', [
         ],
         'objects' => [
             <<<JS
-search.events.add("resultselect", function (result){
-
-    // Remove old coordinates
-    \$Maps['yandex_map'].geoObjects.each(function(obj){
-        \$Maps['yandex_map'].geoObjects.remove(obj);
-    });  
-
-    // Add selected coordinates
-    var index = result.get('index');
-    var searchControl = \$Maps['yandex_map'].controls.get(1);
-    searchControl.getResult(index).then(function(res) {
+search.events.add("resultselect", function (e){
+    var selected = e.get('index');
+    search.getResult(selected).then(function(res) {
         var coordinates = res.geometry.getCoordinates();
+        $('#adverts-address').val(res.getAddressLine());
         $('#adverts-location').val(coordinates[0]+':'+coordinates[1]);
     });
-    
 });
+
 JS
         ],
     ]
@@ -93,6 +86,7 @@ JS
     ?>
     <?= $form->field($model, 'price'); ?>
     <?= $form->field($model, 'location')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'address')->hiddenInput()->label(false) ?>
     <div class="form-group">
         <label class="form-label">
             <?php echo Yii::t('adv', 'Location') .

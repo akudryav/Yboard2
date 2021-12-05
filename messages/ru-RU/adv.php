@@ -29,4 +29,5 @@ return array(
     'Favorites' => 'Избранные объявления',
     'Find address on the map' => 'Выберите адрес на карте',
     'Location' => 'Местоположение',
+    'Address' => 'Адрес',
 );
