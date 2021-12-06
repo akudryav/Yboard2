@@ -30,4 +30,5 @@ return array(
     'Find address on the map' => 'Выберите адрес на карте',
     'Location' => 'Местоположение',
     'Address' => 'Адрес',
+    'Other Seller Ads' => 'Другие объявления продавца',
 );

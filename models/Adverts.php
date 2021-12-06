@@ -91,6 +91,12 @@ class Adverts extends \yii\db\ActiveRecord
             ->where(['user_id' => Yii::$app->user->id, 'obj_type' => 0]);
     }
 
+    public function getFavoriteCount()
+    {
+        return $this->hasMany(Favorites::class, ['obj_id' => 'id'])
+            ->where(['obj_type' => 0])->count();
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */

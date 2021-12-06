@@ -28,12 +28,26 @@ $attributes = array_merge($attributes, [
         'format' => 'html',
         'value' => $model->getCategoryLink(),
     ],
+    [
+        'label' => 'Узнайте больше',
+        'format' => 'raw',
+        'value' => Message::widget(['advert' => $model]),
+        'visible' => $model->user_id != Yii::$app->user->id,
+    ],
+    [
+        'label' => 'В избранном',
+        'format' => 'raw',
+        'value' => $model->favoriteCount.' '.Favorites::widget(['type' => 'button', 'model' => $model]),
+    ],
+    [
+        'label' => 'Просмотры',
+        'value' => $model->views,
+    ],
     'created_at:datetime',
     [
         'label' => 'Поделиться',
-        'format' => 'html',
-        'value' => Favorites::widget(['type' => 'button', 'model' => $model])
-            . '<div class="ya-share2" data-services="vkontakte,twitter,facebook,odnoklassniki,moimir"></div>',
+        'format' => 'raw',
+        'value' => '<div class="ya-share2" data-services="vkontakte,twitter,facebook,odnoklassniki,moimir"></div>',
     ],
 ]);
 ?>
@@ -55,10 +69,5 @@ echo DetailView::widget([
 ]);
 ?>
 
-<?php if ($model->user_id != Yii::$app->user->id) {
-    echo Message::widget(['advert' => $model]);
-}
-?>
-
-    <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
+<h3><?= Yii::t('adv', 'Other Seller Ads') ?></h3>
 <?php echo $this->render('_list', ['dataProvider' => $dataRel]); ?>

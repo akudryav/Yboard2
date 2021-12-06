@@ -76,12 +76,10 @@ class AdvertsController extends Controller
         $this->meta = Yii::$app->params['adv_meta'][Yii::$app->language];
         $this->meta['vars']['cat_name'] = Category::getTree()[$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
-
+        // Другие объявления продавца
         $query = Adverts::find()->where(['<>', 'id', $model->id])
-            ->andWhere(['category_id' => $model->category_id])
-            ->orderBy('RAND()')->limit(5);
+            ->andWhere(['user_id' => $model->user_id]);
 
-        // Похожие объявления   
         $dataRel = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false,

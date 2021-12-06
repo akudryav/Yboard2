@@ -20,7 +20,7 @@ if ($type == 'button') {
     $lnk_params['class'] = 'js_favor';
 }
 ?>
-<i class="fa fa-eye"></i><?= $model->views ?>
+
 <?php
 if (!Yii::$app->user->isGuest) {
     echo Html::a($lnk_content, '#', $lnk_params);
