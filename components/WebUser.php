@@ -3,10 +3,10 @@
 namespace app\components;
 
 use Yii;
-use yii\web\User;
+use app\models\User;
 use yii\helpers\Url;
 
-class WebUser extends User
+class WebUser extends \yii\web\User
 {
     public function init()
     {
@@ -16,7 +16,16 @@ class WebUser extends User
             if (Yii::$app->user->isGuest) {
                 return;
             }
-            $hr = $this->isAdmin() ? Url::to(['/admin/category']) : Url::to(['/lk/adverts']);
+            switch ($this->identity->status) {
+                case User::STATUS_ACTIVE:
+                    $hr = Url::to(['/admin/category']);
+                    break;
+                case User::STATUS_MODER:
+                    $hr = Url::to(['/moderator']);
+                    break;
+                default:
+                    $hr = Url::to(['/lk/adverts']);
+            }
             Yii::$app->setHomeUrl($hr);
         });
     }
@@ -31,7 +40,7 @@ class WebUser extends User
                 break;
             }
 
-            if ($user->status === \app\models\User::STATUS_ADMIN) {
+            if ($user->status === User::STATUS_ADMIN) {
                 $access = true;
                 break;
             }
@@ -62,7 +71,16 @@ class WebUser extends User
         if (Yii::$app->user->isGuest)
             return false;
         else {
-            return $this->identity->status === \app\models\User::STATUS_ADMIN;
+            return $this->identity->status == User::STATUS_ADMIN;
+        }
+    }
+
+    public function isModer()
+    {
+        if (Yii::$app->user->isGuest)
+            return false;
+        else {
+            return $this->identity->status == User::STATUS_MODER;
         }
     }
 

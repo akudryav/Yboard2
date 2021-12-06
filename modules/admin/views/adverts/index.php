@@ -6,8 +6,6 @@
 use yii\grid\GridView;
 use yii\widgets\Menu;
 use yii\bootstrap4\Html;
-use yii\grid\SerialColumn;
-
 
 echo Menu::widget([
     'items' => array(

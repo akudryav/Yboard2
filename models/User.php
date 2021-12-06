@@ -11,7 +11,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_NOACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_BANNED = -1;
-    const STATUS_ADMIN = 2;
+    const STATUS_ADMIN = 10;
+    const STATUS_MODER = 3;
 
     /**
      * The followings are the available columns in table 'users':

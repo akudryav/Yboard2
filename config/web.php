@@ -23,6 +23,9 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\AdminModule',
         ],
+        'moderator' => [
+            'class' => 'app\modules\moderator\ModerModule',
+        ],
         'lk' => [
             'class' => 'app\modules\lk\LkModule',
             // ... другие настройки модуля ...

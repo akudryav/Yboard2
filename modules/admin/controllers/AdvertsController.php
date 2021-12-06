@@ -66,17 +66,6 @@ class AdvertsController extends Controller
         ));
     }
 
-    public function actionModerate($id) {
-        $model = $this->loadModel($id);
-        $model->moderated = 1;
-        if ($model->save()) {
-            echo "ok";
-            return true;
-        }
-
-        echo "error";
-        return false;
-    }
 
     /**
      * Deletes a particular model.

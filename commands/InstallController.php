@@ -22,21 +22,37 @@ class InstallController extends Controller
         if(!User::find()->where(['username' => 'admin'])->exists())
         {
             $user = Yii::createObject([
-                'class'    => User::class,
+                'class' => User::class,
                 'scenario' => 'create',
-                'email'    => 'admin@example.com',
+                'email' => 'admin@example.com',
                 'username' => 'admin',
-                'status'   => 2,
+                'status' => User::STATUS_ADMIN,
                 'password' => 'mysecret',
             ]);
             if (!$user->insert(false)) {
                 return false;
             }
             // выводи инфу о пользователе
-            echo "Создан пользователь для входа в административную часть сайта\n".
+            echo "Создан пользователь для входа в административную часть сайта\n" .
                 "Логин: admin\nПароль: mysecret";
         }
-
+        // создаем модератора если нет
+        if (!User::find()->where(['username' => 'moderator'])->exists()) {
+            $user = Yii::createObject([
+                'class' => User::class,
+                'scenario' => 'create',
+                'email' => 'moderator@example.com',
+                'username' => 'moderator',
+                'status' => User::STATUS_MODER,
+                'password' => 'supersecret',
+            ]);
+            if (!$user->insert(false)) {
+                return false;
+            }
+            // выводи инфу о пользователе
+            echo "Создан пользователь для модерации\n" .
+                "Логин: moderator\nПароль: supersecret";
+        }
 
         return ExitCode::OK;
     }
