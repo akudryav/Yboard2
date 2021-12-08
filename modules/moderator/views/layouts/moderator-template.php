@@ -13,20 +13,8 @@ echo Breadcrumbs::widget([
 ]);
 $sideItems = array(
 
-    array('label' => 'Объявления',
-        'url' => "#",
-        'items' => array(
-            array('label' => "Управление",
-                'url' => array('adverts/index')),
-            array('label' => "Добавить объявление",
-                'url' => array('adverts/create')),
-        ),
-        'linkOptions' => array('class' => 'menu-dropdown'),
-    ),
-    array('label' => 'Категории', 'url' => array('category/index')),
-    array('label' => "Баннерные блоки", 'url' => array('banners/index')),
-    array('label' => "Почтовая рассылка", 'url' => array('admin/delivery')),
-    array('label' => "Настройки", 'url' => array('admin/settings')),
+    array('label' => 'Объявления', 'url' => array('/moderator')),
+
 );
 ?>
     <div class="row">

@@ -55,9 +55,14 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Вход', 'url' => ['/user/login']];
             $menuItems[] = ['label' => 'Регистрация', 'url' => ['/user/registration']];
         } else {
-            $menuItems[] = Yii::$app->user->isAdmin() ?
-                ['label' => 'Админка', 'url' => ['admin/category']] :
-                ['label' => 'Личный кабинет', 'url' => ['lk/adverts']];
+            if(Yii::$app->user->isAdmin()) {
+                $menuItems[] = ['label' => 'Админка', 'url' => ['admin/category']];
+            } elseif(Yii::$app->user->isModer()) {
+                $menuItems[] = ['label' => 'Модерация', 'url' => ['/moderator']];
+            } else {
+                $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['lk/adverts']];
+            }
+
             $menuItems[] = [
                 'label' => 'Выйти (' . Yii::$app->user->identity->username . ')',
                 'url' => ['/user/logout'],

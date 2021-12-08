@@ -166,65 +166,6 @@ class Adverts extends \yii\db\ActiveRecord
         return $res;
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search($strict = true)
-    {
-        $criteria = Adverts::find()->innerJoinWith('category');
-        $criteria->where(['id' => $this->id]);
-        $criteria->where(['user_id' => $this->user_id]);
-        $criteria->where(['type' => $this->type]);
-        $criteria->where(['location' => $this->location]);
-        $criteria->where(['views' => $this->views]);
-        $criteria->where(['moderated' => $this->moderated]);
-
-        //$criteria->compare('category_id', $this->category_id);
-        if (is_numeric($this->category_id)) {
-            $criteria->andWhere(['OR',
-                ['category_id' => $this->category_id],
-                ['AND',
-                    ['>', 'category.lft', Category::getTree()[$this->category_id]['lft']],
-                    ['<', 'category.rgt', Category::getTree()[$this->category_id]['rgt']],
-                    ['category.tree' => Category::getTree()[$this->category_id]['tree']]
-                ]
-            ]);
-        }
-
-        if (is_numeric($this->price_min) and $this->price_max > 0) {
-            $criteria->where("price >= " . $this->price_min . " and price <= " . $this->price_max);
-        }
-
-        $criteria->orderBy('adverts.id DESC');
-
-        if ($strict) {
-            if ($this->name && $this->text)
-                $criteria->andWhere(['or',
-                    ['like', 'adverts.name', $this->name],
-                    ['like', 'text', $this->text]
-                ]);
-        } else {
-            $search_str = explode(" ", $this->text);
-            foreach ($search_str as $v) {
-                if (mb_strlen($v) > 2) {
-                    $criteria->andWhere(['or',
-                        ['adverts.name' => $v],
-                        ['text' => $v]
-                    ]);
-                }
-            }
-        }
-
-        return new ActiveDataProvider([
-            'query' => $criteria,
-            'pagination' => [
-                'pageSize' => Yii::$app->params['adv_on_page'],
-            ],
-        ]);
-
-    }
-
     public function behaviors() {
         return [
             TimestampBehavior::class,

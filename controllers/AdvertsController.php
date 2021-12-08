@@ -123,17 +123,6 @@ class AdvertsController extends Controller
     }
 
     /**
-     * Show Advertisement.
-     * @param int $id Advertisement's id
-     */
-    public function actionAdvertisement($id) {
-        $model = $this->loadAdvertisement($id);
-        return $this->render('advertisement', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
@@ -156,19 +145,6 @@ class AdvertsController extends Controller
      */
     public function loadCategory($id) {
         $model = Category::findOne($id);
-        if ($model === null)
-            throw new \yii\web\NotFoundHttpException();
-        return $model;
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer $id the ID of the model to be loaded
-     * @return User the loaded model
-     */
-    public function loadAdvertisement($id) {
-        $model = Advertisement::findOne($id);
         if ($model === null)
             throw new \yii\web\NotFoundHttpException();
         return $model;
