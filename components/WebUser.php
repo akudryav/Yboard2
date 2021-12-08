@@ -17,7 +17,7 @@ class WebUser extends \yii\web\User
                 return;
             }
             switch ($this->identity->status) {
-                case User::STATUS_ACTIVE:
+                case User::STATUS_ADMIN:
                     $hr = Url::to(['/admin/category']);
                     break;
                 case User::STATUS_MODER:
