@@ -289,4 +289,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ]);
     }
 
+    public function advertLink()
+    {
+        $count = $this->getAdverts()->count();
+        $title = $this->profile->getName().'(Объявлений '.$count.')';
+        return \yii\bootstrap4\Html::a($title, ['user/view', 'id' => $this->id]);
+    }
+
 }

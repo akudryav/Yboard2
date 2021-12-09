@@ -26,7 +26,7 @@ class UloginUserIdentity
                 $profile->user_id = $user->id;
                 $profile->first_name = $uloginModel->first_name;
                 $profile->last_name = $uloginModel->last_name;
-                $profile->country = $uloginModel->country;
+                $profile->city = $uloginModel->city;
                 $profile->phone = $uloginModel->phone;
                 $profile->network = $uloginModel->network;
                 $profile->uid = $uloginModel->uid;

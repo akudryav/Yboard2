@@ -56,11 +56,11 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Регистрация', 'url' => ['/user/registration']];
         } else {
             if(Yii::$app->user->isAdmin()) {
-                $menuItems[] = ['label' => 'Админка', 'url' => ['admin/category']];
+                $menuItems[] = ['label' => 'Админка', 'url' => ['/admin/category']];
             } elseif(Yii::$app->user->isModer()) {
                 $menuItems[] = ['label' => 'Модерация', 'url' => ['/moderator']];
             } else {
-                $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['lk/adverts']];
+                $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['/lk/adverts']];
             }
 
             $menuItems[] = [

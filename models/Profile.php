@@ -31,8 +31,8 @@ class Profile extends \yii\db\ActiveRecord
      */
     public function rules() {
         return [
-            [['last_name', 'first_name'], 'required'],
-            [['country', 'phone', 'uid', 'network', 'company'], 'string'],
+            [['last_name', 'first_name', 'phone', 'city'], 'required'],
+            [['city', 'uid', 'network', 'company'], 'string'],
             [['birthdate'], 'datetime', 'format' => 'php:d.m.Y', 'timestampAttribute' => 'birthdate'],
         ];
     }
@@ -45,13 +45,18 @@ class Profile extends \yii\db\ActiveRecord
             'id' => 'ID',
             'first_name' => Yii::t('user', 'First name'),
             'last_name' => Yii::t('user', 'Last name'),
-            'country' => Yii::t('user', 'Country'),
+            'city' => Yii::t('user', 'City'),
             'phone' => Yii::t('user', 'Phone'),
             'network' => Yii::t('user', 'Network'),
             'uid' => Yii::t('user', 'uid'),
             'company' => Yii::t('user', 'Company'),
             'birthdate' => Yii::t('user', 'Birth Date'),
         );
+    }
+
+    public function getName()
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 
 }

@@ -84,15 +84,4 @@ class WebUser extends \yii\web\User
         }
     }
 
-    public function getAvatar($size = 64)
-    {
-        return \cebe\gravatar\Gravatar::widget([
-            'email' => $this->identity->email,
-            'defaultImage' => 'identicon',
-            'options' => [
-                'alt' => $this->identity->username,
-            ],
-            'size' => $size
-        ]);
-    }
 }

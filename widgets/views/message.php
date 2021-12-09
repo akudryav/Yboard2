@@ -7,14 +7,12 @@ Modal::begin([
     'id' => 'mesModal',
     'title' => 'Чат с продавцом',
     'toggleButton' => [
-        'id' => 'js_message',
-        'label' => 'Написать',
-        'class' => 'btn btn-primary',
-        'data-url' => Url::to(['/lk/messages/dialog', 'chat_id' => $chat_id]),
+        'label' => 'Написать продавцу',
+        'class' => 'btn btn-secondary',
     ],
 ]);
 ?>
-<div id="chat" class="chat">
+<div id="chat" class="chat" data-url="<?=Url::to(['/lk/messages/dialog', 'chat_id' => $chat_id])?>">
     <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
     </div>
@@ -24,9 +22,9 @@ Modal::begin([
 Modal::end();
 
 $script = <<< JS
-$('#js_message').on('click', function(e){
-  e.preventDefault();
-  $('#mesModal').find('#chat').load($(this).data('url'));
+$('#mesModal').on('show.bs.modal', function (e) {
+    var chat = $(this).find('#chat');
+    chat.load(chat.data('url'));
 });
 JS;
 $this->registerJs($script, \yii\web\View::POS_READY);

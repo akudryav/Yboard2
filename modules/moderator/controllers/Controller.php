@@ -7,7 +7,7 @@ use app\models\User;
 class Controller extends \yii\web\Controller
 {
 
-    public $layout = 'moderator-template';
+    public $layout = '/moderator';
     public $title;
     public $menu = array();
 

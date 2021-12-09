@@ -5,15 +5,28 @@ namespace app\modules\lk\controllers;
 use Yii;
 use app\models\Category;
 use app\models\Adverts;
-use app\models\Params;
 use yii\data\ActiveDataProvider;
 use yii\web\UploadedFile;
+use yii\bootstrap4\Html;
 
 
 class AdvertsController extends Controller
 {
 
-    public $title = 'Обьявления';
+    public $title = 'Объявления';
+
+    public function beforeAction($action)
+    {
+        $profile = $this->currentUser->profile;
+        if(empty($profile) || !$profile->validate()) {
+            $errors = $profile ? Html::errorSummary($profile, ['encode' => false]) :
+                Yii::t('user', 'You need to fill profile');
+            Yii::$app->session->setFlash('error', $errors);
+            $this->redirect(['/lk/profile/update']);
+            return false;
+        }
+        return parent::beforeAction($action);
+    }
 
     /**
      * Displays a particular model.

@@ -11,7 +11,7 @@ class UloginModel extends \yii\base\Model
     public $email;
     public $last_name;
     public $first_name;
-    public $country;
+    public $city;
     public $phone;
     public $bdate;
 
@@ -19,7 +19,7 @@ class UloginModel extends \yii\base\Model
         return [
             [['uid', 'network', 'email', 'last_name', 'first_name'], 'required'],
             ['email', 'email'],
-            [['country', 'phone', 'bdate'], 'string'],
+            [['city', 'phone', 'bdate'], 'string'],
         ];
     }
 

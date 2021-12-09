@@ -26,13 +26,13 @@ $sideItems = [
         'encode' => false
     ],
     [
-        'label' => '<i class="fas fa-cog"></i> Настройки',
+        'label' => '<i class="fas fa-cog"></i> Профиль',
         'url' => ['/lk/profile'],
         'encode' => false
     ],
 ];
 ?>
-<?php echo Yii::$app->user->getAvatar(); ?>
+<?php echo Yii::$app->user->identity->getAvatar(); ?>
     <div class="row">
         <?php echo Nav::widget([
             'options' => ['class' => 'col-md-2 d-none d-md-block bg-light sidebar'],

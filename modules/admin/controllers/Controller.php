@@ -7,7 +7,7 @@ use app\models\User;
 class Controller extends \yii\web\Controller
 {
 
-    public $layout = 'admin-template';
+    public $layout = '/admin';
     public $title;
     public $menu = array();
 

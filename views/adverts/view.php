@@ -3,7 +3,6 @@
 use app\assets\ChatAsset;
 use yii\widgets\DetailView;
 use yii\bootstrap4\Html;
-use app\widgets\Message;
 use app\widgets\Favorites;
 
 /* @var $this SiteController */
@@ -11,6 +10,7 @@ use app\widgets\Favorites;
 
 $this->context->title = $model->name;
 ChatAsset::register($this);
+$user = $model->user;
 $attributes = [
     'address',
     'text:text',
@@ -31,7 +31,15 @@ $attributes = array_merge($attributes, [
     [
         'label' => 'Узнайте больше',
         'format' => 'raw',
-        'value' => Message::widget(['advert' => $model]),
+        'value' => Html::button('Показать номер', [
+            'class' => 'btn btn-primary',
+            'data-toggle' => 'modal',
+            'data-target' => '#profileModal',
+        ]).Html::button('Написать продавцу', [
+                'class' => 'btn btn-secondary',
+                'data-toggle' => 'modal',
+                'data-target' => '#mesModal',
+            ]),
         'visible' => $model->user_id != Yii::$app->user->id,
     ],
     [
@@ -52,22 +60,46 @@ $attributes = array_merge($attributes, [
 ]);
 ?>
     <script src="https://yastatic.net/share2/share.js" async></script>
-    <h1><?= $model->name ?></h1>
-    <div class="clearfix">
-        <?php
-        echo newerton\fancybox3\FancyBox::widget();
-        foreach ($model->getImages() as $img) {
-            echo Html::a(Html::img($img->getUrl('200x'),
-                ['class' => 'rounded float-left']), $img->getUrl(), ['data-fancybox' => 'group1']);
-        }
-        ?>
+    <div class="row">
+        <div class="col-9">
+            <div class="clearfix">
+                <?php
+                echo newerton\fancybox3\FancyBox::widget();
+                foreach ($model->getImages() as $img) {
+                    echo Html::a(Html::img($img->getUrl('200x'),
+                        ['class' => 'rounded float-left']), $img->getUrl(), ['data-fancybox' => 'group1']);
+                }
+                ?>
+            </div>
+            <h1><?= $model->name ?></h1>
+            <?php
+            echo DetailView::widget([
+                'model' => $model,
+                'attributes' => $attributes
+            ]);
+            ?>
+        </div>
+        <div class="col-3">
+            <?php
+            if($model->user_id != Yii::$app->user->id)
+            {
+                echo '<div class="clearfix btn-group-vertical">';
+                echo \app\widgets\Profile::widget(['advert' => $model]);
+                echo \app\widgets\Message::widget(['advert' => $model]);
+                echo '</div>';
+            }
+            ?>
+            <div class="row mt-3">
+                <div class="col-md-auto"><?php echo $user->getAvatar(); ?></div>
+                <div class="col-md-auto">
+                    <p><?php echo $user->advertLink(); ?></p>
+                    <p>С <?= Yii::$app->formatter->asDate($user->created_at) ?></p>
+                </div>
+            </div>
+        </div>
     </div>
-<?php
-echo DetailView::widget([
-    'model' => $model,
-    'attributes' => $attributes
-]);
-?>
+
+
 
 <h3><?= Yii::t('adv', 'Other Seller Ads') ?></h3>
 <?php echo $this->render('_list', ['dataProvider' => $dataRel]); ?>
