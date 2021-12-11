@@ -44,8 +44,7 @@ $attributes = array_merge($attributes, [
     ],
     [
         'label' => 'В избранном',
-        'format' => 'raw',
-        'value' => $model->favoriteCount.' '.Favorites::widget(['type' => 'button', 'model' => $model]),
+        'value' => $model->favoriteCount,
     ],
     [
         'label' => 'Просмотры',
@@ -100,6 +99,5 @@ $attributes = array_merge($attributes, [
     </div>
 
 
-
-<h3><?= Yii::t('adv', 'Other Seller Ads') ?></h3>
+    <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
 <?php echo $this->render('_list', ['dataProvider' => $dataRel]); ?>

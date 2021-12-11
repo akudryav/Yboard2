@@ -76,9 +76,10 @@ class AdvertsController extends Controller
         $this->meta = Yii::$app->params['adv_meta'][Yii::$app->language];
         $this->meta['vars']['cat_name'] = Category::getTree()[$model->category_id]['name'];
         $this->meta['vars']['adv_title'] = $model->name;
-        // Другие объявления продавца
+        // Походие объявления (та же категория)
         $query = Adverts::find()->where(['<>', 'id', $model->id])
-            ->andWhere(['user_id' => $model->user_id]);
+            ->andWhere(['category_id' => $model->category_id])
+            ->orderBy('RAND()')->limit(5);
 
         $dataRel = new ActiveDataProvider([
             'query' => $query,
@@ -145,19 +146,6 @@ class AdvertsController extends Controller
      */
     public function loadCategory($id) {
         $model = Category::findOne($id);
-        if ($model === null)
-            throw new \yii\web\NotFoundHttpException();
-        return $model;
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer $id the ID of the model to be loaded
-     * @return User the loaded model
-     */
-    public function loadUser($id) {
-        $model = User::findOne($id);
         if ($model === null)
             throw new \yii\web\NotFoundHttpException();
         return $model;

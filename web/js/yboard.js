@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".js_favor").click(function (e) {
         e.preventDefault();
-        var link = $(e.target);
+        var link = $(this);
         var iclass = 'fa fa-bookmark-o';
         var title = 'Добавить в избранное';
         $.get('/adverts/favorites/' + link.data('id'), function (data) {

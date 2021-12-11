@@ -264,15 +264,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             ->where(['status' => self::STATUS_ADMIN])->asArray()->all();
     }
 
-    public function getLastvisit()
-    {
-        return strtotime($this->lastvisit_at);
-    }
-
-    public function setLastvisit($value) {
-        $this->lastvisit_at = date('Y-m-d H:i:s', $value);
-    }
-
     public function getAdverts(){
         return $this->hasMany(Adverts::class, ['user_id' => 'id']);
     }

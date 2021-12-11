@@ -14,15 +14,15 @@ Modal::begin([
     <div class="row">
         <div class="col-md-4"><?php echo $model->getAvatar(); ?></div>
         <div class="col-md-4">
-            <p><?=$profile->city?></p>
-            <p>С <?= Yii::$app->formatter->asDate($model->created_at) ?></p>
+            <p><?= $profile->city ?></p>
+            <p>На площадке с <?= Yii::$app->formatter->asDate($model->created_at) ?></p>
         </div>
     </div>
-        <hr>
+    <hr>
     <div class="text-justify">
-        <h3><?=$profile->phone?></h3>
+        <h3><?= $profile->phone ?></h3>
         <?php
-            echo \app\widgets\Favorites::widget(['type' => 'button', 'model' => $advert]);
+        echo \app\widgets\Favorites::widget(['type' => 'button', 'model' => $advert]);
         ?>
     </div>
 

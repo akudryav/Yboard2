@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\User;
 use Yii;
+use app\models\User;
+use yii\data\ArrayDataProvider;
 use app\models\forms\RegistrationForm;
 use app\models\forms\UserChangePassword;
 use app\models\forms\UserRecoveryForm;
@@ -170,6 +171,35 @@ class UserController extends Controller
             }
             return $this->render('recovery', array('model' => $form));
         }
+    }
+
+    /**
+     * Пользователь с профилем
+     */
+    public function loadUser($id)
+    {
+        $model = User::find()->where(['id' => $id])->with('profile')->one();
+        if ($model === null)
+            throw new \yii\web\NotFoundHttpException();
+        return $model;
+    }
+
+    /**
+     * Просмотре объявлений пользователя
+     * @param int $id User's id
+     */
+    public function actionView($id)
+    {
+        $user = $this->loadUser($id);
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $user->adverts,
+        ]);
+
+        return $this->render('view', [
+            'model' => $user,
+            'dataProvider' => $dataProvider,
+        ]);
+
     }
 
 }
