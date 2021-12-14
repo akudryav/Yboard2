@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%params}}`.
+ * Таблица значений дополнительных параметров (исходя из категорий) по объявлениям  `{{%params}}`.
  */
 class m211121_065317_create_params_table extends Migration
 {

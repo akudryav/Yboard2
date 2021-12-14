@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Class m211110_171247_load_data
+ * Загрузка категорий в БД
  */
 class m211110_171247_load_data extends Migration
 {

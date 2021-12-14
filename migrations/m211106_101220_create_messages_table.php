@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%messages}}`.
+ * Таблица сообщений в чатах `{{%messages}}`.
  */
 class m211106_101220_create_messages_table extends Migration
 {

@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%profiles}}`.
+ * Таблица профилей (доп инфа по пользователям) `{{%profiles}}`.
  */
 class m211019_090104_create_profile_table extends Migration
 {

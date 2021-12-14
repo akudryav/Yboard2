@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%favorites}}`.
+ * Таблица избранного `{{%favorites}}`.
  */
 class m211108_111100_create_favorites_table extends Migration
 {

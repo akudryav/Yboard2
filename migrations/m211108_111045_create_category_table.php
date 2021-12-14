@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%category}}`.
+ * Таблица категорий `{{%category}}`.
  */
 class m211108_111045_create_category_table extends Migration
 {

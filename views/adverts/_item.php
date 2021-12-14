@@ -13,6 +13,7 @@ $image = $model->getImage();
     <a href="<?= Url::to(['adverts/view', 'id' => $model->id]) ?>" class="text-decoration-none">
         <?php echo Html::img($image->getUrl('x220'), ['class' => 'card-img-top', 'alt' => $model->name]); ?>
         <div class="card-body">
+            <p class="bg-transparent"><?= $model->city ?></p>
             <p class="card-subtitle mb-2 text-muted"><?= $model->price ?><span>₽</span></p>
             <h5 class="card-title text-dark"><?php echo Html::encode($model->name); ?></h5>
         </div>

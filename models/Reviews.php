@@ -1,17 +1,9 @@
 <?php
-
 namespace app\models;
+use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "reviews".
- *
- * The followings are the available columns in table 'reviews':
- * @property integer $id
- * @property integer $profile_id
- * @property integer $user_id
- * @property integer $type
- * @property string $review
- * @property integer $vote
+ * Модель оценок
  */
 class Reviews extends \yii\db\ActiveRecord
 {
@@ -27,70 +19,50 @@ class Reviews extends \yii\db\ActiveRecord
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules() {
+    public function rules()
+    {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array(['profile_id', 'user_id', 'type', 'review', ' vote'], 'required'),
-            array(['profile_id', 'user_id', 'type', 'vote'], 'integer'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array(['id', 'profile_id', 'user_id', 'type', 'review', 'vote'], 'safe'),
-        );
+        return [
+            [['advert_id', 'author_id', 'profile_id', 'rating', 'reply_to'], 'integer'],
+            [['message'], 'string'],
+        ];
     }
 
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-        );
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'updatedAtAttribute' => false,
+            ],
+        ];
+    }
+
+    public function getAdvert()
+    {
+        return $this->hasOne(Adverts::class, ['id' => 'advert_id']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'id' => 'ID',
-            'profile_id' => 'Profile',
-            'user_id' => 'User',
-            'type' => 'Type',
-            'review' => 'Review',
-            'vote' => 'Vote',
+            'advert_id' => 'Объявление',
+            'author_id' => 'Автор',
+            'profile_id' => 'Профиль',
+            'rating' => 'Оценка',
+            'message' => 'Комментарий',
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return ActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search( $params ) {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $query = Reviews::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        // загружаем данные формы поиска и производим валидацию
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-
-        // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['id', $this->id]);
-        $query->andFilterWhere(['profile_id', $this->profile_id]);
-        $query->andFilterWhere(['user_id', $this->user_id]);
-        $query->andFilterWhere(['type', $this->type]);
-        $query->andFilterWhere(['review', $this->review, true]);
-        $query->andFilterWhere(['vote', $this->vote]);
-
-        return $dataProvider;
-    }
 
 }

@@ -97,6 +97,12 @@ class Adverts extends \yii\db\ActiveRecord
             ->where(['obj_type' => 0])->count();
     }
 
+    public function getCity()
+    {
+        $parts = explode(', ', $this->address);
+        return isset($parts[1]) ? $parts[1] : '';
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */

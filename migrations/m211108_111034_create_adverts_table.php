@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%adverts}}`.
+ * Таблица объявлений `{{%adverts}}`.
  */
 class m211108_111034_create_adverts_table extends Migration
 {
