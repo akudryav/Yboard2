@@ -3,8 +3,10 @@
 use yii\bootstrap4\ActiveForm;
 use kartik\select2\Select2;
 use yii\bootstrap4\Html;
+use yii\web\JsExpression;
 
 $coord = $model->location ? explode(':', $model->location) : [55.7372, 37.6066];
+$cat_url = \yii\helpers\Url::to(['category/cat-list']);
 
 $map = new \mirocow\yandexmaps\Map('yandex_map', [
     'center' => $coord,
@@ -23,7 +25,7 @@ $map = new \mirocow\yandexmaps\Map('yandex_map', [
             'new ymaps.control.ZoomControl({options: {size: "small"}})',
             //'new ymaps.control.TrafficControl({options: {size: "small"}})',
             //'new ymaps.control.GeolocationControl({options: {size: "small"}})',
-            'search' => 'new ymaps.control.SearchControl({options: {size: "small"}})',
+            'search' => 'new ymaps.control.SearchControl({options: {size: "large"}})',
             //'new ymaps.control.FullscreenControl({options: {size: "small"}})',
             //'new ymaps.control.RouteEditor({options: {size: "small"}})',
         ],
@@ -60,18 +62,40 @@ JS
 
     <?php echo $form->errorSummary($model); ?>
     <?php echo $form->field($model, 'name'); ?>
-    <?php echo $form->field($model, 'category_id')->widget(Select2::class, [
-        'data' => $categories,
+    <?php echo $form->field($model, 'root_categ')->widget(Select2::class, [
+        'data' => $root_categories,
         'options' => ['placeholder' => Yii::t('app', 'Choose category')],
         'pluginOptions' => [
             'allowClear' => true
         ],
         'pluginEvents' => [
-            "select2:select" => "function(e) {  $('#params').load( '/lk/adverts/params-form?categ_id='+e.params.data.id ); }",
+            "select2:select" => "function(e) {  $('#params').load( '/lk/category/params-form?categ_id='+e.params.data.id ); }",
         ]
     ]); ?>
+    <?php
+    echo $form->field($model, 'city')->widget(Select2::class, [
+        'data' => $data,
+        'options' => ['multiple' => true, 'placeholder' => 'Search for a city ...'],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'minimumInputLength' => 3,
+            'language' => [
+                'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
+            ],
+            'ajax' => [
+                'url' => $cat_url,
+                'dataType' => 'json',
+                'data' => new JsExpression('function(params) { return {id:params.term}; }')
+            ],
+            /*'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+            'templateResult' => new JsExpression('function(city) { return city.text; }'),
+            'templateSelection' => new JsExpression('function (city) { return city.text; }'),*/
+        ],
+    ]);
+    ?>
+
     <div id="params" class="well">
-        <?php if(!$model->isNewRecord) echo $this->render('_params', [
+        <?php if (!$model->isNewRecord) echo $this->render('category/_params', [
             'params' => $model->params,
             'category' => $model->category,
             'form' => $form,

@@ -275,6 +275,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'defaultImage' => 'identicon',
             'options' => [
                 'alt' => $this->username,
+                'class' => 'avatar',
             ],
             'size' => $size
         ]);

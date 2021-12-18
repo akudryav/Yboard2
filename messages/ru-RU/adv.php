@@ -31,4 +31,5 @@ return array(
     'Location' => 'Местоположение',
     'Address' => 'Адрес',
     'Other Seller Ads' => 'Другие объявления продавца',
+    'Root Category' => 'Корневая категория',
 );

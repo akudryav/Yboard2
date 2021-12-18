@@ -192,3 +192,21 @@ body .carousel-control-next-icon {
         column-count: 5;
     }
 }
+
+.image {
+    position: relative;
+    width: 100%;
+}
+
+.over-text {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 10rem;
+}
+
+.avatar {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}

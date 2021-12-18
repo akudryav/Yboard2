@@ -136,7 +136,20 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param   int  $node_id
+     * Формирование иерархического списка Корневых категорий для Select2
+     * @return array
+     */
+    public static function makeRootList()
+    {
+        $options = [];
+        foreach (Category::find()->roots()->all() as $row)
+            $options[$row['id']] = $row['name'];
+
+        return $options;
+    }
+
+    /**
+     * @param int $node_id
      * Формирование иерархического списка категорий для Select2
      * @return array
      */

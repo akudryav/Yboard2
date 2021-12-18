@@ -61,10 +61,14 @@ AppAsset::register($this);
                 $menuItems[] = ['label' => 'Модерация', 'url' => ['/moderator']];
             } else {
                 $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['/lk/adverts']];
+                $menuItems[] = ['label' => 'Разместить объявление',
+                    'url' => ['/lk/adverts/create'], 'linkOptions' => ['class' => 'btn btn-info'],];
+
             }
 
             $menuItems[] = [
-                'label' => 'Выйти (' . Yii::$app->user->identity->username . ')',
+                'encode' => false,
+                'label' => 'Выйти (' . Yii::$app->user->identity->getAvatar(30) . ')',
                 'url' => ['/user/logout'],
                 'linkOptions' => ['data-method' => 'post']
             ];

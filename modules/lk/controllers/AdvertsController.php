@@ -62,7 +62,7 @@ class AdvertsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'categories' => Category::makeOptionsList(),
+            'root_categories' => Category::makeRootList(),
         ]);
     }
 
@@ -86,7 +86,7 @@ class AdvertsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'categories' => Category::makeOptionsList(),
+            'root_categories' => Category::makeRootList(),
         ]);
     }
 
@@ -141,18 +141,6 @@ class AdvertsController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionParamsForm($categ_id)
-    {
-        $this->layout = false;
-        $form = new \yii\bootstrap4\ActiveForm();
-
-        return $this->render('_params', [
-            'params' => [],
-            'category' => Category::findOne($categ_id),
-            'form' => $form,
         ]);
     }
 
