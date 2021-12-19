@@ -43,10 +43,18 @@ class AdvertsController extends Controller
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate()
+    public function actionCreate($cat_id = null)
     {
+        if (empty($cat_id)) {
+            return $this->render('categories', ['categories' => Category::makeDropList()]);
+        }
+        $category = Category::findOne($cat_id);
+        if (!$category) {
+            return $this->render('categories', ['categories' => Category::makeDropList()]);
+        }
         $model = new Adverts;
         $model->user_id = $this->currentUser->id;
+        $model->category_id = $cat_id;
         $model->location = 0;
         $model->fields = '';
 
@@ -62,7 +70,7 @@ class AdvertsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'root_categories' => Category::makeRootList(),
+            'root_categ' => $category,
         ]);
     }
 
@@ -86,7 +94,7 @@ class AdvertsController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'root_categories' => Category::makeRootList(),
+            'categories' => $model->category->makeRootList(),
         ]);
     }
 

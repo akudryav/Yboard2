@@ -1,9 +1,7 @@
 <?php
 
 use yii\bootstrap4\ActiveForm;
-use kartik\select2\Select2;
 use yii\bootstrap4\Html;
-use yii\web\JsExpression;
 
 $coord = $model->location ? explode(':', $model->location) : [55.7372, 37.6066];
 $cat_url = \yii\helpers\Url::to(['category/cat-list']);
@@ -62,42 +60,11 @@ JS
 
     <?php echo $form->errorSummary($model); ?>
     <?php echo $form->field($model, 'name'); ?>
-    <?php echo $form->field($model, 'root_categ')->widget(Select2::class, [
-        'data' => $root_categories,
-        'options' => ['placeholder' => Yii::t('app', 'Choose category')],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-        'pluginEvents' => [
-            "select2:select" => "function(e) {  $('#params').load( '/lk/category/params-form?categ_id='+e.params.data.id ); }",
-        ]
-    ]); ?>
-    <?php
-    echo $form->field($model, 'city')->widget(Select2::class, [
-        'data' => $data,
-        'options' => ['multiple' => true, 'placeholder' => 'Search for a city ...'],
-        'pluginOptions' => [
-            'allowClear' => true,
-            'minimumInputLength' => 3,
-            'language' => [
-                'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
-            ],
-            'ajax' => [
-                'url' => $cat_url,
-                'dataType' => 'json',
-                'data' => new JsExpression('function(params) { return {id:params.term}; }')
-            ],
-            /*'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-            'templateResult' => new JsExpression('function(city) { return city.text; }'),
-            'templateSelection' => new JsExpression('function (city) { return city.text; }'),*/
-        ],
-    ]);
-    ?>
-
+    <?php echo $form->field($model, 'category_id')->dropDownList($categories); ?>
     <div id="params" class="well">
-        <?php if (!$model->isNewRecord) echo $this->render('category/_params', [
-            'params' => $model->params,
-            'category' => $model->category,
+        <?php echo $this->render('/category/_params', [
+            'params' => $model->isNewRecord ? [] : $model->params,
+            'category_id' => $model->isNewRecord ? array_key_first($categories) : $model->category_id,
             'form' => $form,
         ]) ?>
     </div>

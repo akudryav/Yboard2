@@ -7,9 +7,9 @@ use yii\bootstrap4\ActiveForm;
     <b>Фильтр</b>
     <?php
         $form = ActiveForm::begin();
-        echo $this->render('@app/modules/lk/views/adverts/_params', [
+        echo $this->render('@app/modules/lk/views/category/_params', [
             'params' => [],
-            'category' => $category,
+            'category_id' => $category->id,
             'form' => $form,
         ]);
         ActiveForm::end();

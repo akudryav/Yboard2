@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'root_categories' => $root_categories,
+        'categories' => $root_categ->makeChildList(),
     ]) ?>
 
 </div>

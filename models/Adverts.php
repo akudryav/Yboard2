@@ -28,7 +28,6 @@ class Adverts extends \yii\db\ActiveRecord
 
     public $price_min;
     public $price_max;
-    public $root_categ;
 
     /**
      * @return string the associated database table name
@@ -54,7 +53,7 @@ class Adverts extends \yii\db\ActiveRecord
             ['location', 'string', 'min' => 10, 'tooShort' => Yii::t('adv', 'Find address on the map')],
             [['moderated'], 'default', 'value' => self::STATUS_PUBLISHED],
             [['imageFiles'], 'file', 'extensions' => 'png, jpg, gif', 'maxFiles' => 5],
-            [['root_categ', 'price_min', 'price_max'], 'safe'],
+            [['price_min', 'price_max'], 'safe'],
         );
     }
 
@@ -114,7 +113,6 @@ class Adverts extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'user_id' => Yii::t('app', 'User'),
             'category_id' => Yii::t('app', 'Category'),
-            'root_categ' => Yii::t('adv', 'Root Category'),
             'type' => Yii::t('app', 'Type'),
             'views' => Yii::t('app', 'Views'),
             'text' => Yii::t('app', 'Text'),
@@ -190,8 +188,7 @@ class Adverts extends \yii\db\ActiveRecord
     {
         $params = $this->params;
         if (!$params) return [];
-        $cat = Category::getTree()[$this->category_id];
-        $cat_params = Category::fieldData($cat['fields']);
+        $cat_params = Category::fieldData($this->category_id);
         $result = [];
         foreach ($cat_params as $par) {
             $code = $par['code'];

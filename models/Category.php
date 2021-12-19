@@ -136,14 +136,36 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Формирование иерархического списка Корневых категорий для Select2
+     * Формирование списка дочерних категорий текущей для выпадающего списка
      * @return array
      */
-    public static function makeRootList()
+    public function makeChildList()
     {
         $options = [];
-        foreach (Category::find()->roots()->all() as $row)
-            $options[$row['id']] = $row['name'];
+        $children = $this->children()->all();
+        if (!$children) {
+            $options[$this->id] = $this->name;
+        } else {
+            foreach ($children as $row)
+                $options[$row['id']] = $row['name'];
+        }
+
+        return $options;
+    }
+
+    /**
+     * Формирование списка дочерних категорий содержащего текущую
+     * @return array
+     */
+    public function makeRootList()
+    {
+        $options = [];
+        $parent = $this->parents(1)->one();
+        if (!$parent) {
+            $options[$this->id] = $this->name;
+        } else {
+            $options = $parent->makeChildList();
+        }
 
         return $options;
     }
@@ -212,17 +234,17 @@ class Category extends \yii\db\ActiveRecord
         }
     }
 
-    public static function fieldData($fields)
+    public static function fieldData($category_id)
     {
-        if (trim($fields) == '') return null;
-        return unserialize($fields);
+        $cat = self::getTree()[$category_id];
+        if (trim($cat['fields']) == '') return null;
+        return unserialize($cat['fields']);
     }
 
     public function fieldNames()
     {
-        if(!$this->fields) return null;
         $result = [];
-        foreach (self::fieldData($this->fields) as $field) {
+        foreach (self::fieldData($this->id) as $field) {
             $result[] = $field['name'];
         }
         return implode(', ', $result);
