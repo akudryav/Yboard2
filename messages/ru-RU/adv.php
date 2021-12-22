@@ -32,4 +32,5 @@ return array(
     'Address' => 'Адрес',
     'Other Seller Ads' => 'Другие объявления продавца',
     'Root Category' => 'Корневая категория',
+    'imageFiles' => 'Фотографии товара',
 );

@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\AdvertsSearch;
 use Yii;
 use app\components\TextValidator;
 use app\models\Category;
@@ -152,42 +153,14 @@ class AdvertsController extends Controller
     }
 
     public function actionSearch($searchStr = "") {
-        $model = new Adverts(['scenario' => 'search']);
+        $model = new AdvertsSearch();
 
         if ($searchStr) {
             $model->name = $searchStr;
-            $model->text = $searchStr;
         }
-        $params = Yii::$app->request->get("Adverts");
+        $params = Yii::$app->request->queryParams;
 
-        $model->category_id = Yii::$app->request->get("cat_id");
-        $model->moderated = Adverts::STATUS_PUBLISHED;
-        $model->location = $params['location'];
-        $model->price_min = $params['price_min'];
-        $model->price_max = $params['price_max'];
-
-        // Обработка дополнительных полей для поиска 
-        $s_fields = $_GET['fields'];
-
-        $txt_vld = new TextValidator();
-
-        if (is_array($s_fields)) {
-            ksort($s_fields);
-            foreach ($s_fields as $fn => $fv) {
-                if ($fv !== "") {
-                    if ($txt_vld->validate_str($fv) and $txt_vld->validate_str($fn)) {
-                        if ($model->fields) {
-                            $model->fields .= "%";
-                        }
-                        $model->fields .= '"' . $fn . '"[^"]+"' . $fv . '"';
-                    } else {
-                        throw new yii\web\BadRequestHttpException(' Bad Request ');
-                    }
-                }
-            }
-        }
-
-        $dataProvider = $model->search();
+        $dataProvider = $model->search($params);
 
         return $this->render('index', array(
             'data' => $dataProvider,

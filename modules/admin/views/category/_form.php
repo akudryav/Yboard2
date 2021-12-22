@@ -37,7 +37,9 @@ use app\models\forms\ParamForm;
                 <div class="input-group">
                     <?php
                     echo $form->field($item, "[$index]name", ['options' => ['tag' => false]]);
-                    echo Html::a('Список значений (если нужно)', '#',
+                    $label = $item['values'] ? yii\helpers\StringHelper::truncate($item['values'], 30)
+                        : 'Список значений (если нужно)';
+                    echo Html::a($label, '#',
                         [
                             'class' => 'btn btn-outline-secondary',
                             'data-toggle' => 'modal',

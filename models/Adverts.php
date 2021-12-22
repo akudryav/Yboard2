@@ -3,7 +3,6 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
-use yii\data\ActiveDataProvider;
 use yii\bootstrap4\Html;
 
 /**
@@ -124,6 +123,7 @@ class Adverts extends \yii\db\ActiveRecord
             'location' => Yii::t('adv', 'Location'),
             'address' => Yii::t('adv', 'Address'),
             'moderated' => Yii::t('adv', 'Мoderated'),
+            'imageFiles' => Yii::t('adv', 'imageFiles'),
         );
     }
 

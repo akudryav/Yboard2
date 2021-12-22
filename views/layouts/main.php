@@ -12,6 +12,7 @@ use app\assets\AppAsset;
 use app\widgets\Alert;
 
 AppAsset::register($this);
+$searchStr = Yii::$app->request->get('searchStr');
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -86,7 +87,7 @@ AppAsset::register($this);
         ]);
         ?>
         <form class="form-inline" action="/adverts/search">
-            <input class="form-control mr-sm-2" type="text" name="searchStr" placeholder="Поиск">
+            <input class="form-control mr-sm-2" type="text" name="searchStr" value="<?=$searchStr?>" placeholder="Поиск">
             <button class="btn btn-secondary" type="submit">Найти</button>
         </form>
         <?php
