@@ -69,7 +69,7 @@ $searchStr = Yii::$app->request->get('searchStr');
 
             $menuItems[] = [
                 'encode' => false,
-                'label' => 'Выйти (' . Yii::$app->user->identity->getAvatar(30) . ')',
+                'label' => 'Выйти ' . Yii::$app->user->identity->getAvatar(30),
                 'url' => ['/user/logout'],
                 'linkOptions' => ['data-method' => 'post']
             ];

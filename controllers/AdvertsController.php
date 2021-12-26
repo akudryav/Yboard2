@@ -112,6 +112,17 @@ class AdvertsController extends Controller
                 ]
             ]);
 
+        $params = Yii::$app->request->post('Params');
+        if (!empty($params)) {
+            foreach ($params as $key => $val) {
+                $alias = 'params ' . $key;
+                $query->innerJoinWith($alias)->andFilterWhere([
+                    $key . '.code' => $key,
+                    $key . '.value' => $val['value'],
+                ]);
+            }
+        }
+        //echo $query->createCommand()->getRawSql();
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
@@ -158,9 +169,8 @@ class AdvertsController extends Controller
         if ($searchStr) {
             $model->name = $searchStr;
         }
-        $params = Yii::$app->request->queryParams;
 
-        $dataProvider = $model->search($params);
+        $dataProvider = $model->search([]);
 
         return $this->render('index', array(
             'data' => $dataProvider,

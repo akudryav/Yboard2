@@ -76,7 +76,6 @@ class AdvertsSearch extends Adverts
         $criteria->andFilterWhere(['like', 'text', $this->text]);
 
         $criteria->orderBy('adverts.id DESC');
-        //echo $criteria->createCommand()->getRawSql();
 
         return $dataProvider;
     }
