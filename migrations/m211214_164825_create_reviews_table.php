@@ -19,7 +19,7 @@ class m211214_164825_create_reviews_table extends Migration
             'author_id' => $this->integer()->notNull(),
             'profile_id' => $this->integer()->notNull(),
             'rating' => $this->integer()->notNull(),
-            'message' => $this->text()->notNull(),
+            'message' => $this->text(),
             'reply_to' => $this->integer(),
             'created_at' => $this->integer(10)->notNull()->unsigned(),
         ]);

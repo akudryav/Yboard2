@@ -30,28 +30,6 @@ class Controller extends \yii\web\Controller
         'cat_id' => false,
     );
 
-    public function __construct($id, $module = null)
-    {
-
-        parent::__construct($id, $module);
-
-        $this->settings = require Yii::getAlias('@config/params') . '.php';
-        $this->banners = include_once Yii::getAlias('@config/banners') . '.php';
-        $this->meta = Yii::$app->params['meta'];
-        $this->meta['vars']['site_name'] = Yii::$app->name;
-
-        $query = Adverts::find()->where(['fixed' => 1])->limit(2);
-        $this->fixedAdvers = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => false,
-        ]);
-
-        if (isset($_COOKIE['YII_DEBUG'])) {
-            error_reporting(E_ALL ^ E_NOTICE);
-            ini_set("display_errors", 1);
-        }
-    }
-
     public function getBanner($var = false) {
         $debug = "";
         $banner_code = "";
@@ -140,12 +118,6 @@ class Controller extends \yii\web\Controller
                 . "</div>";
     }
 
-
-
-    public function attachBehavior($name, $behavior) {
-        $this->_behaviorIDs[] = $name;
-        parent::attachBehavior($name, $behavior);
-    }
 
     public function meta_title() {
 

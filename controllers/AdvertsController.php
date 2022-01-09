@@ -111,7 +111,7 @@ class AdvertsController extends Controller
                     ['category.tree' => Category::getTree()[$id]['tree']]
                 ]
             ]);
-
+        // обработка доп параметров фильтрации как условий inner join с таблицей значений параметров
         $params = Yii::$app->request->post('Params');
         if (!empty($params)) {
             foreach ($params as $key => $val) {

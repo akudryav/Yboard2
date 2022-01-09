@@ -210,3 +210,34 @@ body .carousel-control-next-icon {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
 }
+
+/* Звёздный рейтинг */
+.testRater {
+    margin-bottom: 20px;
+}
+
+.rater span {
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.rater-rating {
+    margin-top: 5px;
+}
+
+.rater-starsOff, .rater-starsOn {
+    display: inline-block;
+    height: 32px;
+    background: url(../images/stars.png) repeat-x 0 0px;
+}
+
+.rater-starsOn {
+    display: block;
+    max-width: 160px;
+    top: 0;
+    background-position: 0 -32px;
+}
+
+.rater-starsHover {
+    background-position: 0 -64px !important;
+}

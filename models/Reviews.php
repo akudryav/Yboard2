@@ -24,7 +24,10 @@ class Reviews extends \yii\db\ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            [['advert_id', 'author_id', 'profile_id', 'rating', 'reply_to'], 'integer'],
+            [['advert_id', 'author_id', 'profile_id', 'reply_to'], 'integer'],
+            ['advert_id', 'exist', 'targetClass' => 'app\models\Adverts', 'targetAttribute' => 'id'],
+            ['profile_id', 'exist', 'targetClass' => 'app\models\User', 'targetAttribute' => 'id'],
+            [['rating'], 'number', 'min' => 0, 'max' => 5],
             [['message'], 'string'],
         ];
     }

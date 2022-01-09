@@ -9,7 +9,6 @@ use app\models\Category;
 use app\models\Location;
 use yii\bootstrap4\Html;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 
 
 /**

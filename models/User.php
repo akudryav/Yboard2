@@ -267,7 +267,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getAdverts(){
         return $this->hasMany(Adverts::class, ['user_id' => 'id']);
     }
-
+    // аватарка
     public function getAvatar($size = 64)
     {
         return \cebe\gravatar\Gravatar::widget([
@@ -281,6 +281,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ]);
     }
 
+    // ссылка на профиль
     public function advertLink()
     {
         $count = $this->getAdverts()->count();

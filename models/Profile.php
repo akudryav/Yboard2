@@ -56,7 +56,18 @@ class Profile extends \yii\db\ActiveRecord
 
     public function getName()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
+    // проверка на возможность оценивания
+    public function isRateble()
+    {
+        return Messages::find()
+            ->select('advert_id')
+            ->where([
+                'sender_id' => Yii::$app->user->id,
+                'receiver_id' => $this->user_id,
+            ])->with('advert')
+            ->groupBy(['advert_id'])->all();
+    }
 }

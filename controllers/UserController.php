@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\User;
+use app\models\Profile;
+use app\models\Reviews;
 use yii\data\ArrayDataProvider;
 use app\models\forms\RegistrationForm;
 use app\models\forms\UserChangePassword;
@@ -178,7 +180,7 @@ class UserController extends Controller
      */
     public function loadUser($id)
     {
-        $model = User::find()->where(['id' => $id])->with('profile')->one();
+        $model = User::findOne($id);
         if ($model === null)
             throw new \yii\web\NotFoundHttpException();
         return $model;
@@ -200,6 +202,45 @@ class UserController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
+    }
+
+    /**
+     * Голосование за пользователя
+     */
+    public function actionRating()
+    {
+        $this->layout = false;
+        $post = Yii::$app->request->post();
+        $session = Yii::$app->session;
+        if (isset($post['id']) && is_numeric($post['rating'])) {
+            $review = new Reviews();
+            $review->profile_id = intval($post['id']);
+            $review->author_id = Yii::$app->user->id;
+            $review->rating = floatval($post['rating']);
+            $review->message = isset($post['message']) ? $post['message'] : null;
+
+            $profile = Profile::findOne(['user_id' => $review->profile_id]);
+            $chats = $profile->isRateble();
+            if (!$profile || !$chats) {
+                return $this->renderContent(-1); //пользователь не найден
+            }
+            $review->advert_id = $chats[0]->advert_id;
+
+            if (!isset($session['rating_ids'])) {
+                $session['rating_ids'] = array();
+            }
+
+            if (!in_array($review->profile_id, $session['rating_ids'])) {
+                if ($review->save()) {
+                    // пересчет среднего рейтинга
+                    $rate = ($profile->rating_avg * $profile->rating_count + $review->rating) / ($profile->rating_count + 1);
+                    $profile->updateAttributes(['rating_avg' => $rate, 'rating_count' => $profile->rating_count + 1]);
+                    $session['rating_ids'][] = $review->profile_id; // вносим в список который уже проголосовали
+                    return $this->renderContent($rate);
+                }
+            } else return $this->renderContent(0); //уже голосовали
+        }
+        return $this->renderContent(-2); //неверные параметры
     }
 
 }
