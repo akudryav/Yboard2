@@ -1,5 +1,7 @@
 <?php
 namespace app\models;
+
+use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -8,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
 class Reviews extends \yii\db\ActiveRecord
 {
 
+    public $profile;
     /**
      * @return string the associated database table name
      */
@@ -24,9 +27,12 @@ class Reviews extends \yii\db\ActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
+            [['advert_id','rating'], 'required', 'skipOnEmpty' => false],
             [['advert_id', 'author_id', 'profile_id', 'reply_to'], 'integer'],
             ['advert_id', 'exist', 'targetClass' => 'app\models\Adverts', 'targetAttribute' => 'id'],
+            ['profile_id', 'checkIsRateble', 'skipOnEmpty' => false],
             ['profile_id', 'exist', 'targetClass' => 'app\models\User', 'targetAttribute' => 'id'],
+            ['author_id', 'default', 'value' => Yii::$app->user->id],
             [['rating'], 'number', 'min' => 0, 'max' => 5],
             [['message'], 'string'],
         ];
@@ -67,5 +73,52 @@ class Reviews extends \yii\db\ActiveRecord
         );
     }
 
+    /** Дополнительные правила проверки атрибутов
+     * @param $attribute
+     * @param $params
+     */
+    public function checkIsRateble($attribute, $params)
+    {
+        $session = Yii::$app->session;
+        if (!isset($session['rating_ids'])) {
+            $session['rating_ids'] = array();
+        }
+
+        $review = self::findOne([
+            'advert_id'=>$this->advert_id,
+            'author_id'=>Yii::$app->user->id
+        ]);
+
+        if($review) {
+            $this->addError($attribute, 'Вы уже оценивали этого продавца');
+            return false;
+        }
+        $advert = Adverts::findOne($this->advert_id);
+        if(!$advert) {
+            return false;
+        }
+        $this->profile_id = $advert->user_id;
+        if (in_array($this->profile_id, $session['rating_ids'])) {
+            $this->addError($attribute, 'Вы уже оценивали этого продавца');
+            return false;
+        }
+        $profile = Profile::findOne(['user_id' => $this->profile_id]);
+        $chats = $profile->isRateble();
+        if (!$chats) {
+            $this->addError($attribute, 'Оценка данного пользователя не доступна');
+            return false;
+        }
+        return true;
+
+    }
+    // пересчет среднего рейтинга
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $profile = Profile::findOne(['user_id' => $this->profile_id]);
+        $rate = ($profile->rating_avg * $profile->rating_count + $this->rating) / ($profile->rating_count + 1);
+        $profile->updateAttributes(['rating_avg' => $rate, 'rating_count' => $profile->rating_count + 1]);
+        $this->profile = ['rating_avg' => $rate, 'rating_count' => $profile->rating_count];
+    }
 
 }

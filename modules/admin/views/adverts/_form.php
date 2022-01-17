@@ -33,13 +33,6 @@ use yii\bootstrap4\ActiveForm;
         <?php echo $form->field($model, 'user_id'); ?>
     </div>
 
-    <div class="row">
-        <?php $this->widget('application.widgets.BulletinCategoryWidget', array('model' => $model, 'form' => $form)); ?>
-    </div>
-
-    <div class="row">
-        <?php $this->widget('application.widgets.BulletinTypeWidget', array('model' => $model, 'form' => $form)); ?>
-    </div>
 
     <div class="row">
         <?php echo $form->field($model, 'views'); ?>

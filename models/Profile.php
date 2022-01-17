@@ -62,12 +62,15 @@ class Profile extends \yii\db\ActiveRecord
     // проверка на возможность оценивания
     public function isRateble()
     {
+        if($this->user_id == Yii::$app->user->id) return false;
+
         return Messages::find()
             ->select('advert_id')
             ->where([
                 'sender_id' => Yii::$app->user->id,
                 'receiver_id' => $this->user_id,
-            ])->with('advert')
+            ])->joinWith('advert')
+            ->andWhere(['<>','adverts.user_id', Yii::$app->user->id])
             ->groupBy(['advert_id'])->all();
     }
 }
