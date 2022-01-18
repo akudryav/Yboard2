@@ -3,10 +3,10 @@ use yii\widgets\ListView;
 
 echo ListView::widget(array(
     'dataProvider' => $dataProvider,
-    'options' => ['class' => 'row row-cols-1 row-cols-md-4 g-4'],
+    'options' => ['class' => 'row product-list'],
     'summary' => false,
     'summaryOptions' => ['tag' => false],
-    'itemOptions' => ['class' => 'col'],
+    'itemOptions' => ['class' => 'col-6 col-md-4 col-lg-3 product-list__item'],
     'itemView' => '_item',
 ));
 ?>

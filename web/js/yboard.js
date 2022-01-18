@@ -1,3 +1,8 @@
+var themeSetting = {
+    homeUrl: '',
+    carousel: 'jquery.slick'
+};
+
 $(document).ready(function () {
     $(".js_favor").click(function (e) {
         e.preventDefault();

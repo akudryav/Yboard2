@@ -8,22 +8,30 @@ use yii\helpers\Url;
 
 $image = $model->getImage();
 ?>
-<div class="card h-100">
-    <div class="image">
-        <a href="<?= Url::to(['adverts/view', 'id' => $model->id]) ?>" class="text-decoration-none">
-            <?php echo Html::img($image->getUrl('x220'), ['class' => 'card-img-top', 'alt' => $model->name]); ?>
+
+<div class="product-item">
+    <div class="product-item__header">
+        <a href="<?= Url::to(['adverts/view', 'id' => $model->id]) ?>" class="product-item_image"
+           style="background-image: url('<?=$image->getUrl('x220')?>');">
+            <?php echo Html::img('/images/loader.svg', [
+                    'data-src' => $image->getUrl('x220'),
+                    'class' => 'product-item__img',
+                    'alt' => $model->name,
+                ]); ?>
         </a>
-        <p class="text-nowrap bg-light text-dark over-text">
-            <?= $model->city ?>
-        </p>
+        <span class="product-item__location">
+            <span class="product-item__location_item"><?= $model->city ?></span>
+        </span>
     </div>
-    <div class="card-body">
-        <p class="card-subtitle mb-2 text-muted"><?= $model->price ?><span>₽</span></p>
-        <a href="<?= Url::to(['adverts/view', 'id' => $model->id]) ?>" class="text-decoration-none">
-            <h5 class="card-title text-dark"><?php echo Html::encode($model->name); ?></h5>
-        </a>
-    </div>
-    <div class="card-footer">
+    <div class="product-item__content">
         <?php echo \app\widgets\Favorites::widget(['model' => $model]); ?>
+        <a href="<?= Url::to(['adverts/view', 'id' => $model->id]) ?>" class="product-item__content_block">
+                <span class="product-item__price">
+                  <span class="product-item__price_value"><?= $model->price ?></span>
+                  <span class="product-item__price_currency">₽</span>
+                </span>
+            <span class="product-item__title"><?php echo Html::encode($model->name); ?></span>
+        </a>
     </div>
 </div>
+

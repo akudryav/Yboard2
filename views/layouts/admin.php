@@ -2,11 +2,8 @@
 
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Nav;
-use app\assets\AdminAsset;
 
-AdminAsset::register($this);
-
-$this->beginContent('@app/views/layouts/main.php');
+$this->beginContent('@app/views/layouts/backend.php');
 
 echo Breadcrumbs::widget([
     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
