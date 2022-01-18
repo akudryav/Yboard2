@@ -59,45 +59,55 @@ $attributes = array_merge($attributes, [
 ]);
 ?>
     <script src="https://yastatic.net/share2/share.js" async></script>
-    <div class="row">
-        <div class="col-9">
-            <div class="clearfix">
+    <div class="container-wrapper">
+        <div class="row content_page__row">
+            <div class="col-12 col-lg-9 content_page__content">
+                <div class="section-title">
+                    <h1 class="section-title__value"><?= Html::encode($model->name) ?></h1>
+                </div>
+                <div class="clearfix">
+                    <?php
+                    echo newerton\fancybox3\FancyBox::widget();
+                    foreach ($model->getImages() as $img) {
+                        echo Html::a(Html::img($img->getUrl('200x'),
+                            ['class' => 'rounded float-left']), $img->getUrl(), ['data-fancybox' => 'group1']);
+                    }
+                    ?>
+                </div>
                 <?php
-                echo newerton\fancybox3\FancyBox::widget();
-                foreach ($model->getImages() as $img) {
-                    echo Html::a(Html::img($img->getUrl('200x'),
-                        ['class' => 'rounded float-left']), $img->getUrl(), ['data-fancybox' => 'group1']);
-                }
+                echo DetailView::widget([
+                    'model' => $model,
+                    'attributes' => $attributes
+                ]);
                 ?>
             </div>
-            <h1><?= $model->name ?></h1>
-            <?php
-            echo DetailView::widget([
-                'model' => $model,
-                'attributes' => $attributes
-            ]);
-            ?>
-        </div>
-        <div class="col-3">
-            <?php
-            if($model->user_id != Yii::$app->user->id)
-            {
-                echo '<div class="clearfix btn-group-vertical">';
-                echo \app\widgets\Profile::widget(['advert' => $model]);
-                echo \app\widgets\Message::widget(['advert' => $model]);
-                echo '</div>';
-            }
-            ?>
-            <div class="row mt-3">
-                <div class="col-md-auto"><?php echo $user->getAvatar(); ?></div>
-                <div class="col-md-auto">
-                    <p><?php echo $user->advertLink(); ?></p>
-                    <p>С <?= Yii::$app->formatter->asDate($user->created_at) ?></p>
+
+            <div class="col-12 col-lg-3 content_page__sidebar">
+                <?php
+                if($model->user_id != Yii::$app->user->id)
+                {
+                    echo '<div class="clearfix btn-group-vertical">';
+                    echo \app\widgets\Profile::widget(['advert' => $model]);
+                    echo \app\widgets\Message::widget(['advert' => $model]);
+                    echo '</div>';
+                }
+                ?>
+                <div class="row mt-3">
+                    <div class="col-md-auto"><?php echo $user->getAvatar(); ?></div>
+                    <div class="col-md-auto">
+                        <p><?php echo $user->advertLink(); ?></p>
+                        <p>С <?= Yii::$app->formatter->asDate($user->created_at) ?></p>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row content_page__row">
+            <div class="col-12 col-lg-12 content_page__content">
+            <div class="section-title">
+                <h3 class="section-title__value"><?= Yii::t('adv', 'Related adverts') ?></h3>
+            </div>
+            <?php echo $this->render('_list', ['dataProvider' => $dataRel]); ?>
+            </div>
+        </div>
+
     </div>
-
-
-    <h3><?= Yii::t('adv', 'Related adverts') ?></h3>
-<?php echo $this->render('_list', ['dataProvider' => $dataRel]); ?>
