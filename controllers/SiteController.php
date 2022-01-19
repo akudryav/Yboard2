@@ -36,12 +36,6 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionTest()
-    {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-    }
-
     /**
      * Вывод главной
      * отличается наличием виджета категорий вверху

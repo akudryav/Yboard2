@@ -7,7 +7,6 @@ use app\models\Category;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use kartik\bs4dropdown\Dropdown;
 use app\widgets\Alert;
 
 use app\assets\AdminAsset;
@@ -65,17 +64,6 @@ $searchStr = Yii::$app->request->get('searchStr');
                 'linkOptions' => ['data-method' => 'post']
             ];
         }
-        // Выпадающий список категорий
-        echo Nav::widget([
-            'items' => [
-                [
-                    'label' => 'Категории',
-                    'items' => Category::makeDropList(),
-                ],
-            ],
-            'dropdownClass' => Dropdown::class, // use the custom dropdown
-            'options' => ['class' => 'navbar-nav'],
-        ]);
 
         ?>
         <form class="form-inline" action="/adverts/search">

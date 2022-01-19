@@ -5,11 +5,11 @@
 
 use app\models\Category;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
-use kartik\bs4dropdown\Dropdown;
 use app\assets\AppAsset;
 use app\widgets\Alert;
+
+$cats = Category::makeDropList();
+$menu_str = Category::toUL($cats);
 
 AppAsset::register($this);
 $searchStr = Yii::$app->request->get('searchStr');
@@ -24,7 +24,6 @@ $searchStr = Yii::$app->request->get('searchStr');
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <script src="https://kit.fontawesome.com/f74a7c5cc1.js" crossorigin="anonymous"></script>
     </head>
     <body>
     <?php $this->beginBody() ?>
@@ -102,18 +101,11 @@ $searchStr = Yii::$app->request->get('searchStr');
                         </svg>
                         <span>Категории</span>
                     </a>
-                    <?php
-                    echo Nav::widget([
-                        'items' => [
-                            [
-                                'label' => 'Категории',
-                                'items' => Category::makeDropList(),
-                            ],
-                        ],
-                        'dropdownClass' => Dropdown::class, // use the custom dropdown
-                        'options' => ['class' => 'navbar-nav'],
-                    ]);
-                    ?>
+                    <div class="categories-menu">
+                        <div class="container-wrapper">
+                            <?php echo $menu_str?>
+                        </div>
+                    </div>
                 </div>
                 <div class="header__search">
                     <form class="header__search_form" action="/adverts/search">

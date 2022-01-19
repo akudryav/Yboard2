@@ -10,8 +10,6 @@ $this->params['breadcrumbs'] = [
 ];
 ?>
 
-<h1><?php echo Yii::t('app', "Login"); ?></h1>
-
 <?php if (Yii::$app->session->getFlash('loginMessage')): ?>
 
     <div class="success">
@@ -21,9 +19,8 @@ $this->params['breadcrumbs'] = [
 <?php endif; ?>
 
 
-<div class="form well">
+<div class="container-wrapper">
     <h3><?= Yii::t('app', 'Social networks authorisation :') ?></h3>
-
 
     <?php echo ULogin::widget([
         // widget look'n'feel
@@ -72,5 +69,4 @@ $this->params['breadcrumbs'] = [
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>

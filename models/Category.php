@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use creocoder\nestedsets\NestedSetsBehavior;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "category".
@@ -212,7 +213,7 @@ class Category extends \yii\db\ActiveRecord
 
             $value = [
                 'label' => $row['name'],
-                'url' => ['adverts/category', 'id' => $row['id']]
+                'url' => Url::to(['adverts/category', 'id' => $row['id']]),
             ];
 
             self::set_recursive($items, $current_path, $value);
@@ -232,6 +233,30 @@ class Category extends \yii\db\ActiveRecord
             }
             self::set_recursive($array[$key], $path, $value);
         }
+    }
+
+    public static function toUL($array, $first_level = true){
+        $menu = '';
+        $has_sub = false;
+        foreach($array as $member){
+            //check for value member
+            if(!isset($member['items']) ){
+                //if value is present, echo it in an li
+                $menu .=  "<li><a href='{$member['url']}'>{$member['label']}</a></li>\n";
+            } else {
+                $has_sub = true;
+                //if the member is another array, start a fresh li
+                $menu .=  "<li><a href='#'> {$member['label']}</a>\n";
+                //and pass the member back to this function to start a new ul
+                $menu .= self::toUL($member['items'], false);
+                //then close the li
+                $menu .=  "</li>\n";
+            }
+        }
+        $class = $has_sub ? 'has_sub' : 'not_sub';
+        if($first_level) $class = 'categories-menu__list';
+        $menu = "<ul class='$class'>\n".$menu."</ul>\n";
+        return $menu;
     }
 
     public static function fieldData($category_id)

@@ -17,8 +17,13 @@ class AdvertsController extends Controller
 
     public function beforeAction($action)
     {
-        $profile = $this->currentUser->profile;
-        if(empty($profile) || !$profile->validate()) {
+        $need_check = !Yii::$app->user->isGuest;
+        if($need_check) {
+            $profile = $this->currentUser->profile;
+            $need_check = empty($profile) || !$profile->validate();
+        }
+
+        if($need_check) {
             $errors = $profile ? Html::errorSummary($profile, ['encode' => false]) :
                 Yii::t('user', 'You need to fill profile');
             Yii::$app->session->setFlash('error', $errors);
