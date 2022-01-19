@@ -6,7 +6,6 @@ use yii\captcha\Captcha;
 use yii\bootstrap4\Html;
 
 $this->context->title = Yii::$app->name . ' - ' . Yii::t('app', "Registration");
-$this->params['breadcrumbs'] = ["label" => Yii::t('app', "Registration")];
 ?>
 
     <h1><?php echo Yii::t('app', "Registration"); ?></h1>

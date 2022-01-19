@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use creocoder\nestedsets\NestedSetsBehavior;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "category".
@@ -213,7 +212,7 @@ class Category extends \yii\db\ActiveRecord
 
             $value = [
                 'label' => $row['name'],
-                'url' => Url::to(['adverts/category', 'id' => $row['id']]),
+                'id' => $row['id'],
             ];
 
             self::set_recursive($items, $current_path, $value);
@@ -242,7 +241,7 @@ class Category extends \yii\db\ActiveRecord
             //check for value member
             if(!isset($member['items']) ){
                 //if value is present, echo it in an li
-                $menu .=  "<li><a href='{$member['url']}'>{$member['label']}</a></li>\n";
+                $menu .=  "<li><a href='/adverts/category/{$member['id']}'>{$member['label']}</a></li>\n";
             } else {
                 $has_sub = true;
                 //if the member is another array, start a fresh li

@@ -10,11 +10,7 @@ use yii\captcha\Captcha;
 use yii\bootstrap4\Html;
 
 $this->context->title = Yii::$app->name . ' - Обратная связь';
-$this->params['breadcrumbs'] = array(
-    'Обратная связь',
-);
 
-$this->params['breadcrumbs'] = array('Обратная связь');
 ?>
 
     <h1>Отправить сообщение <?php echo $user ? $user->username : 'администратору'; ?></h1>

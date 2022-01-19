@@ -5,24 +5,18 @@
 
 use app\assets\ChatAsset;
 
-$this->params['breadcrumbs'] = array(
-    Yii::t('message', 'Messages'),
-);
 ChatAsset::register($this);
 ?>
+<div class="section-title">
+    <h3 class="section-title__value"><?= Yii::t('message', 'Messages') ?></h3>
+</div>
 
-    <h2><?= Yii::t('message', 'Messages') ?></h2>
+<div class="card chat-app">
+    <?php echo $this->render('//reviews/_plist', ['chats' => $chats]); ?>
+    <div id="chat" class="chat">
 
-    <div class="row clearfix">
-        <div class="col-lg-12">
-            <div class="card chat-app">
-                <?php echo $this->render('//reviews/_plist', ['chats' => $chats]); ?>
-                <div id="chat" class="chat">
-
-                </div>
-            </div>
-        </div>
     </div>
+</div>
 
 
 

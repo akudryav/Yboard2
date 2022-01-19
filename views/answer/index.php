@@ -9,9 +9,6 @@ use yii\widgets\ListView;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Button;
 
-$this->params['breadcrumbs'] = array(
-    Yii::t('main', 'Answers'),
-);
 ?>
 <h1><?php echo Yii::t('main', 'Answers'); ?></h1>
 

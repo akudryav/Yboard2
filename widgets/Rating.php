@@ -4,7 +4,7 @@ namespace app\widgets;
 
 use app\models\Reviews;
 use yii\base\Widget;
-use app\assets\UserAsset;
+
 
 
 class Rating extends Widget
@@ -15,7 +15,10 @@ class Rating extends Widget
     public function init() {
         $this->chats = $this->profile->isRateble();
         if($this->chats) {
-            UserAsset::register($this->getView());
+            $this->registerJsFile(
+                '@web/js/rater.js',
+                ['depends' => [\yii\web\JqueryAsset::class]]
+            );
         }
 
         parent::init();

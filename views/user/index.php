@@ -5,9 +5,6 @@ use yii\grid\GridView;
 use yii\widgets\Menu;
 use yii\bootstrap4\Html;
 
-$this->params['breadcrumbs'] = array(
-    Yii::t('app', "Users"),
-);
 if (Yii::$app->user->isAdmin()) {
     echo Menu::widget([
         'items' => array(

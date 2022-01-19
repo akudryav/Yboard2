@@ -6,7 +6,6 @@ use kartik\date\DatePicker;
 
 ?>
 
-<div class="form">
 
     <?php
     $form = ActiveForm::begin([
@@ -39,4 +38,3 @@ use kartik\date\DatePicker;
 
     <?php ActiveForm::end(); ?>
 
-</div><!-- form -->

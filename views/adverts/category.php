@@ -9,8 +9,7 @@ use app\widgets\Filter;
 $this->context->title = Yii::$app->name;
 
 ?>
-<div class="container-wrapper">
-    <div class="row content_page__row">
+
         <div class="col-12 col-lg-9 content_page__content">
             <div class="section-title">
                 <h3 class="section-title__value"><?= Html::encode($model->name) ?></h3>
@@ -62,6 +61,5 @@ $this->context->title = Yii::$app->name;
                 </ul>
             </div>
         </div>
-    </div>
-</div>
+
 

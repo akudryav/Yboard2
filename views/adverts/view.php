@@ -59,8 +59,7 @@ $attributes = array_merge($attributes, [
 ]);
 ?>
     <script src="https://yastatic.net/share2/share.js" async></script>
-    <div class="container-wrapper">
-        <div class="row content_page__row">
+
             <div class="col-12 col-lg-9 content_page__content">
                 <div class="section-title">
                     <h1 class="section-title__value"><?= Html::encode($model->name) ?></h1>
@@ -100,14 +99,11 @@ $attributes = array_merge($attributes, [
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row content_page__row">
+
             <div class="col-12 col-lg-12 content_page__content">
             <div class="section-title">
                 <h3 class="section-title__value"><?= Yii::t('adv', 'Related adverts') ?></h3>
             </div>
             <?php echo $this->render('_list', ['dataProvider' => $dataRel]); ?>
             </div>
-        </div>
 
-    </div>

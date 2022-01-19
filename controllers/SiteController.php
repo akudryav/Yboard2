@@ -42,6 +42,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'index';
         // корневые категории (уровня 1)
         $roots = Category::find()->roots()->all();
         // оставляем только категории с картинками для карусели

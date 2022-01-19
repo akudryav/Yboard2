@@ -4,13 +4,10 @@ use yii\grid\GridView;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
 
-$this->params['breadcrumbs'] = array(
-    Yii::t('adv', 'My adverts'),
-);
 ?>
 
 
-    <h2><?php echo $this->title; ?></h2>
+    <h1><?php echo $this->title; ?></h1>
     <p>
         <?= Html::a(Yii::t('adv', 'Create advert'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

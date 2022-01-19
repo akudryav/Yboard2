@@ -5,43 +5,34 @@ use yii\bootstrap4\Nav;
 
 $this->beginContent('@app/views/layouts/main.php');
 
-echo Breadcrumbs::widget([
-    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-]);
 $sideItems = [
     //['label' => 'Профиль', 'url' => ['user/profile']],
     [
-        'label' => '<i class="fas fa-list-ul"></i> Мои объявления',
+        'label' => 'Мои объявления',
         'url' => ['/lk/adverts'],
-        'encode' => false
     ],
     [
-        'label' => '<i class="far fa-envelope"></i> Мои сообщения',
+        'label' => 'Мои сообщения',
         'url' => ['/lk/messages'],
-        'encode' => false
     ],
     [
-        'label' => '<i class="far fa-heart"></i> Закладки',
+        'label' => 'Закладки',
         'url' => ['/lk/adverts/favorites'],
-        'encode' => false
     ],
     [
-        'label' => '<i class="fas fa-cog"></i> Профиль',
+        'label' => 'Профиль',
         'url' => ['/lk/profile'],
-        'encode' => false
     ],
 ];
 ?>
-<?php echo Yii::$app->user->identity->getAvatar(); ?>
-    <div class="row">
+    <div class="col-12 col-lg-9 content_page__content">
+        <?= $content ?>
+    </div>
+    <div class="col-12 col-lg-3 content_page__sidebar">
+        <?php echo Yii::$app->user->identity->getAvatar(); ?>
         <?php echo Nav::widget([
-            'options' => ['class' => 'col-md-2 d-none d-md-block bg-light sidebar'],
             'items' => $sideItems,
         ]); ?>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <?= $content ?>
-        </main>
     </div>
 
 <?php $this->endContent(); ?>

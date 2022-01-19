@@ -5,9 +5,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
 $this->context->title = Yii::$app->name . ' - ' . Yii::t('app', "Login");
-$this->params['breadcrumbs'] = [
-    Yii::t('app', "Login"),
-];
+
 ?>
 
 <?php if (Yii::$app->session->getFlash('loginMessage')): ?>
@@ -17,10 +15,10 @@ $this->params['breadcrumbs'] = [
     </div>
 
 <?php endif; ?>
-
-
-<div class="container-wrapper">
-    <h3><?= Yii::t('app', 'Social networks authorisation :') ?></h3>
+<div class="col-12 col-lg-9 content_page__content">
+    <div class="section-title">
+        <h3 class="section-title__value"><?= Yii::t('app', 'Social networks authorisation :') ?></h3>
+    </div>
 
     <?php echo ULogin::widget([
         // widget look'n'feel
@@ -49,8 +47,9 @@ $this->params['breadcrumbs'] = [
     ]);
     ?>
 
-    <hr/>
-    <h3><?= Yii::t('app', 'Authorisation by login:') ?></h3>
+    <div class="section-title">
+        <h3 class="section-title__value"><?= Yii::t('app', 'Authorisation by login:') ?></h3>
+    </div>
 
     <?php
     $form = ActiveForm::begin(array(
