@@ -44,9 +44,9 @@ class RegistrationForm extends \yii\base\Model
     {
         return [
             'id' => Yii::t('app', "Id"),
-            'username' => Yii::t('app', "username"),
-            'password' => Yii::t('app', "password"),
-            'verifyPassword' => Yii::t('app', "Retype Password"),
+            'username' => Yii::t('user', "username"),
+            'password' => Yii::t('user', "password"),
+            'verifyPassword' => Yii::t('user', "Retype Password"),
             'email' => Yii::t('app', "E-mail"),
             'verifyCode' => Yii::t('app', "Verification Code"),
         ];

@@ -4,105 +4,25 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use jisoft\sypexgeo\Sypexgeo;
 
 /**
- * This is the model class for table "adverts".
- *
- * The followings are the available columns in table 'bulletin':
- * @property integer $id
- * @property string $name
- * @property integer $user_id
- * @property integer $category_id
- * @property boolean $type
- * @property integer $views
- * @property string $text
+ * Модель геолокации
  */
-class Location extends \yii\db\ActiveRecord
+class Location extends \yii\base\Model
 {
-
-    /**
-     * @return string the associated database table name
-     */
-    public static function tableName()
-    {
-        return 'sxgeo_cities';
-    }
-
-    /**
-     * @return array validation rules for model attributes.
-     */
-    public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array();
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array();
-    }
-
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels() {
-        return array();
-    }
 
     static function geoDetect()
     {
-
-        $geo = new \jisoft\sypexgeo\Sypexgeo();
-        $cookies = Yii::$app->request->cookies;
+        $session = Yii::$app->session;
         // get by remote IP
-        if (!$cookies['location_id']->value or !$cookies['location_name']->value) {
-
-            $geo->get(Yii::$app->request->getUserIP());
-
-            $loc['id'] = $geo->city['id'];
-            $loc['name'] = $geo->city['name_ru'];
-            $loc['alt'] = $geo->city['name_en'];
-            $loc['reg_type'] = 2;
-
-            /*
-              elseif($geo->region['name_ru']) {
-              $loc['id']=$geo->region['id'];
-              $loc['name']=$geo->region['name_ru'];
-              $loc['alt']=$geo->city['name_en'];
-              $loc['reg_type']=1;
-              } elseif($geo->country['name_ru']) {
-              $loc['id']=$geo->country['id'];
-              $loc['name']=$geo->country['name_ru'];
-              $loc['alt']=$geo->city['name_en'];
-              $loc['reg_type']=0;
-              }
-
-              else {
-              $loc['id']=524901;
-              $loc['name']="Москва";
-              $loc['alt']="Moscow";
-              $loc['reg_type']=2;
-              }
-             * 
-             * 
-             */
-            $cookies = Yii::$app->response->cookies;
-            $cookies->add(new \yii\web\Cookie(['name' => 'location_id', 'value' => $loc['id']]));
-            $cookies->add(new \yii\web\Cookie(['name' => 'location_name', 'value' => $loc['name']]));
-            $cookies->add(new \yii\web\Cookie(['name' => 'location_alt', 'value' => $loc['alt']]));
-            $cookies->add(new \yii\web\Cookie(['name' => 'location_type', 'value' => $loc['reg_type']]));
-        } else {
-            $loc['id'] = $cookies['location_id']->value;
-            $loc['name'] = $cookies['location_name']->value;
-            $loc['alt'] = $cookies['location_alt']->value;
-            $loc['reg_type'] = $cookies['location_type']->value;
+        if (empty($session['location'])) {
+            $geo = new Sypexgeo();
+            $geo->get();
+            $session['location'] = $geo->city;
         }
 
-        return $loc;
+        return $session['location'];
     }
 
     static function Country() {

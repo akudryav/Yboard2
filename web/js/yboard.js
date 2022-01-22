@@ -4,6 +4,10 @@ var themeSetting = {
 };
 
 $(document).ready(function () {
+    $(".js_form_login").click(function (e) {
+        e.preventDefault();
+        $("#login-form").toggle();
+    });
     $(".js_favor").click(function (e) {
         e.preventDefault();
         var link = $(this);

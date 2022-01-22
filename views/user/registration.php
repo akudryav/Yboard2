@@ -56,7 +56,7 @@ $this->context->title = Yii::$app->name . ' - ' . Yii::t('app', "Registration");
         */
         ?>
         <div class="form-group">
-            <?php echo Html::submitButton(Yii::t('app', 'Register'), ['class' => 'btn btn-primary']); ?>
+            <?php echo Html::submitButton(Yii::t('user', 'Register'), ['class' => 'btn btn-primary']); ?>
         </div>
 
         <?php ActiveForm::end(); ?>

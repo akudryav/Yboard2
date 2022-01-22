@@ -1,17 +1,20 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\models\Category;
+use app\models\Location;
 use yii\bootstrap4\Html;
 use app\assets\AppAsset;
 use app\widgets\Alert;
 
+AppAsset::register($this);
+
 $cats = Category::makeDropList();
 $menu_str = Category::toUL($cats);
-
-AppAsset::register($this);
+$location = Location::geoDetect();
 $searchStr = Yii::$app->request->get('searchStr');
 ?>
 <?php $this->beginPage() ?>
@@ -46,15 +49,21 @@ $searchStr = Yii::$app->request->get('searchStr');
                 <div class="header__top_location">
                     <span class="header__top_location_title">Местоположение:</span>
                     <a href="#" class="header__top_location_value" data-open-modal="location">
-                        <svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M3.812 6.883l2.556.852a3 3 0 0 1 1.897 1.897l.852 2.557 3.979-9.285-9.284 3.98zM15 1L9 15 7.316 9.949a2 2 0 0 0-1.265-1.265L1.001 7 15 1z"></path></svg>
-                        <span>Москва</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16">
+                            <path fill="currentColor"
+                                  d="M3.812 6.883l2.556.852a3 3 0 0 1 1.897 1.897l.852 2.557 3.979-9.285-9.284 3.98zM15 1L9 15 7.316 9.949a2 2 0 0 0-1.265-1.265L1.001 7 15 1z"></path>
+                        </svg>
+                        <span><?= $location['name_ru'] ?></span>
                     </a>
                 </div>
                 <div class="header__top_menu">
                     <ul class="header__top_menu_list">
                         <li class="header__top_menu_item">
                             <a href="#" class="header__top_menu_link">
-                                <svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M7.5 14V9H3.263a7.02 7.02 0 0 1-.239-.004v3.594c0 .509.032.684.122.863a.76.76 0 0 0 .306.326c.17.096.333.221.811.221H7.5zm1 0h3.237c.478 0 .642-.125.81-.22a.754.754 0 0 0 .307-.327c.09-.18.122-.354.122-.863V8.996a7.02 7.02 0 0 1-.24.004H8.5v5zm0-6h4.237c.478 0 .642-.125.81-.22a.754.754 0 0 0 .307-.327c.09-.18.122-.354.122-.863v-.18c0-.509-.032-.684-.122-.863a.754.754 0 0 0-.306-.326c-.17-.096-.333-.221-.811-.221H3.263c-.478 0-.642.125-.81.22a.754.754 0 0 0-.307.327c-.09.18-.122.354-.122.863v.18c0 .509.032.684.122.863a.76.76 0 0 0 .306.326c.17.096.333.221.811.221H7.5V5h1v3zM3.263 4h-.162A2.118 2.118 0 0 1 3 3.333C3 2.045 3.98 1 5.188 1c.84 0 2.114.828 2.812 1.766C8.698 1.828 9.972 1 10.813 1 12.02 1 13 2.045 13 3.333c0 .245-.035.467-.1.667h-.163c.632 0 .956.067 1.294.259.311.177.56.441.726.773.18.36.243.705.243 1.378v.18c0 .673-.063 1.018-.243 1.378a1.814 1.814 0 0 1-.757.79v3.832c0 .673-.063 1.018-.243 1.378a1.814 1.814 0 0 1-.726.773c-.338.192-.662.259-1.294.259H4.263c-.632 0-.956-.067-1.294-.259a1.814 1.814 0 0 1-.726-.773c-.18-.36-.243-.705-.243-1.378V8.758a1.814 1.814 0 0 1-.757-.79C1.063 7.608 1 7.263 1 6.59v-.18c0-.673.063-1.018.243-1.378.167-.332.415-.596.726-.773C2.307 4.067 2.631 4 3.263 4zm.984 0H7.5c0-.643-1.56-2-2.313-2C4.548 2 4 2.583 4 3.333c0 .281.084.506.247.667zM8.5 4h3.253c.163-.161.247-.386.247-.667C12 2.583 11.453 2 10.812 2 10.06 2 8.5 3.357 8.5 4z"></path></svg>
+                                <svg width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="currentColor"
+                                          d="M7.5 14V9H3.263a7.02 7.02 0 0 1-.239-.004v3.594c0 .509.032.684.122.863a.76.76 0 0 0 .306.326c.17.096.333.221.811.221H7.5zm1 0h3.237c.478 0 .642-.125.81-.22a.754.754 0 0 0 .307-.327c.09-.18.122-.354.122-.863V8.996a7.02 7.02 0 0 1-.24.004H8.5v5zm0-6h4.237c.478 0 .642-.125.81-.22a.754.754 0 0 0 .307-.327c.09-.18.122-.354.122-.863v-.18c0-.509-.032-.684-.122-.863a.754.754 0 0 0-.306-.326c-.17-.096-.333-.221-.811-.221H3.263c-.478 0-.642.125-.81.22a.754.754 0 0 0-.307.327c-.09.18-.122.354-.122.863v.18c0 .509.032.684.122.863a.76.76 0 0 0 .306.326c.17.096.333.221.811.221H7.5V5h1v3zM3.263 4h-.162A2.118 2.118 0 0 1 3 3.333C3 2.045 3.98 1 5.188 1c.84 0 2.114.828 2.812 1.766C8.698 1.828 9.972 1 10.813 1 12.02 1 13 2.045 13 3.333c0 .245-.035.467-.1.667h-.163c.632 0 .956.067 1.294.259.311.177.56.441.726.773.18.36.243.705.243 1.378v.18c0 .673-.063 1.018-.243 1.378a1.814 1.814 0 0 1-.757.79v3.832c0 .673-.063 1.018-.243 1.378a1.814 1.814 0 0 1-.726.773c-.338.192-.662.259-1.294.259H4.263c-.632 0-.956-.067-1.294-.259a1.814 1.814 0 0 1-.726-.773c-.18-.36-.243-.705-.243-1.378V8.758a1.814 1.814 0 0 1-.757-.79C1.063 7.608 1 7.263 1 6.59v-.18c0-.673.063-1.018.243-1.378.167-.332.415-.596.726-.773C2.307 4.067 2.631 4 3.263 4zm.984 0H7.5c0-.643-1.56-2-2.313-2C4.548 2 4 2.583 4 3.333c0 .281.084.506.247.667zM8.5 4h3.253c.163-.161.247-.386.247-.667C12 2.583 11.453 2 10.812 2 10.06 2 8.5 3.357 8.5 4z"></path>
+                                </svg>
                                 <span>Промокод</span>
                             </a>
                         </li>
@@ -109,17 +118,23 @@ $searchStr = Yii::$app->request->get('searchStr');
                 </div>
                 <div class="header__search">
                     <form class="header__search_form" action="/adverts/search">
-                        <input type="text" class="header__search_query" name="searchStr" value="<?=$searchStr?>" placeholder="Поиск по объявлениям">
+                        <input type="text" class="header__search_query" name="searchStr" value="<?= $searchStr ?>"
+                               placeholder="Поиск по объявлениям">
                         <input type="submit" class="default_btn header__search_btn" value="Найти">
                     </form>
                 </div>
                 <div class="header__options">
-                    <a href="/lk/adverts/create" class="default_btn header__options_addoffer">Разместить объявление</a>
-                    <?php if (Yii::$app->user->isGuest): ?>
-                    <a href="/user/login" class="default_btn header__options_auth" data-open-modal="auth">Войти</a>
-                    <?php else:?>
-                    <a href="/user/logout" class="default_btn header__options_auth">Выйти</a>
-                    <?php endif?>
+                    <?php
+                    echo Html::a('Разместить объявление', ['/lk/adverts/create'],
+                        ['class' => 'default_btn header__options_addoffer']);
+                    if (Yii::$app->user->isGuest) {
+                        echo Html::a('Войти', ['/user/login'],
+                            ['class' => 'default_btn header__options_auth', 'data' => ['open-modal' => 'auth']]);
+                    } else {
+                        echo Html::a('Выйти (' . Yii::$app->user->identity->username . ')', ['/user/logout'],
+                            ['class' => 'default_btn header__options_auth', 'data' => ['method' => 'post']]);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -251,8 +266,10 @@ $searchStr = Yii::$app->request->get('searchStr');
                                 <li class="modal-location__city"><a href="#" class="modal-location__city_link">Казань</a></li>
                                 <li class="modal-location__city"><a href="#" class="modal-location__city_link">Пермь</a></li>
                                 <li class="modal-location__city"><a href="#" class="modal-location__city_link">Нижний Новгород</a></li>
-                                <li class="modal-location__city"><a href="#" class="modal-location__city_link">Самара</a></li>
-                                <li class="modal-location__city"><a href="#" class="modal-location__city_link">Омск</a></li>
+                                <li class="modal-location__city"><a href="#"
+                                                                    class="modal-location__city_link">Самара</a></li>
+                                <li class="modal-location__city"><a href="#" class="modal-location__city_link">Омск</a>
+                                </li>
                             </ul>
                         </div>
                         <a href="#" class="modal-location__cancel _modal-popup__close">Отмена</a>
@@ -261,56 +278,7 @@ $searchStr = Yii::$app->request->get('searchStr');
             </div>
         </div>
     </div>
-    <div class="modal-popup modal-auth" style="display: none;" id="auth">
-        <div class="modal-popup__content">
-            <a class="modal-popup__close"></a>
-            <div class="modal-auth__content">
-                <div class="modal-auth__benefits">
-                    <ul class="modal-auth__benefits_list">
-                        <li class="modal-auth__benefits_item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                            <span class="modal-auth__benefits_title">Общайтесь</span>
-                            <span class="modal-auth__benefits_descr">по объявлениям в чатах</span>
-                        </li>
-                        <li class="modal-auth__benefits_item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                            <span class="modal-auth__benefits_title">Размещайте</span>
-                            <span class="modal-auth__benefits_descr">объявления бесплатно</span>
-                        </li>
-                        <li class="modal-auth__benefits_item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                            <span class="modal-auth__benefits_title">Покупайте со скидкой</span>
-                            <span class="modal-auth__benefits_descr">по безопасной сделке</span>
-                        </li>
-                        <li class="modal-auth__benefits_item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                            <span class="modal-auth__benefits_title">Покупайте с доставкой</span>
-                            <span class="modal-auth__benefits_descr">по всей России</span>
-                        </li>
-                        <li class="modal-auth__benefits_item">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                            <span class="modal-auth__benefits_title">Подписывайтесь</span>
-                            <span class="modal-auth__benefits_descr">на продавцов и добавляйте объявления в избранное</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="modal-auth__form">
-                    <div class="modal-auth__form_title">Вход и регистрация</div>
-                    <div class="modal-auth__form_descr">по номеру телефона</div>
-                    <div class="modal-auth__form_input"><input class="auth__form_input_phone" type="text" name="phone" value=""></div>
-                    <div class="modal-auth__form_submit"><input class="default_btn auth__form_input_submit" type="submit" value="Продолжить"></div>
-                    <div class="modal-auth__social">
-                        <div class="modal-auth__social_title">или через соцсети</div>
-                        <ul class="modal-auth__social_list">
-                            <li class="modal-auth__social_item"><a href="#" class="modal-auth__social_link __vk"><svg width="32" height="32" viewBox="0 0 32 32"><path d="M22.153 18.052s1.415 1.396 1.764 2.045c.01.013.015.026.018.033.142.238.175.423.105.562-.117.23-.517.343-.653.353h-2.5c-.174 0-.537-.045-.977-.348-.338-.237-.672-.625-.997-1.004-.485-.563-.905-1.05-1.328-1.05a.508.508 0 0 0-.158.025c-.32.104-.73.56-.73 1.777 0 .38-.3.598-.512.598H15.04c-.39 0-2.422-.136-4.222-2.035-2.203-2.325-4.186-6.988-4.203-7.031-.125-.302.133-.464.415-.464h2.525c.337 0 .447.205.523.387.09.212.42 1.053.962 2 .878 1.543 1.417 2.17 1.848 2.17a.5.5 0 0 0 .232-.06c.563-.313.458-2.322.433-2.738 0-.079-.001-.899-.29-1.292-.206-.285-.558-.393-.771-.433a.918.918 0 0 1 .331-.282c.387-.193 1.084-.222 1.775-.222h.385c.75.01.944.059 1.215.127.55.132.562.487.514 1.702-.015.345-.03.735-.03 1.195 0 .1-.005.206-.005.32-.017.618-.037 1.32.4 1.608a.36.36 0 0 0 .19.055c.151 0 .608 0 1.845-2.122a16.19 16.19 0 0 0 .991-2.123c.025-.043.099-.177.185-.228a.443.443 0 0 1 .207-.049h2.968c.324 0 .545.049.587.174.073.198-.013.803-1.368 2.638l-.605.798c-1.229 1.61-1.229 1.692.076 2.914z" fill="currentColor" fill-rule="evenodd"></path></svg></a></li>
-                            <li class="modal-auth__social_item"><a href="#" class="modal-auth__social_link __ok"><svg width="32" height="32" viewBox="0 0 32 32"><path d="M15.946 16.395c-2.544-.01-4.592-2.09-4.582-4.645.01-2.557 2.074-4.658 4.623-4.686 2.567-.028 4.66 2.059 4.648 4.65-.013 2.593-2.122 4.692-4.689 4.681zm.028-6.595a1.948 1.948 0 0 0-1.922 1.94 1.912 1.912 0 0 0 1.907 1.924 1.948 1.948 0 0 0 1.932-1.94A1.908 1.908 0 0 0 15.974 9.8zm4.669 9.678a8.876 8.876 0 0 1-2.491 1.047l2.23 2.268c.493.501.49 1.303-.008 1.788a1.26 1.26 0 0 1-1.782-.03l-2.615-2.67-2.615 2.586c-.243.24-.41.279-.559.344l-.316.008a1.23 1.23 0 0 1-.87-.38 1.255 1.255 0 0 1 .005-1.762l2.193-2.182a8.766 8.766 0 0 1-2.489-1.095 1.398 1.398 0 0 1-.422-1.91 1.357 1.357 0 0 1 1.89-.424 5.98 5.98 0 0 0 6.367.027 1.403 1.403 0 1 1 1.482 2.385z" fill="currentColor" fill-rule="evenodd"></path></svg></a></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="modal-auth__login">У меня есть логин и пароль</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?= $this->render('@app/views/user/login') ?>
 
     <?php $this->endBody() ?>
     </body>

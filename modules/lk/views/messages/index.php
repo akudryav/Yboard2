@@ -11,9 +11,9 @@ ChatAsset::register($this);
     <h3 class="section-title__value"><?= Yii::t('message', 'Messages') ?></h3>
 </div>
 
-<div class="card chat-app">
+<div class="row product-list chat-app">
     <?php echo $this->render('//reviews/_plist', ['chats' => $chats]); ?>
-    <div id="chat" class="chat">
+    <div id="chat" class="col-6 chat">
 
     </div>
 </div>

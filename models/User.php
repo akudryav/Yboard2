@@ -180,7 +180,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'id' => Yii::t('app', "Id"),
             'username' => Yii::t('user', "username"),
             'password' => Yii::t('user', "password"),
-            'email' => Yii::t('user', "E-mail"),
+            'email' => Yii::t('app', "E-mail"),
             'created_at' => Yii::t('user', "Registration date"),
             'lastvisit_at' => Yii::t('user', "Last visit"),
             'status' => Yii::t('user', "Status"),

@@ -1,7 +1,7 @@
 <?php
 use yii\bootstrap4\Html;
 ?>
-<div id="plist" class="people-list">
+<div id="plist" class="col-6 people-list">
     <ul class="list-unstyled chat-list mt-2 mb-0">
         <?php foreach($chats as $chat):
             $chat_image = $chat->advert->getImage();

@@ -29,7 +29,7 @@ class UserRecoveryForm extends \yii\base\Model
      */
     public function attributeLabels() {
         return array(
-            'login_or_email' => Yii::t('app', "username or email"),
+            'login_or_email' => Yii::t('user', "username or email"),
         );
     }
 
@@ -55,7 +55,6 @@ class UserRecoveryForm extends \yii\base\Model
 
         $user = User::findByUsername($this->login_or_email);
         $user->generatePasswordToken();
-        echo $user->password_reset_token;
         $activation_url = Yii::$app->urlManager->createAbsoluteUrl(['user/recovery', 'token' => $user->password_reset_token], 'http');
 
         $subject = Yii::t('user', 'Password recovery site {site_name}', array(
