@@ -3,7 +3,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\models\Category;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
@@ -58,8 +57,7 @@ $searchStr = Yii::$app->request->get('searchStr');
                 $menuItems[] = ['label' => 'Модерация', 'url' => ['/moderator']];
             }
             $menuItems[] = [
-                'encode' => false,
-                'label' => 'Выйти ' . Yii::$app->user->identity->getAvatar(30),
+                'label' => 'Выйти',
                 'url' => ['/user/logout'],
                 'linkOptions' => ['data-method' => 'post']
             ];

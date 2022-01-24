@@ -6,7 +6,6 @@ use yii\bootstrap4\Nav;
 $this->beginContent('@app/views/layouts/main.php');
 
 $sideItems = [
-    //['label' => 'Профиль', 'url' => ['user/profile']],
     [
         'label' => 'Мои объявления',
         'url' => ['/lk/adverts'],

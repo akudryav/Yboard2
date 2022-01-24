@@ -127,15 +127,10 @@ $searchStr = Yii::$app->request->get('searchStr');
                     <?php
                     echo Html::a('Разместить объявление', ['/lk/adverts/create'],
                         ['class' => 'default_btn header__options_addoffer']);
-                    if (Yii::$app->user->isGuest) {
-                        echo Html::a('Войти', ['/user/login'],
-                            ['class' => 'default_btn header__options_auth', 'data' => ['open-modal' => 'auth']]);
-                    } else {
-                        echo Html::a('Выйти (' . Yii::$app->user->identity->username . ')', ['/user/logout'],
-                            ['class' => 'default_btn header__options_auth', 'data' => ['method' => 'post']]);
-                    }
                     ?>
                 </div>
+                <?php  echo \app\widgets\UserMenu::widget([]); ?>
+
             </div>
         </div>
     </header>

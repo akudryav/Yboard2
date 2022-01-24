@@ -209,7 +209,11 @@ a {
 .hidden {
     display: none;
 }
-
+.avatar {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
 .top-panel {
     height: 28px;
     background: #f5f5f5;
