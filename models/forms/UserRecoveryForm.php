@@ -19,7 +19,6 @@ class UserRecoveryForm extends \yii\base\Model
         return [
             ['login_or_email', 'trim'],
             ['login_or_email', 'required'],
-            ['login_or_email', 'match', 'pattern' => '/^[A-Za-z0-9@.-\s,]+$/u', 'message' => Yii::t('app', "Incorrect symbols (A-z@0-9).")],
             ['login_or_email', 'checkexists'],
         ];
     }
